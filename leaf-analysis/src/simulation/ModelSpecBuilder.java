@@ -219,9 +219,7 @@ public class ModelSpecBuilder {
 							}
 						}
 					}
-
 					IntentionalElement element = new IntentionalElement(intention.getNodeID(), intention.getNodeName(), nodeActor, intention.getNodeType());
-
 					// Now that the IntentionElement has been created. assign a dynamic to it
 					EvolvingFunction dynamic = intention.getDynamicFunction();
 					String dynamicType = dynamic.getStringDynVis();

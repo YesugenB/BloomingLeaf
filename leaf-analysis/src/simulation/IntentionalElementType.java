@@ -36,7 +36,7 @@ public enum IntentionalElementType {
     public static IntentionalElementType getByLiteral(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
 			IntentionalElementType result = VALUES_ARRAY[i];
-			if (result.toString().equals(literal)) {
+			if (result.toString().contains(literal)) {
 				return result;
 			}
 		}
@@ -54,7 +54,7 @@ public enum IntentionalElementType {
 	public static IntentionalElementType getByName(String name) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
 			IntentionalElementType result = VALUES_ARRAY[i];
-			if (result.getName().equals(name)) {
+			if (name.contains(result.getName())) {
 				return result;
 			}
 		}

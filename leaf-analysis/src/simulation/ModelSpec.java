@@ -244,6 +244,7 @@ public class ModelSpec {
 	    		OutputElement outputElement = new OutputElement();
 	    		
 	    		outputElement.setId(element.getId());
+	    		outputElement.setType(element.getType());
 	    		for (int t = 0; t < getFinalValues()[i].length; t++){
 	    			StringBuilder value = new StringBuilder();
 	    			for (int v = 0; v < getFinalValues()[i][t].length; v++){
@@ -281,6 +282,7 @@ public class ModelSpec {
 					ioIntention.setId(Integer.toString(i_elements));
         			ioIntention.setStatus(values);
         			ioIntention.setType(getIntElements().get(i_elements).getType());
+
         			if (getIntElements().get(i_elements).getActor() != null){
             			ioIntention.setActorId(getIntElements().get(i_elements).getActor().getId());
         			} else{

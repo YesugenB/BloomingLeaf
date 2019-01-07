@@ -338,7 +338,7 @@ function add_filter(){
                         //
                         if (tempResults.allSolution[solution_index].intentionElements[element_index].type === "TASK"){
                             var value = tempResults.allSolution[solution_index].intentionElements[element_index].status[0];
-                            if ((value == "0010" || value == "0011")){
+                            if ((value == "0001") || (value == "0011")){
                                 num_t_s ++;
                             }
                         }
@@ -374,7 +374,7 @@ function add_filter(){
                         //
                         if (tempResults.allSolution[solution_index].intentionElements[element_index].type === "TASK"){
                             var value = tempResults.allSolution[solution_index].intentionElements[element_index].status[0];
-                            if ((value == "0010" || value == "0011")){
+                            if ((value == "0001") || (value == "0011")){
                                 num_t_s ++;
                             }
                         }
@@ -409,7 +409,7 @@ function add_filter(){
                     for (var element_index=0; element_index < tempResults.allSolution[solution_index].intentionElements.length; element_index++){
                         if (tempResults.allSolution[solution_index].intentionElements[element_index].type === "RESOURCE"){
                             var value = tempResults.allSolution[solution_index].intentionElements[element_index].status[0];
-                            if ((value == "0010" || value == "0011")){
+                            if ((value == "0001") || (value == "0011")){
                                 num_r_s ++;
                             }
                         }
@@ -444,7 +444,7 @@ function add_filter(){
                     for (var element_index=0; element_index < tempResults.allSolution[solution_index].intentionElements.length; element_index++){
                         if (tempResults.allSolution[solution_index].intentionElements[element_index].type === "RESOURCE"){
                             var value = tempResults.allSolution[solution_index].intentionElements[element_index].status[0];
-                            if ((value == "0010" || value == "0011")){
+                            if ((value == "0001") || (value == "0011")){
                                 num_r_s ++;
                             }
                         }
@@ -479,7 +479,7 @@ function add_filter(){
                     for (var element_index=0; element_index < tempResults.allSolution[solution_index].intentionElements.length; element_index++){
                         if (tempResults.allSolution[solution_index].intentionElements[element_index].type === "GOAL"){
                             var value = tempResults.allSolution[solution_index].intentionElements[element_index].status[0];
-                            if ((value == "0010" || value == "0011")){
+                            if ((value == "0001") || (value == "0011")){
                                 num_g_s ++;
                             }
                         }
@@ -514,7 +514,7 @@ function add_filter(){
                     for (var element_index=0; element_index < tempResults.allSolution[solution_index].intentionElements.length; element_index++){
                         if (tempResults.allSolution[solution_index].intentionElements[element_index].type === "GOAL"){
                             var value = tempResults.allSolution[solution_index].intentionElements[element_index].status[0];
-                            if ((value == "0010" || value == "0011")){
+                            if ((value == "0001") || (value == "0011")){
                                 num_g_s ++;
                             }
                         }
