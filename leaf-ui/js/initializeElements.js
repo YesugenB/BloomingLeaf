@@ -6,7 +6,7 @@
 //Flag to turn on console log notification
 var develop = false;
 var session_id = Date.now();
-var Tracking = true;
+var Tracking = false;
 
 function guid() {
     // local function to create alphanumeric strings
@@ -84,7 +84,7 @@ showAlert('Tracking Notice',
 
 $('#tracking-consent').click(function() {
     Tracking = true;
-    console.log(Tracking);
+    //console.log(Tracking);
     var $div = $(this).closest('div.fg');
     var $closeButton = $div.find('button.btn-close');
     $closeButton.trigger('click');
@@ -92,7 +92,7 @@ $('#tracking-consent').click(function() {
 
 $('#tracking-decline').click(function() {
     Tracking = false;
-    console.log(Tracking);
+    //console.log(Tracking);
     var $div = $(this).closest('div.fg');
     var $closeButton = $div.find('button.btn-close');
     $closeButton.trigger('click');

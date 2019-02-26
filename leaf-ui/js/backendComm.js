@@ -4,8 +4,8 @@ function backendComm(jsObject){
 	/**
 	* Print the input to the console.
 	*/
-	console.log(JSON.stringify(jsObject));
-	console.log(jsObject.analysisRequest.action);
+	//console.log(JSON.stringify(jsObject));
+	//console.log(jsObject.analysisRequest.action);
 
 	//backend script called
 	var pathToCGI = "./cgi-bin/backendCom.cgi";
@@ -88,8 +88,8 @@ function getFileResults(isGetNextSteps){
                     analysisResult.elementList = results.elementList;
                     analysisResult.allSolution = results.allSolution;
                     analysisRequest.previousAnalysis = analysisResult;
-                    console.log("previousAnalysis");
-                    console.log(analysisRequest.previousAnalysis);
+                    //console.log("previousAnalysis");
+                    //console.log(analysisRequest.previousAnalysis);
 					displayAnalysis(results);
 				}
 			}

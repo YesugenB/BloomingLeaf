@@ -20,7 +20,7 @@ function displayAnalysis(analysisResults){
     savedAnalysisData.singlePathResult.assignedEpoch = analysisResults.assignedEpoch;
     savedAnalysisData.singlePathResult.finalValueTimePoints = analysisResults.finalValueTimePoints;
     savedAnalysisData.singlePathResult = analysisResults;
-    console.log("savedAnalysisData");
+    //console.log("savedAnalysisData");
 
     // Check if slider has already been initialized
     if (sliderObject.sliderElement.hasOwnProperty('noUiSlider')) {

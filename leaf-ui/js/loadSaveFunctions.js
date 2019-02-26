@@ -231,6 +231,7 @@ function loadFromObject(obj) {
 	model.constraints = getConstArr(obj.model.constraints);
 	model.maxAbsTime = obj.model.maxAbsTime;
 
+	//model = Object.assign(new Model, obj.model);
 	analysisRequest = Object.assign(new AnalysisRequest, obj.analysisRequest);
 	graph.fromJSON(obj.graph);
 }

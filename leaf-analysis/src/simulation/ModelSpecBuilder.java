@@ -176,7 +176,7 @@ public class ModelSpecBuilder {
 					for (IntentionEvaluation curr: initUserAssign){
 						String evalValue = curr.getEvaluationValue();
 						for (int i = 0; i < 4; i ++){
-							if (evalValue.charAt(i) == '1'){
+							if (evalValue != null && evalValue.charAt(i) == '1'){
 								initialValues[Integer.parseInt(curr.getIntentionID())][0][i] = true;
 							} else {
 								initialValues[Integer.parseInt(curr.getIntentionID())][0][i] = false;
@@ -263,7 +263,7 @@ public class ModelSpecBuilder {
 					if (postType == null) {
 						// Not Evolving Link
 						switch (linkType) {
-							case "NBT":
+							case "NBN":
 								notBothLink.add(new NotBothLink(intentElementSrc, intentElementDest, false));
 								break;
 							case "NBD":

@@ -62,8 +62,9 @@ public class TroposCSPAlgorithm {
 															// Holds the EBs that are associated with a Not Both Link and dynamic relationship.    
     private HashMap<IntVar, IntVar> epochToTimePoint;				// Mapping between assignedEBs and other constrained values. Used in initializeDynamicFunctions for unknown constants UD functions.
     private BooleanVar[][][] values;						// ** Holds the evaluations for each [this.numIntentions][this.numTimePoints][FS/PS/PD/FD Predicates]
-    private IntVar zero;									// (0) Initial Values time point.
-	private IntVar infinity;								// (maxTime + 1) Infinity used for intention functions, not a solved point.
+    private IntVar zero;	                                // (0) Initial Values time point.
+    private IntVar one;
+    private IntVar infinity;								// (maxTime + 1) Infinity used for intention functions, not a solved point.
     private IntVar[] unsolvedTimePoints;					// Holds the list of time points without an absolute assignment. 
     private IntVar[] nextTimePoints;						// Holds the list of next possible time points. Does not include multiple stochastic or absolute. Used for finding state.
     private IntVar nextTimePoint;							// Holds the single int value that will map to a value of nextTimePoints, to be solve by the solve if next state is used.
@@ -79,7 +80,7 @@ public class TroposCSPAlgorithm {
     private boolean[] boolFSPD = new boolean[] {false, true, true, true};
     private boolean[] boolPSFD = new boolean[] {true, true, true, false};
     
-    private final static boolean DEBUG = false;								// Whether to print debug statements.
+    private final static boolean DEBUG = true;								// Whether to print debug statements.
     /* New in ModelSpec
      *     	private int relativeTimePoints = 4;
     		private int[] absoluteTimePoints = new int[] {5, 10, 15, 20};
@@ -107,8 +108,9 @@ public class TroposCSPAlgorithm {
 			this.sat.debug = true;			// This prints that SAT commands.
         this.constraints = new ArrayList<Constraint>();
 		this.zero = new IntVar(this.store, "Zero", 0, 0);
+		this.one = new IntVar(this.store, "One", 1, 1);
 		
-		// Initialise Model Elements
+		// Initialize Model Elements
 		this.spec = spec;
 		this.numIntentions = this.spec.getNumIntentions();
 		this.intentions = new IntentionalElement[this.numIntentions];
@@ -615,7 +617,7 @@ public class TroposCSPAlgorithm {
 
     	// Add Zero
     	this.timePoints[0] = new IntVar(store, exisitingNamedTimePoints[0], 0, 0); 
-    	
+    	//System.out.println("timepoints[0]: " + this.timePoints[0].id);
     	// Add previousCollection from initial Value Time Points
     	//System.out.println("exisitingNamedTimePoints.length: " + exisitingNamedTimePoints.length);
     	for(int e = 1; e < exisitingNamedTimePoints.length; e++){
@@ -623,11 +625,13 @@ public class TroposCSPAlgorithm {
     		// Absolute Value -> already has an assignment. 
     		if (exisitingNamedTimePoints[e].charAt(1) == 'A'){
     	    	this.timePoints[e] = absoluteCollection.get(initialValueTimePoints[e]);
+    	    	//System.out.println("timepoints["+ e +"]: " + this.timePoints[e].id);
     	    // Epoch Values -> remove from list and assign value.
-    		} else if (exisitingNamedTimePoints[e].charAt(1) == 'E'){
+    		} else if (exisitingNamedTimePoints[e].charAt(1) == 'E' || exisitingNamedTimePoints[e].charAt(1) == 'L'){
     	    	for (IntVar value : EBTimePoint) {
     	    		if (value.id.equals(exisitingNamedTimePoints[e])){
     	    			this.timePoints[e] = value;
+    	    	    	//System.out.println("timepoints["+ e +"]: " + this.timePoints[e].id);
     	    			EBTimePoint.remove(value);
     	    			this.timePoints[e].setDomain(initialValueTimePoints[e], initialValueTimePoints[e]);
     	    			break;
@@ -635,15 +639,22 @@ public class TroposCSPAlgorithm {
     	    		}
     	    // Relative Values -> remove 1 from count and assign value.
     		} else if (exisitingNamedTimePoints[e].charAt(1) == 'R'){
+    			//System.out.println("-- numStochasticTimePoints: " + numStochasticTimePoints);
         		this.timePoints[e] = new IntVar(store, "TR" + absoluteCounter, initialValueTimePoints[e], initialValueTimePoints[e]);
+    	    	//System.out.println("timepoints["+ e +"]: " + this.timePoints[e].id);
+
         		absoluteCounter++;
-    			numStochasticTimePoints--;
+        		numStochasticTimePoints--;
     		}
+			
+
     		
     	}  	
     	int tCount = exisitingNamedTimePoints.length;
+    	//System.out.println("initialization, tcount: " + tCount);
     	
     	this.unsolvedTimePoints = new IntVar[this.numTimePoints - tCount];
+    	//System.out.println("unsolved tp: " + (this.numTimePoints - tCount));
     	int uCount = 0;
     	List<IntVar> nextTimePoint = new ArrayList<IntVar>();
     	//System.out.println("before adding abusoluteCollection");
@@ -652,9 +663,12 @@ public class TroposCSPAlgorithm {
 		for (HashMap.Entry<Integer, IntVar> entry : absoluteCollection.entrySet()) {
 		    Integer key = entry.getKey();
 		    IntVar value = entry.getValue();
-		    //System.out.println("abs collection, key: " + key + " value: " + value + " maxPreviousTime: " + maxPreviousTime);
 		    if(key > maxPreviousTime){
+			    //System.out.println("adding tcount, abs collection, key: " + key + " value: " + value + " maxPreviousTime: " + maxPreviousTime);
+
     			this.timePoints[tCount] = value;
+    	    	//System.out.println("timepoints["+ tCount +"]: " + this.timePoints[tCount].id);
+
     			this.unsolvedTimePoints[uCount] = value;
     			tCount++;
     			uCount++;
@@ -672,22 +686,38 @@ public class TroposCSPAlgorithm {
 		//System.out.println("before adding EBs");
     	// Add EBs
     	for (IntVar value : EBTimePoint){
+    		
     		this.timePoints[tCount] = value;
+	    	//System.out.println("timepoints["+ tCount +"]: " + this.timePoints[tCount].id);
+
 			this.unsolvedTimePoints[uCount] = value;
 			tCount++;
-			uCount++;
+			//Boolean EB_existed = false;
+			//for (String s : exisitingNamedTimePoints) {
+			//	if (s.equals(value.id)) {
+			//		EB_existed = true;
+			//	}
+			//}
+			//if (! EB_existed){
+				uCount++;
+			//}
     		constraints.add(new XgtC(value, maxPreviousTime));
     		nextTimePoint.add(value);
-    		//System.out.println("adding EB: " + value.id);
+    		//System.out.println("adding EB: " + value.id+ " tcount: " + tCount + " ucount: " + uCount);
+    		
     	}
-    	//System.out.println("before adding relatives");
+    	//System.out.println("before adding relatives, numStochasticTimePoints: " + numStochasticTimePoints);
     	// Add relative.
+    	
     	for (int i = 0; i < numStochasticTimePoints; i++){
     		//System.out.println("adding relative points, tCount: " + tCount + " this.timePoints.length: " + this.timePoints.length);
+    		//if (uCount == 0)
     		if (tCount == this.timePoints.length)
     			throw new RuntimeException("ERROR: Relative time points could not be added.");
     		IntVar value = new IntVar(store, "TR" + absoluteCounter, maxPreviousTime + 1, maxTime);
 			this.timePoints[tCount] = value;
+	    	//System.out.println("timepoints["+ tCount +"]: " + this.timePoints[tCount].id);
+
 			this.unsolvedTimePoints[uCount] = value;
 			tCount++;
 			uCount++;
@@ -804,13 +834,24 @@ public class TroposCSPAlgorithm {
 		if (level == 'N' || level == 'n')
 			return;
 		for (int i = 0; i < this.values.length; i++)
-    		for (int t = 0; t < this.values[i].length; t++)
+    		for (int t = 0; t < this.values[i].length; t++){
     			if (level == 'S' || level == 's')
     				strongConflictPrevention(this.sat, this.values[i][t], this.zero);
     			else if (level == 'M' || level == 'm')
     				mediumConflictPrevention(this.sat, this.values[i][t], this.zero);
     			else if (level == 'W' || level == 'w')
     				weakConflictPrevention(this.sat, this.values[i][t], this.zero);
+    			else if (level == 'A' || level == 'a'){
+    				strongConflictPrevention(this.sat, this.values[i][t], this.zero);
+    				mediumConflictPrevention(this.sat, this.values[i][t], this.zero);
+    				weakConflictPrevention(this.sat, this.values[i][t], this.zero);
+    			}
+    			else if (level == 'I' || level == 'i'){
+    				noInfoPrevention(this.sat, this.values[i][t], this.one);
+    			}
+    		}
+    		
+    			
 	}
 	
 
@@ -1240,6 +1281,17 @@ public class TroposCSPAlgorithm {
 	private static void weakConflictPrevention(SatTranslation satTrans, BooleanVar[] val, IntVar zero){
 		BooleanVar[] wConflict = {val[1], val[2]};
 		satTrans.generate_and(wConflict, zero);	        					
+	}
+	
+	/**
+	 * Prevents No Information from occurring.
+	 * @param satTrans	SAT Translator for CSP
+	 * @param val		time point to assign conflict prevention to
+	 * @param zero		zero IntVar
+	 */
+	private static void noInfoPrevention(SatTranslation satTrans, BooleanVar[] val, IntVar zero){
+		BooleanVar[] noInfo = {val[0], val[1], val[2], val[3]};
+		satTrans.generate_or(noInfo, zero);	        					
 	}
 	
 	/**
@@ -1876,11 +1928,15 @@ public class TroposCSPAlgorithm {
         // Test and Add Constraints
         if(DEBUG)
         	System.out.println("Constraints List:");
+        //System.out.println("size: " + constraints.get(7).toString());
         for (int i = 0; i < constraints.size(); i++) {
+        	//System.out.println("i: " + i);
             if(DEBUG)
             	System.out.println(constraints.get(i).toString());
             store.impose(constraints.get(i));
+            //System.out.println("imposed i: " + i);
             if(!store.consistency()) {
+            	//System.out.println("not consistent");
             	Constraint errorConst = constraints.get(i);
             	ArrayList<Var> errorVarList = errorConst.arguments();
             	if(DEBUG){
@@ -1893,7 +1949,6 @@ public class TroposCSPAlgorithm {
             	throw new RuntimeException("ERROR: Model not solvable because of conflicting constraints.\n Constraint: " + constraints.get(i).toString());
             }
         }
-        
         // Create Var List
 		IntVar[] varList = this.createVarList();
 		

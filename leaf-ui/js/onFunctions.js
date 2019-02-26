@@ -79,7 +79,7 @@ function switchToAnalysisMode() {
 	removeHighlight();
 
 	analysisInspector.render();
-	console.log("after render");
+	//console.log("after render");
 	$('.inspector').append(analysisInspector.el);
 	$('#stencil').css("display", "none");
 	$('#history').css("display", "");
@@ -696,7 +696,7 @@ graph.on("change", function(){
 	var graphtext = JSON.stringify(graph.toJSON());
 	document.cookie = "graph=" + graphtext;
     if (Tracking){
-    	console.log("tracking");
+    	//console.log("tracking");
         var timestamp = new Date().toUTCString();
         updateDataBase(graph, timestamp);
         accessDatabase("insert ignore into graphs(session_id,content,timestamp) values " +

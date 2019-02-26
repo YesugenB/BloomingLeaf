@@ -259,7 +259,7 @@ function goToState(){
 
 
 function add_filter(){
-    console.log("clicked");
+    //console.log("clicked");
     tempResults = jQuery.extend(true, {}, window.opener.savedAnalysisData.allNextStatesResult);
     var checkboxes = document.getElementsByClassName("filter_checkbox");
     for (var i_element = 0; i_element < checkboxes.length; i_element++){
@@ -277,7 +277,7 @@ function add_filter(){
             }
         }
     }
-    console.log(filterOrderQueue);
+    //console.log(filterOrderQueue);
 
     for(var i_element = 0; i_element <  filterOrderQueue.length; i_element++){
         switch(filterOrderQueue[i_element]){
@@ -550,7 +550,7 @@ function add_filter(){
                             actors[tempResults.allSolution[solution_index].intentionElements[element_index].actorId] = 0;
                         }
                         var value = tempResults.allSolution[solution_index].intentionElements[element_index].status[0];
-                        if ((value == "0010" || value == "0011" || (value == "0110") ||
+                        if ((value == "0010") || (value == "0011") || (value == "0110") ||
                             (value == "0111") ||
                             (value == "0101") ||
                             (value == "1110") ||
@@ -558,7 +558,7 @@ function add_filter(){
                             (value == "1111") ||
                             (value == "1001") ||
                             (value == "1101") ||
-                            (value == "1011"))){
+                            (value == "1011")){
                             actors[tempResults.allSolution[solution_index].intentionElements[element_index].actorId] =1;
                         }
                     }
@@ -595,7 +595,7 @@ function add_filter(){
                             actors[tempResults.allSolution[solution_index].intentionElements[element_index].actorId] = 0;
                         }
                         var value = tempResults.allSolution[solution_index].intentionElements[element_index].status[0];
-                        if ((value == "0010" || value == "0011" || (value == "0110") ||
+                        if ((value == "0010") || (value == "0011") || (value == "0110") ||
                             (value == "0111") ||
                             (value == "0101") ||
                             (value == "1110") ||
@@ -603,7 +603,7 @@ function add_filter(){
                             (value == "1111") ||
                             (value == "1001") ||
                             (value == "1101") ||
-                            (value == "1011"))){
+                            (value == "1011")){
                             actors[tempResults.allSolution[solution_index].intentionElements[element_index].actorId] =1;
                         }
                     }

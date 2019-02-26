@@ -1110,8 +1110,8 @@ class AnalysisRequest {
      * of the old and new absTimePits in this.userAssignmentsList
      */
 	changeTimePoints(newTimePts){
-        console.log("changeTimePoints in analysisRequest");
-        console.log(newTimePts);
+        //console.log("changeTimePoints in analysisRequest");
+        //console.log(newTimePts);
 		 var intersection = this.absTimePtsArr.filter(x => newTimePts.includes(x));
 		 if (intersection.length == 0){
 			 this.clearUserEvaluations();
@@ -1119,7 +1119,7 @@ class AnalysisRequest {
 			 return
 		 }
 		 var i = 0;
-		 console.log(this.userAssignmentsList);
+		 //console.log(this.userAssignmentsList);
 		 while (i < this.userAssignmentsList.length){
 			 if (!intersection.includes(this.userAssignmentsList[i].absTime) && this.userAssignmentsList[i].absTime != 0){
 				 this.userAssignmentsList.splice(i, 1);
@@ -1129,11 +1129,11 @@ class AnalysisRequest {
 			 }
 		 }
 
-        console.log(this.userAssignmentsList);
+        //console.log(this.userAssignmentsList);
 
 		 this.absTimePtsArr = newTimePts;
 
-		 console.log(newTimePts);
+		 //console.log(newTimePts);
 
 
 	}

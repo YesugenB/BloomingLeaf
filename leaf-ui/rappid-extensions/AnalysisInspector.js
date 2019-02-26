@@ -20,6 +20,8 @@ var AnalysisInspector = Backbone.View.extend({
 	        '<option value=M> Medium</option>',
 	        '<option value=W> Weak</option>',
 	        '<option value=N> None</option>',
+            '<option value=A> Remove All</option>',
+            '<option value=I> No None</option>',
 		'</select>',
 		'<label class="sub-label">Num Relative Time Points</label>',
 		'<input id="num-rel-time" class="analysis-input" type="number" min="0" max="20" step="1" value="1"/>',

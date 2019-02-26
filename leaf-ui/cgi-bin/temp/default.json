@@ -1,14 +1,1708 @@
 {
-    "int_array": [
-        0, 
-        1, 
-        2, 
-        3
-    ], 
-    "name": "My name is", 
-    "string_array": [
-        "apple", 
-        "orange", 
-        "grapes"
-    ]
+    "analysisRequest": {
+        "absTimePts": "", 
+        "absTimePtsArr": [], 
+        "action": "allNextStates", 
+        "conflictLevel": "I", 
+        "currentState": "6|41", 
+        "numRelTime": "10", 
+        "previousAnalysis": {
+            "allSolution": [], 
+            "assignedEpoch": [
+                "TA0_0", 
+                "TE7_3", 
+                "E0026_3", 
+                "TR16_8", 
+                "E0024_20", 
+                "TE5_20", 
+                "E0019_27", 
+                "TE2_27", 
+                "TR11_34", 
+                "TR9_41"
+            ], 
+            "elementList": [
+                {
+                    "id": "0000", 
+                    "status": [
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100"
+                    ], 
+                    "type": "GOAL"
+                }, 
+                {
+                    "id": "0001", 
+                    "status": [
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100"
+                    ], 
+                    "type": "GOAL"
+                }, 
+                {
+                    "id": "0002", 
+                    "status": [
+                        "1100", 
+                        "1100", 
+                        "0100", 
+                        "0011", 
+                        "0010", 
+                        "0010", 
+                        "0011", 
+                        "0110", 
+                        "0011", 
+                        "1111", 
+                        "0010", 
+                        "1110", 
+                        "0011", 
+                        "0010", 
+                        "0011", 
+                        "0010", 
+                        "0111", 
+                        "0011"
+                    ], 
+                    "type": "GOAL"
+                }, 
+                {
+                    "id": "0003", 
+                    "status": [
+                        "1100", 
+                        "1100", 
+                        "0100", 
+                        "0011", 
+                        "0010", 
+                        "0010", 
+                        "0011", 
+                        "0110", 
+                        "0011", 
+                        "1111", 
+                        "0010", 
+                        "1110", 
+                        "0011", 
+                        "0010", 
+                        "0011", 
+                        "0010", 
+                        "0111", 
+                        "0011"
+                    ], 
+                    "type": "GOAL"
+                }, 
+                {
+                    "id": "0004", 
+                    "status": [
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010"
+                    ], 
+                    "type": "GOAL"
+                }, 
+                {
+                    "id": "0005", 
+                    "status": [
+                        "0010", 
+                        "0110", 
+                        "0110", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0110", 
+                        "0010", 
+                        "1110", 
+                        "0110", 
+                        "0110", 
+                        "0110", 
+                        "0010", 
+                        "0110", 
+                        "0110", 
+                        "1110", 
+                        "0110", 
+                        "1110"
+                    ], 
+                    "type": "GOAL"
+                }, 
+                {
+                    "id": "0006", 
+                    "status": [
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010"
+                    ], 
+                    "type": "GOAL"
+                }, 
+                {
+                    "id": "0007", 
+                    "status": [
+                        "0011", 
+                        "0111", 
+                        "0111", 
+                        "0011", 
+                        "0011", 
+                        "0010", 
+                        "0110", 
+                        "0010", 
+                        "1110", 
+                        "1111", 
+                        "1111", 
+                        "1111", 
+                        "0010", 
+                        "0111", 
+                        "0111", 
+                        "0111", 
+                        "1111", 
+                        "1110"
+                    ], 
+                    "type": "GOAL"
+                }, 
+                {
+                    "id": "0008", 
+                    "status": [
+                        "0100", 
+                        "1110", 
+                        "1110", 
+                        "0100", 
+                        "0100", 
+                        "0100", 
+                        "1110", 
+                        "0100", 
+                        "1110", 
+                        "1110", 
+                        "1110", 
+                        "1110", 
+                        "0100", 
+                        "1110", 
+                        "1110", 
+                        "0100", 
+                        "0100", 
+                        "0100"
+                    ], 
+                    "type": "GOAL"
+                }, 
+                {
+                    "id": "0009", 
+                    "status": [
+                        "0100", 
+                        "1110", 
+                        "0110", 
+                        "0011", 
+                        "0010", 
+                        "0010", 
+                        "0011", 
+                        "0110", 
+                        "0011", 
+                        "1111", 
+                        "0010", 
+                        "1110", 
+                        "0011", 
+                        "0010", 
+                        "0011", 
+                        "0010", 
+                        "0111", 
+                        "0011"
+                    ], 
+                    "type": "GOAL"
+                }, 
+                {
+                    "id": "0010", 
+                    "status": [
+                        "1100", 
+                        "0100", 
+                        "0100", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0111", 
+                        "0010", 
+                        "0111", 
+                        "0010", 
+                        "0111", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0111", 
+                        "0010"
+                    ], 
+                    "type": "GOAL"
+                }, 
+                {
+                    "id": "0011", 
+                    "status": [
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1110", 
+                        "0110", 
+                        "0110", 
+                        "0110", 
+                        "1110", 
+                        "0110", 
+                        "1110", 
+                        "0110", 
+                        "0110", 
+                        "1110", 
+                        "1110", 
+                        "1111", 
+                        "1110", 
+                        "0110", 
+                        "0110"
+                    ], 
+                    "type": "GOAL"
+                }, 
+                {
+                    "id": "0012", 
+                    "status": [
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "0011", 
+                        "0010", 
+                        "0110", 
+                        "0010"
+                    ], 
+                    "type": "GOAL"
+                }, 
+                {
+                    "id": "0013", 
+                    "status": [
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011"
+                    ], 
+                    "type": "GOAL"
+                }, 
+                {
+                    "id": "0014", 
+                    "status": [
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100"
+                    ], 
+                    "type": "GOAL"
+                }, 
+                {
+                    "id": "0015", 
+                    "status": [
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011"
+                    ], 
+                    "type": "GOAL"
+                }, 
+                {
+                    "id": "0016", 
+                    "status": [
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011"
+                    ], 
+                    "type": "GOAL"
+                }, 
+                {
+                    "id": "0017", 
+                    "status": [
+                        "0100", 
+                        "0100", 
+                        "1100", 
+                        "0100", 
+                        "0010", 
+                        "0011", 
+                        "0011", 
+                        "0010", 
+                        "0011", 
+                        "0011", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0011", 
+                        "0010", 
+                        "0010", 
+                        "0010"
+                    ], 
+                    "type": "GOAL"
+                }, 
+                {
+                    "id": "0018", 
+                    "status": [
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "0011"
+                    ], 
+                    "type": "GOAL"
+                }, 
+                {
+                    "id": "0019", 
+                    "status": [
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011"
+                    ], 
+                    "type": "GOAL"
+                }, 
+                {
+                    "id": "0020", 
+                    "status": [
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011"
+                    ], 
+                    "type": "GOAL"
+                }, 
+                {
+                    "id": "0021", 
+                    "status": [
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011"
+                    ], 
+                    "type": "GOAL"
+                }, 
+                {
+                    "id": "0022", 
+                    "status": [
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "0011", 
+                        "0011", 
+                        "0011"
+                    ], 
+                    "type": "GOAL"
+                }, 
+                {
+                    "id": "0023", 
+                    "status": [
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011"
+                    ], 
+                    "type": "GOAL"
+                }, 
+                {
+                    "id": "0024", 
+                    "status": [
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011"
+                    ], 
+                    "type": "GOAL"
+                }, 
+                {
+                    "id": "0025", 
+                    "status": [
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "1100", 
+                        "0011", 
+                        "0011", 
+                        "0011"
+                    ], 
+                    "type": "GOAL"
+                }, 
+                {
+                    "id": "0026", 
+                    "status": [
+                        "1100", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011"
+                    ], 
+                    "type": "GOAL"
+                }, 
+                {
+                    "id": "0027", 
+                    "status": [
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010", 
+                        "0010"
+                    ], 
+                    "type": "GOAL"
+                }, 
+                {
+                    "id": "0028", 
+                    "status": [
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0011", 
+                        "0111", 
+                        "0111", 
+                        "0111", 
+                        "0111", 
+                        "0111", 
+                        "0111", 
+                        "0111", 
+                        "0111", 
+                        "1110", 
+                        "1110", 
+                        "1110", 
+                        "1110", 
+                        "1110", 
+                        "1110"
+                    ], 
+                    "type": "GOAL"
+                }
+            ], 
+            "timePointPath": [
+                "0", 
+                "3", 
+                "8", 
+                "20", 
+                "27", 
+                "34", 
+                "41"
+            ], 
+            "timePointPathSize": 0
+        }, 
+        "userAssignmentsList": [
+            {
+                "absTime": "0", 
+                "evaluationValue": "0010", 
+                "intentionID": "0000"
+            }, 
+            {
+                "absTime": "0", 
+                "evaluationValue": "1100", 
+                "intentionID": "0001"
+            }, 
+            {
+                "absTime": "0", 
+                "evaluationValue": "(no value)", 
+                "intentionID": "0002"
+            }, 
+            {
+                "absTime": "0", 
+                "evaluationValue": "(no value)", 
+                "intentionID": "0003"
+            }, 
+            {
+                "absTime": "0", 
+                "evaluationValue": "0010", 
+                "intentionID": "0004"
+            }, 
+            {
+                "absTime": "0", 
+                "evaluationValue": "(no value)", 
+                "intentionID": "0005"
+            }, 
+            {
+                "absTime": "0", 
+                "evaluationValue": "0010", 
+                "intentionID": "0006"
+            }, 
+            {
+                "absTime": "0", 
+                "evaluationValue": "(no value)", 
+                "intentionID": "0007"
+            }, 
+            {
+                "absTime": "0", 
+                "evaluationValue": "0100", 
+                "intentionID": "0008"
+            }, 
+            {
+                "absTime": "0", 
+                "evaluationValue": "(no value)", 
+                "intentionID": "0009"
+            }, 
+            {
+                "absTime": "0", 
+                "evaluationValue": "1100", 
+                "intentionID": "0010"
+            }, 
+            {
+                "absTime": "0", 
+                "evaluationValue": "(no value)", 
+                "intentionID": "0011"
+            }, 
+            {
+                "absTime": "0", 
+                "evaluationValue": "(no value)", 
+                "intentionID": "0012"
+            }, 
+            {
+                "absTime": "0", 
+                "evaluationValue": "(no value)", 
+                "intentionID": "0013"
+            }, 
+            {
+                "absTime": "0", 
+                "evaluationValue": "0011", 
+                "intentionID": "0014"
+            }, 
+            {
+                "absTime": "0", 
+                "evaluationValue": "(no value)", 
+                "intentionID": "0015"
+            }, 
+            {
+                "absTime": "0", 
+                "evaluationValue": "(no value)", 
+                "intentionID": "0016"
+            }, 
+            {
+                "absTime": "0", 
+                "evaluationValue": "(no value)", 
+                "intentionID": "0017"
+            }, 
+            {
+                "absTime": "0", 
+                "evaluationValue": "1100", 
+                "intentionID": "0018"
+            }, 
+            {
+                "absTime": "0", 
+                "evaluationValue": "1100", 
+                "intentionID": "0019"
+            }, 
+            {
+                "absTime": "0", 
+                "evaluationValue": "1100", 
+                "intentionID": "0020"
+            }, 
+            {
+                "absTime": "0", 
+                "evaluationValue": "(no value)", 
+                "intentionID": "0021"
+            }, 
+            {
+                "absTime": "0", 
+                "evaluationValue": "(no value)", 
+                "intentionID": "0022"
+            }, 
+            {
+                "absTime": "0", 
+                "evaluationValue": "1100", 
+                "intentionID": "0023"
+            }, 
+            {
+                "absTime": "0", 
+                "evaluationValue": "1100", 
+                "intentionID": "0024"
+            }, 
+            {
+                "absTime": "0", 
+                "evaluationValue": "1100", 
+                "intentionID": "0025"
+            }, 
+            {
+                "absTime": "0", 
+                "evaluationValue": "1100", 
+                "intentionID": "0026"
+            }, 
+            {
+                "absTime": "0", 
+                "evaluationValue": "0010", 
+                "intentionID": "0027"
+            }, 
+            {
+                "absTime": "0", 
+                "evaluationValue": "(no value)", 
+                "intentionID": "0028"
+            }
+        ]
+    }, 
+    "model": {
+        "actors": [], 
+        "constraints": [
+            {
+                "absoluteValue": -1, 
+                "constraintDestEB": null, 
+                "constraintDestID": null, 
+                "constraintSrcEB": "A", 
+                "constraintSrcID": "0023", 
+                "constraintType": "A"
+            }, 
+            {
+                "absoluteValue": -1, 
+                "constraintDestEB": null, 
+                "constraintDestID": null, 
+                "constraintSrcEB": "A", 
+                "constraintSrcID": "0024", 
+                "constraintType": "A"
+            }, 
+            {
+                "absoluteValue": -1, 
+                "constraintDestEB": null, 
+                "constraintDestID": null, 
+                "constraintSrcEB": "A", 
+                "constraintSrcID": "0025", 
+                "constraintType": "A"
+            }, 
+            {
+                "absoluteValue": -1, 
+                "constraintDestEB": null, 
+                "constraintDestID": null, 
+                "constraintSrcEB": "A", 
+                "constraintSrcID": "0026", 
+                "constraintType": "A"
+            }, 
+            {
+                "absoluteValue": -1, 
+                "constraintDestEB": null, 
+                "constraintDestID": null, 
+                "constraintSrcEB": "A", 
+                "constraintSrcID": "0020", 
+                "constraintType": "A"
+            }, 
+            {
+                "absoluteValue": -1, 
+                "constraintDestEB": null, 
+                "constraintDestID": null, 
+                "constraintSrcEB": "A", 
+                "constraintSrcID": "0019", 
+                "constraintType": "A"
+            }, 
+            {
+                "absoluteValue": -1, 
+                "constraintDestEB": null, 
+                "constraintDestID": null, 
+                "constraintSrcEB": "A", 
+                "constraintSrcID": "0018", 
+                "constraintType": "A"
+            }
+        ], 
+        "intentions": [
+            {
+                "dynamicFunction": {
+                    "functionSegList": [
+                        {
+                            "funcStart": "0", 
+                            "funcStop": "Infinity", 
+                            "funcType": "C", 
+                            "funcX": "0010"
+                        }
+                    ], 
+                    "intentionID": "0000", 
+                    "stringDynVis": "C"
+                }, 
+                "nodeActorID": "-", 
+                "nodeID": "0000", 
+                "nodeName": "Preventing Dooring\nIncident", 
+                "nodeType": "basic.Goal"
+            }, 
+            {
+                "dynamicFunction": {
+                    "functionSegList": [
+                        {
+                            "funcStart": "0", 
+                            "funcStop": "Infinity", 
+                            "funcType": "C", 
+                            "funcX": "1100"
+                        }
+                    ], 
+                    "intentionID": "0001", 
+                    "stringDynVis": "C"
+                }, 
+                "nodeActorID": "-", 
+                "nodeID": "0001", 
+                "nodeName": "Bike Lane\nCurbside", 
+                "nodeType": "basic.Goal"
+            }, 
+            {
+                "dynamicFunction": {
+                    "functionSegList": [], 
+                    "intentionID": "0002", 
+                    "stringDynVis": "NT"
+                }, 
+                "nodeActorID": "-", 
+                "nodeID": "0002", 
+                "nodeName": "Parking Curbside", 
+                "nodeType": "basic.Goal"
+            }, 
+            {
+                "dynamicFunction": {
+                    "functionSegList": [], 
+                    "intentionID": "0003", 
+                    "stringDynVis": "NT"
+                }, 
+                "nodeActorID": "-", 
+                "nodeID": "0003", 
+                "nodeName": "Parking", 
+                "nodeType": "basic.Goal"
+            }, 
+            {
+                "dynamicFunction": {
+                    "functionSegList": [
+                        {
+                            "funcStart": "0", 
+                            "funcStop": "Infinity", 
+                            "funcType": "C", 
+                            "funcX": "0010"
+                        }
+                    ], 
+                    "intentionID": "0004", 
+                    "stringDynVis": "C"
+                }, 
+                "nodeActorID": "-", 
+                "nodeID": "0004", 
+                "nodeName": "Off Street \nParking", 
+                "nodeType": "basic.Goal"
+            }, 
+            {
+                "dynamicFunction": {
+                    "functionSegList": [], 
+                    "intentionID": "0005", 
+                    "stringDynVis": "NT"
+                }, 
+                "nodeActorID": "-", 
+                "nodeID": "0005", 
+                "nodeName": "Access to \nParking", 
+                "nodeType": "basic.Goal"
+            }, 
+            {
+                "dynamicFunction": {
+                    "functionSegList": [
+                        {
+                            "funcStart": "0", 
+                            "funcStop": "Infinity", 
+                            "funcType": "C", 
+                            "funcX": "0010"
+                        }
+                    ], 
+                    "intentionID": "0006", 
+                    "stringDynVis": "C"
+                }, 
+                "nodeActorID": "-", 
+                "nodeID": "0006", 
+                "nodeName": "Comercial\nAccess", 
+                "nodeType": "basic.Goal"
+            }, 
+            {
+                "dynamicFunction": {
+                    "functionSegList": [], 
+                    "intentionID": "0007", 
+                    "stringDynVis": "NT"
+                }, 
+                "nodeActorID": "-", 
+                "nodeID": "0007", 
+                "nodeName": "Public \nSupport", 
+                "nodeType": "basic.Goal"
+            }, 
+            {
+                "dynamicFunction": {
+                    "functionSegList": [
+                        {
+                            "funcStart": "0", 
+                            "funcStop": "Infinity", 
+                            "funcType": "I", 
+                            "funcX": "0010"
+                        }
+                    ], 
+                    "intentionID": "0008", 
+                    "stringDynVis": "I"
+                }, 
+                "nodeActorID": "-", 
+                "nodeID": "0008", 
+                "nodeName": "No Parking", 
+                "nodeType": "basic.Goal"
+            }, 
+            {
+                "dynamicFunction": {
+                    "functionSegList": [], 
+                    "intentionID": "0009", 
+                    "stringDynVis": "NT"
+                }, 
+                "nodeActorID": "-", 
+                "nodeID": "0009", 
+                "nodeName": "Have Design", 
+                "nodeType": "basic.Goal"
+            }, 
+            {
+                "dynamicFunction": {
+                    "functionSegList": [
+                        {
+                            "funcStart": "0", 
+                            "funcStop": "Infinity", 
+                            "funcType": "I", 
+                            "funcX": "0011"
+                        }
+                    ], 
+                    "intentionID": "0010", 
+                    "stringDynVis": "I"
+                }, 
+                "nodeActorID": "-", 
+                "nodeID": "0010", 
+                "nodeName": "Prevent Unloading\nin Bike Lane", 
+                "nodeType": "basic.Goal"
+            }, 
+            {
+                "dynamicFunction": {
+                    "functionSegList": [], 
+                    "intentionID": "0011", 
+                    "stringDynVis": "NT"
+                }, 
+                "nodeActorID": "-", 
+                "nodeID": "0011", 
+                "nodeName": "Cyclist\nSafety", 
+                "nodeType": "basic.Goal"
+            }, 
+            {
+                "dynamicFunction": {
+                    "functionSegList": [], 
+                    "intentionID": "0012", 
+                    "stringDynVis": "NT"
+                }, 
+                "nodeActorID": "-", 
+                "nodeID": "0012", 
+                "nodeName": "Have Bike Lanes", 
+                "nodeType": "basic.Goal"
+            }, 
+            {
+                "dynamicFunction": {
+                    "functionSegList": [], 
+                    "intentionID": "0013", 
+                    "stringDynVis": "NT"
+                }, 
+                "nodeActorID": "-", 
+                "nodeID": "0013", 
+                "nodeName": "Plan Build", 
+                "nodeType": "basic.Goal"
+            }, 
+            {
+                "dynamicFunction": {
+                    "functionSegList": [
+                        {
+                            "funcStart": "0", 
+                            "funcStop": "Infinity", 
+                            "funcType": "C", 
+                            "funcX": "0011"
+                        }
+                    ], 
+                    "intentionID": "0014", 
+                    "stringDynVis": "C"
+                }, 
+                "nodeActorID": "-", 
+                "nodeID": "0014", 
+                "nodeName": "Temporary\nConstruction\nPlan", 
+                "nodeType": "basic.Goal"
+            }, 
+            {
+                "dynamicFunction": {
+                    "functionSegList": [], 
+                    "intentionID": "0015", 
+                    "stringDynVis": "NT"
+                }, 
+                "nodeActorID": "-", 
+                "nodeID": "0015", 
+                "nodeName": "Build\nBike Lanes", 
+                "nodeType": "basic.Goal"
+            }, 
+            {
+                "dynamicFunction": {
+                    "functionSegList": [], 
+                    "intentionID": "0016", 
+                    "stringDynVis": "NT"
+                }, 
+                "nodeActorID": "-", 
+                "nodeID": "0016", 
+                "nodeName": "Road\nMaintenance", 
+                "nodeType": "basic.Goal"
+            }, 
+            {
+                "dynamicFunction": {
+                    "functionSegList": [], 
+                    "intentionID": "0017", 
+                    "stringDynVis": "NT"
+                }, 
+                "nodeActorID": "-", 
+                "nodeID": "0017", 
+                "nodeName": "Operate Bike Lane", 
+                "nodeType": "basic.Goal"
+            }, 
+            {
+                "dynamicFunction": {
+                    "functionSegList": [
+                        {
+                            "funcStart": "0", 
+                            "funcStop": "A", 
+                            "funcType": "C", 
+                            "funcX": "1100"
+                        }, 
+                        {
+                            "funcStart": "A", 
+                            "funcStop": "Infinity", 
+                            "funcType": "C", 
+                            "funcX": "0011"
+                        }
+                    ], 
+                    "intentionID": "0018", 
+                    "stringDynVis": "DS"
+                }, 
+                "nodeActorID": "-", 
+                "nodeID": "0018", 
+                "nodeName": "Remove\nBollards", 
+                "nodeType": "basic.Goal"
+            }, 
+            {
+                "dynamicFunction": {
+                    "functionSegList": [
+                        {
+                            "funcStart": "0", 
+                            "funcStop": "A", 
+                            "funcType": "C", 
+                            "funcX": "1100"
+                        }, 
+                        {
+                            "funcStart": "A", 
+                            "funcStop": "Infinity", 
+                            "funcType": "C", 
+                            "funcX": "0011"
+                        }
+                    ], 
+                    "intentionID": "0019", 
+                    "stringDynVis": "DS"
+                }, 
+                "nodeActorID": "-", 
+                "nodeID": "0019", 
+                "nodeName": "Separate\nSnow Removal", 
+                "nodeType": "basic.Goal"
+            }, 
+            {
+                "dynamicFunction": {
+                    "functionSegList": [
+                        {
+                            "funcStart": "0", 
+                            "funcStop": "A", 
+                            "funcType": "C", 
+                            "funcX": "1100"
+                        }, 
+                        {
+                            "funcStart": "A", 
+                            "funcStop": "Infinity", 
+                            "funcType": "C", 
+                            "funcX": "0011"
+                        }
+                    ], 
+                    "intentionID": "0020", 
+                    "stringDynVis": "DS"
+                }, 
+                "nodeActorID": "-", 
+                "nodeID": "0020", 
+                "nodeName": "Permanent \nConstruction\nPlan", 
+                "nodeType": "basic.Goal"
+            }, 
+            {
+                "dynamicFunction": {
+                    "functionSegList": [], 
+                    "intentionID": "0021", 
+                    "stringDynVis": "NT"
+                }, 
+                "nodeActorID": "-", 
+                "nodeID": "0021", 
+                "nodeName": "Temporary\nConstruction", 
+                "nodeType": "basic.Goal"
+            }, 
+            {
+                "dynamicFunction": {
+                    "functionSegList": [], 
+                    "intentionID": "0022", 
+                    "stringDynVis": "NT"
+                }, 
+                "nodeActorID": "-", 
+                "nodeID": "0022", 
+                "nodeName": "Permanent \nConstruction", 
+                "nodeType": "basic.Goal"
+            }, 
+            {
+                "dynamicFunction": {
+                    "functionSegList": [
+                        {
+                            "funcStart": "0", 
+                            "funcStop": "A", 
+                            "funcType": "C", 
+                            "funcX": "1100"
+                        }, 
+                        {
+                            "funcStart": "A", 
+                            "funcStop": "Infinity", 
+                            "funcType": "C", 
+                            "funcX": "0011"
+                        }
+                    ], 
+                    "intentionID": "0023", 
+                    "stringDynVis": "DS"
+                }, 
+                "nodeActorID": "-", 
+                "nodeID": "0023", 
+                "nodeName": "Install Bollards", 
+                "nodeType": "basic.Goal"
+            }, 
+            {
+                "dynamicFunction": {
+                    "functionSegList": [
+                        {
+                            "funcStart": "0", 
+                            "funcStop": "A", 
+                            "funcType": "C", 
+                            "funcX": "1100"
+                        }, 
+                        {
+                            "funcStart": "A", 
+                            "funcStop": "Infinity", 
+                            "funcType": "C", 
+                            "funcX": "0011"
+                        }
+                    ], 
+                    "intentionID": "0024", 
+                    "stringDynVis": "DS"
+                }, 
+                "nodeActorID": "-", 
+                "nodeID": "0024", 
+                "nodeName": "Paint\nLines", 
+                "nodeType": "basic.Goal"
+            }, 
+            {
+                "dynamicFunction": {
+                    "functionSegList": [
+                        {
+                            "funcStart": "0", 
+                            "funcStop": "A", 
+                            "funcType": "C", 
+                            "funcX": "1100"
+                        }, 
+                        {
+                            "funcStart": "A", 
+                            "funcStop": "Infinity", 
+                            "funcType": "C", 
+                            "funcX": "0011"
+                        }
+                    ], 
+                    "intentionID": "0025", 
+                    "stringDynVis": "DS"
+                }, 
+                "nodeActorID": "-", 
+                "nodeID": "0025", 
+                "nodeName": "Road\nReconstructuring", 
+                "nodeType": "basic.Goal"
+            }, 
+            {
+                "dynamicFunction": {
+                    "functionSegList": [
+                        {
+                            "funcStart": "0", 
+                            "funcStop": "A", 
+                            "funcType": "C", 
+                            "funcX": "1100"
+                        }, 
+                        {
+                            "funcStart": "A", 
+                            "funcStop": "Infinity", 
+                            "funcType": "C", 
+                            "funcX": "0011"
+                        }
+                    ], 
+                    "intentionID": "0026", 
+                    "stringDynVis": "DS"
+                }, 
+                "nodeActorID": "-", 
+                "nodeID": "0026", 
+                "nodeName": "Construct \nMedians", 
+                "nodeType": "basic.Goal"
+            }, 
+            {
+                "dynamicFunction": {
+                    "functionSegList": [
+                        {
+                            "funcStart": "0", 
+                            "funcStop": "Infinity", 
+                            "funcType": "C", 
+                            "funcX": "0010"
+                        }
+                    ], 
+                    "intentionID": "0027", 
+                    "stringDynVis": "C"
+                }, 
+                "nodeActorID": "-", 
+                "nodeID": "0027", 
+                "nodeName": "Bike Lane\nUsage", 
+                "nodeType": "basic.Goal"
+            }, 
+            {
+                "dynamicFunction": {
+                    "functionSegList": [], 
+                    "intentionID": "0028", 
+                    "stringDynVis": "NT"
+                }, 
+                "nodeActorID": "-", 
+                "nodeID": "0028", 
+                "nodeName": "Costs\nJustification", 
+                "nodeType": "basic.Goal"
+            }
+        ], 
+        "links": [
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0011", 
+                "linkID": "0000", 
+                "linkSrcID": "0000", 
+                "linkType": "+", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0011", 
+                "linkID": "0001", 
+                "linkSrcID": "0001", 
+                "linkType": "+", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0011", 
+                "linkID": "0002", 
+                "linkSrcID": "0010", 
+                "linkType": "+", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0002", 
+                "linkID": "0003", 
+                "linkSrcID": "0010", 
+                "linkType": "+", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0003", 
+                "linkID": "0004", 
+                "linkSrcID": "0002", 
+                "linkType": "OR", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0003", 
+                "linkID": "0005", 
+                "linkSrcID": "0001", 
+                "linkType": "OR", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0009", 
+                "linkID": "0006", 
+                "linkSrcID": "0003", 
+                "linkType": "OR", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0009", 
+                "linkID": "0008", 
+                "linkSrcID": "0008", 
+                "linkType": "OR", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0005", 
+                "linkID": "0009", 
+                "linkSrcID": "0004", 
+                "linkType": "++S", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0005", 
+                "linkID": "0010", 
+                "linkSrcID": "0008", 
+                "linkType": "-S", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0007", 
+                "linkID": "0011", 
+                "linkSrcID": "0008", 
+                "linkType": "-S", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0007", 
+                "linkID": "0012", 
+                "linkSrcID": "0005", 
+                "linkType": "+", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0007", 
+                "linkID": "0013", 
+                "linkSrcID": "0006", 
+                "linkType": "+", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0011", 
+                "linkID": "0014", 
+                "linkSrcID": "0012", 
+                "linkType": "++S", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0012", 
+                "linkID": "0015", 
+                "linkSrcID": "0009", 
+                "linkType": "AND", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0012", 
+                "linkID": "0016", 
+                "linkSrcID": "0013", 
+                "linkType": "AND", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0012", 
+                "linkID": "0017", 
+                "linkSrcID": "0015", 
+                "linkType": "AND", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0012", 
+                "linkID": "0018", 
+                "linkSrcID": "0017", 
+                "linkType": "AND", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0017", 
+                "linkID": "0019", 
+                "linkSrcID": "0016", 
+                "linkType": "+", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0016", 
+                "linkID": "0020", 
+                "linkSrcID": "0019", 
+                "linkType": "OR", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0016", 
+                "linkID": "0021", 
+                "linkSrcID": "0018", 
+                "linkType": "OR", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0028", 
+                "linkID": "0022", 
+                "linkSrcID": "0019", 
+                "linkType": "-S", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0028", 
+                "linkID": "0023", 
+                "linkSrcID": "0018", 
+                "linkType": "-S", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0013", 
+                "linkID": "0024", 
+                "linkSrcID": "0014", 
+                "linkType": "OR", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0013", 
+                "linkID": "0025", 
+                "linkSrcID": "0020", 
+                "linkType": "OR", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0015", 
+                "linkID": "0026", 
+                "linkSrcID": "0021", 
+                "linkType": "OR", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0015", 
+                "linkID": "0027", 
+                "linkSrcID": "0022", 
+                "linkType": "OR", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0021", 
+                "linkID": "0028", 
+                "linkSrcID": "0023", 
+                "linkType": "AND", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0021", 
+                "linkID": "0029", 
+                "linkSrcID": "0024", 
+                "linkType": "AND", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0022", 
+                "linkID": "0030", 
+                "linkSrcID": "0024", 
+                "linkType": "AND", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0022", 
+                "linkID": "0031", 
+                "linkSrcID": "0025", 
+                "linkType": "AND", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0022", 
+                "linkID": "0032", 
+                "linkSrcID": "0026", 
+                "linkType": "AND", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0005", 
+                "linkID": "0034", 
+                "linkSrcID": "0022", 
+                "linkType": "-", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0028", 
+                "linkID": "0035", 
+                "linkSrcID": "0020", 
+                "linkType": "--", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0028", 
+                "linkID": "0036", 
+                "linkSrcID": "0014", 
+                "linkType": "-", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0028", 
+                "linkID": "0037", 
+                "linkSrcID": "0027", 
+                "linkType": "++", 
+                "postType": null
+            }, 
+            {
+                "absoluteValue": -1, 
+                "linkDestID": "0007", 
+                "linkID": "0038", 
+                "linkSrcID": "0027", 
+                "linkType": "+", 
+                "postType": null
+            }
+        ], 
+        "maxAbsTime": "100"
+    }
 }
