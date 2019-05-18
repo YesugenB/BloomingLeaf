@@ -8,7 +8,11 @@ The following explains how to contribute to BloomingLeaf.
 
 ## Project Setup
 1. Clone / Download a local copy of the [repository](https://github.com/amgrubb/BloomingLeaf).
-2. You also need a copy of [Rappid](https://www.jointjs.com/), which we use as the basis for our tool. We are currently using Rappid Academic Version 1.7.0 in the [live](http://www.cs.utoronto.ca/~amgrubb/leaf-blooming-ui) version of our tool.
+2. You also need a copy of [Rappid](https://www.jointjs.com/), which we use as the basis for our tool. We are currently using Rappid Academic Version 1.7.0.
+
+## Live Versions
+[Version 1.0](http://www.cs.utoronto.ca/~amgrubb/leaf-blooming-ui)
+[Version 2.0](http://www.cs.utoronto.ca/~amgrubb/dev/blooming)
 
 ## Committing Changes
 Before working on an update, make sure their is an appropriate entry on the [issues page](https://github.com/amgrubb/BloomingLeaf/issues) and assign yourself to this issue.
