@@ -1,5 +1,7 @@
 package simulation;
 
+import java.io.File;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -1901,9 +1903,30 @@ public class TroposCSPAlgorithm {
             	throw new RuntimeException("ERROR: Model not solvable because of conflicting constraints.\n Constraint: " + constraints.get(i).toString());
             }
         }
-        
+
         // Create Var List
 		IntVar[] varList = this.createVarList();
+
+		// Output for generating data for REJ'19 paper.
+        boolean outputVarList = true;
+        if(outputVarList) {
+    		try {
+    			File file;
+    			file = new File("temp/varList.txt");
+    			if (!file.exists()) {
+    				file.createNewFile();
+    			}
+    			PrintWriter printFile = new PrintWriter(file);
+    			printFile.printf("List length is: " + varList.length + "\n");
+            	for (IntVar i : varList) { 
+            		printFile.printf(i.toString() + "\n"); 
+            	}
+    			printFile.close();
+    		} catch (Exception e) {
+    			throw new RuntimeException("Error in createOutputFile: " + e.getMessage());
+    		}
+        }
+		
 		
         // Create selection and find solution.
         SelectChoicePoint <IntVar> select = new SimpleSelect<IntVar>(varList, new MostConstrainedDynamic<IntVar>(), new IndomainSimpleRandom<IntVar>());//new MostConstrainedStatic<IntVar>(), new IndomainSimpleRandom<IntVar>()); 
