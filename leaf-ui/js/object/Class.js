@@ -281,16 +281,18 @@ class Actor {
      *
      * @param{String} nodeID
      */
-    removeIntentionID(nodeID) {
+    removeIntentionID(nodeID, userAssignmentsList) {
+        console.log("userAssignmentsList: "+userAssignmentsList);
         for (var i = 0; i < this.intentionIDs.length; i++) {
             if (this.intentionIDs[i] == nodeID) {
                 this.intentionIDs.splice(i, 1);
                 return ;
             }
         }
-        while (i < this.userAssignmentsList.length) {
-            if (this.userAssignmentsList[i].intentionID == nodeID) {
-                this.userAssignmentsList.splice(i, 1);
+        console.log("after for()");
+        while (i < userAssignmentsList.length) { //undefined?
+            if (userAssignmentsList[i].intentionID == nodeID) {
+                userAssignmentsList.splice(i, 1);
             } else {
                 i++;
             }
