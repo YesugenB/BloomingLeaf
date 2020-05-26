@@ -11,9 +11,9 @@ $('#analysis-btn').on('click', function() {
     var cycle;
     jsLinks = getLinks();
     cycle = cycleCheck(jsLinks, getElementList());
-    console.log("before filtration: "+cycle);
+    //console.log("before filtration: "+cycle);
 
-    console.log("after filtration: "+cycle);
+    //console.log("after filtration: "+cycle);
 
     syntaxCheck();
     // If there are no cycles then switch view to Analysis

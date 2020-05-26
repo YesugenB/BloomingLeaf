@@ -48,8 +48,10 @@ function cycleCheckForLinks(cycle) {
 				cellView  = elements[i].findView(paper);
 				//if (recursiveStack[cellView.model.attributes.elementid]) 
 				//console.log(cycle[1][k][l]);
-				if (cellView.model.attributes.elementid === cycle[1][k][l]){
+				if (cellView.model.attributes.elementid === cycle[1][k][l] && cellView.model.attributes.type != "basic.Actor"){ //&& cellView.model.attributes check that it's not an actor
 					//console.log("changing color...");
+					console.log("cellView.model.attributes = ");
+					console.log(cellView.model.attributes);
 						cellView.model.attr({'.outer': {'fill': color}});
 					}
 					//else {
@@ -253,7 +255,7 @@ function getNaryRelationships(destSourceMapper, destId) {
 				findview: destSourceMapper[destId].findview[i]
 			};
 			result.push(obj);
-		}
+		}	
 	}
 
 	return result;
