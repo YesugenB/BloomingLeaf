@@ -29,26 +29,39 @@ function cycleCheckForLinks(cycle) {
 		for (var k = 0 ; k < cycle[1].length; k++){ //goes through each cycle
 			var color = getRandomColor();
 			//console.log(color);
-			for (var j =0 ; j < color_list.length; j++){
-				if (color !== color_list.length[j]){
-					count +=1; 
-							
+
+			console.log("color_list.length[j] = "+color_list.length[j]);
+
+			for(var j =0 ; j < color_list.length; j++) {
+				if(color == color_list[j]) {
+					color = getRandomColor();
+					j = 0;
 				}
 			}
+
+			//written previously...lol
+			// for (var j =0 ; j < color_list.length; j++){
+			// 	if (color !== color_list.length[j]){
+			// 		count +=1; 
+							
+			// 	}
+			// }
 						
-			if (count === color_list.length){
-				color_list.push(color);
-			}
-			else{
-				var color = getRandomColor();	
-			}	
+			// if (count === color_list.length){
+			// 	color_list.push(color);
+			// }
+			// else{
+			// 	var color = getRandomColor();	
+			// }	
+
+
 			for (var l = 0 ; l< cycle[1][k].length + 1; l++){ //goes through each element in a particular cycle
 				//console.log("in for loop for cycle element");
 				for (var i = 0; i < elements.length; i++) {
 				cellView  = elements[i].findView(paper);
 				//if (recursiveStack[cellView.model.attributes.elementid]) 
 				//console.log(cycle[1][k][l]);
-				if (cellView.model.attributes.elementid === cycle[1][k][l] && cellView.model.attributes.type != "basic.Actor"){ //&& cellView.model.attributes check that it's not an actor
+				if (cellView.model.attributes.elementid === cycle[1][k][l] && cellView.model.attributes.type != "basic.Actor"){ //check that it's not an actor
 					//console.log("changing color...");
 					//console.log("cellView.model.attributes = ");
 					//console.log(cellView.model.attributes);
@@ -373,7 +386,7 @@ function cycleCheck(links, vertices) {
 			console.log("graphs[src] = "+graphs[src]);
 			console.log("graphs[src].push " + element.linkDestID);
 			//graphs[src].push(element.linkDestID); 
-			// * graphs[src] = [element.linkDestID]
+			graphs[src] = [element.linkDestID]
 		}
 		else{
 			//console.log("src not in graph");
