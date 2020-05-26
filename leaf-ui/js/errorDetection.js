@@ -50,8 +50,8 @@ function cycleCheckForLinks(cycle) {
 				//console.log(cycle[1][k][l]);
 				if (cellView.model.attributes.elementid === cycle[1][k][l] && cellView.model.attributes.type != "basic.Actor"){ //&& cellView.model.attributes check that it's not an actor
 					//console.log("changing color...");
-					console.log("cellView.model.attributes = ");
-					console.log(cellView.model.attributes);
+					//console.log("cellView.model.attributes = ");
+					//console.log(cellView.model.attributes);
 						cellView.model.attr({'.outer': {'fill': color}});
 					}
 					//else {
@@ -367,13 +367,16 @@ function cycleCheck(links, vertices) {
 	// Iterate over links to create map between src node and dest node of each link
 	links.forEach(function(element){
 		var src = element.linkSrcID;
-		console.log("src = "+src);
+		//console.log("src = "+src);
 		if(src in graphs){
-			console.log("src in graph");
-			graphs[src].push(element.linkDestID);
+			//console.log("src in graph");'
+			console.log("graphs[src] = "+graphs[src]);
+			console.log("graphs[src].push " + element.linkDestID);
+			//graphs[src].push(element.linkDestID); 
+			// * graphs[src] = [element.linkDestID]
 		}
 		else{
-			console.log("src not in graph");
+			//console.log("src not in graph");
 			graphs[src] = [element.linkDestID];
 		}
 	});
@@ -382,6 +385,8 @@ function cycleCheck(links, vertices) {
 		visited[vertex.id] = false;
 		recursiveStack[vertex.id] = false;
 	});
+	console.log("graphs:");
+	console.log(graphs); //all components are single arrays except spot 0015, which has two nodes: 0016 (happy carreer, don't want) and 0013 (in cycle, do want)
 
 	vertices.forEach(function(vertex){
 			if (!visited[vertex.id]) {
@@ -393,14 +398,18 @@ function cycleCheck(links, vertices) {
 			}
 	});
 	console.log("cycle_sublist: "+cycle_sublist);
-	console.log("cycle_list: "+cycle_list);
+	console.log("cycle_list: ");
+	console.log(cycle_list);
+	//console.log("graphs: ");
+	//console.log(graphs);
 	var list = [] ;
 	list.push(cycle);
 	var cycleList = checkCycleList(cycle_list,graphs);
-	console.log("cycleList: "+cycleList);
-	console.log(cycleList);
+	//console.log("cycleList: "+cycleList);
+	//console.log(cycleList);
 	for(var i = 0; i < cycleList.length;++i) {
 		if(cycleList[i].length < 3) {
+			//console.log("cycle length less than 3...deleting")
 			cycleList[i] = [];
 		}
 	}
@@ -434,15 +443,20 @@ function isCycle(vertexId, visited, graphs,cycle_sublist,cycle_list){
 		return false;
 	}
 	else {
+		console.log("graphs[vertexId] id = "+graphs[vertexId]); //this is the node that completes the cycle?
 		for(var i = 0; i < graphs[vertexId].length; i++) {
-			if (!visited[graphs[vertexId][i]]) {
-				cycle_sublist.push(graphs[vertexId][i]);
+			if (!visited[graphs[vertexId][i]]) { //if you haven't yet visited the node that closes cycle?
+				cycle_sublist.push(graphs[vertexId][i]);  
+				console.log("1: pushed "+graphs[vertexId][i]+" onto cycle_sublist");
+				//console.log(cycle_sublist);
 				if (isCycle(graphs[vertexId][i], visited, graphs,cycle_sublist,cycle_list)) {
 					return true;
 				}
 			}
 			else if (recursiveStack[graphs[vertexId][i]]){
 				cycle_list.push(cycle_sublist);
+				console.log("2: pushed "+cycle_sublist+" onto cycle_list");
+				//console.log(cycle_list);
 				return true;
 			}
 		}
@@ -466,16 +480,17 @@ function checkCycleList(cycle_list,graphs){
 	// 	}
 	// }
 
-	//console.log("returnList 1:"+returnList);
+	//console.log("returnList 1:"+returnList);]]
 
 	for (var i = 0 ; i < cycle_list.length; i++){
 		var last = cycle_list[i].length - 1; //cycle of 3 = 2. last index
-		console.log("i = "+i+", g = "+graphs[cycle_list[i][last]]);
+		//console.log("i = "+i+", g = "+graphs[cycle_list[i][last]]);
+		// * console.log("g = "+graphs[cycle_list[i][last]]);
 		if (graphs[cycle_list[i][last]].length === 1){ //if length of last thing is 1
 			//console.log("1 if");
 			//console.log("graphs[cycle_list[i][last]]: "+graphs[cycle_list[i][last]]);
-			//console.log("cycle_list[i][0]: "+cycle_list[i][0]);
-			console.log("1 if: g = "+graphs[cycle_list[i][last]]+" vs. c = "+cycle_list[i][0]);
+			// * console.log("cycle_list[i][0]: "+cycle_list[i][0]);
+			//console.log("1 if: g = "+graphs[cycle_list[i][last]]+" vs. c = "+cycle_list[i][0]);
 			if (graphs[cycle_list[i][last]] != cycle_list[i][0]){
 				//console.log("2 if");
 				//console.log("returnList:"+returnList);
@@ -483,7 +498,7 @@ function checkCycleList(cycle_list,graphs){
 				//vertexId = cycle_list[i][0];
 				vertexId = cycle_list[i].splice(0,1);
 				recursiveStack[vertexId] = false;
-				console.log("2 if: removed "+vertexId);
+				// * console.log("2 if: removed "+vertexId);
 				//console.log("returnList:"+returnList);
 				//console.log("1 after: "+ cycle_list);
 			}
