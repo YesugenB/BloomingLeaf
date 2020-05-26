@@ -11,6 +11,9 @@ $('#analysis-btn').on('click', function() {
     var cycle;
     jsLinks = getLinks();
     cycle = cycleCheck(jsLinks, getElementList());
+    console.log("before filtration: "+cycle);
+
+    console.log("after filtration: "+cycle);
 
     syntaxCheck();
     // If there are no cycles then switch view to Analysis
@@ -931,8 +934,8 @@ graph.on('remove', function(cell) {
     else if((!cell.isLink()) && (!(cell["attributes"]["type"]=="basic.Actor"))){
         //To remove intentions
         clearInspector();
-        console.log("hello");
-        console.log(model.getIntentionByID(cell.attributes.nodeID));
+        //console.log("hello");
+        //console.log(model.getIntentionByID(cell.attributes.nodeID));
         var userIntention = model.getIntentionByID(cell.attributes.nodeID);
         // remove this intention from the model
         //model.removeIntention(userIntention.nodeID);

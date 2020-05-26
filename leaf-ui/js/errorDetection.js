@@ -26,8 +26,9 @@ function cycleCheckForLinks(cycle) {
 		elements = graph.getElements();
 		var color_list = [];
 		var count = 0; 
-		for (var k = 0 ; k < cycle[1].length; k++){
+		for (var k = 0 ; k < cycle[1].length; k++){ //goes through each cycle
 			var color = getRandomColor();
+			//console.log(color);
 			for (var j =0 ; j < color_list.length; j++){
 				if (color !== color_list.length[j]){
 					count +=1; 
@@ -41,11 +42,14 @@ function cycleCheckForLinks(cycle) {
 			else{
 				var color = getRandomColor();	
 			}	
-			for (var l = 0 ; l< cycle[1][k].length; l++){
+			for (var l = 0 ; l< cycle[1][k].length + 1; l++){ //goes through each element in a particular cycle
+				//console.log("in for loop for cycle element");
 				for (var i = 0; i < elements.length; i++) {
 				cellView  = elements[i].findView(paper);
 				//if (recursiveStack[cellView.model.attributes.elementid]) 
+				//console.log(cycle[1][k][l]);
 				if (cellView.model.attributes.elementid === cycle[1][k][l]){
+					//console.log("changing color...");
 						cellView.model.attr({'.outer': {'fill': color}});
 					}
 					//else {
@@ -361,10 +365,13 @@ function cycleCheck(links, vertices) {
 	// Iterate over links to create map between src node and dest node of each link
 	links.forEach(function(element){
 		var src = element.linkSrcID;
+		console.log("src = "+src);
 		if(src in graphs){
+			console.log("src in graph");
 			graphs[src].push(element.linkDestID);
 		}
 		else{
+			console.log("src not in graph");
 			graphs[src] = [element.linkDestID];
 		}
 	});
@@ -383,10 +390,24 @@ function cycleCheck(links, vertices) {
 				}
 			}
 	});
+	console.log("cycle_sublist: "+cycle_sublist);
+	console.log("cycle_list: "+cycle_list);
 	var list = [] ;
 	list.push(cycle);
 	var cycleList = checkCycleList(cycle_list,graphs);
+	console.log("cycleList: "+cycleList);
+	console.log(cycleList);
+	for(var i = 0; i < cycleList.length;++i) {
+		if(cycleList[i].length < 3) {
+			cycleList[i] = [];
+		}
+	}
+	console.log(cycleList);
+
+
+
 	list.push(cycleList);
+
 	return list;
 }
 
@@ -429,19 +450,56 @@ function isCycle(vertexId, visited, graphs,cycle_sublist,cycle_list){
 }
 
 function checkCycleList(cycle_list,graphs){
+	var returnList = [];
+
+
+	// for(var i = 0; i < cycle_list.length; ++i ){
+	// 	var temp = [];
+	// 	returnList.push(temp);
+	// 	console.log("cycle_list[i]: "+cycle_list[i]);
+
+	// 	for(var j = 0; j < cycle_list[i].length; ++j) {
+	// 		console.log("cycle_list[i]: "+cycle_list[i]);
+	// 		returnList[i].push(j);
+	// 	}
+	// }
+
+	//console.log("returnList 1:"+returnList);
+
 	for (var i = 0 ; i < cycle_list.length; i++){
-		var last = cycle_list[i].length - 1; 
-		if (graphs[cycle_list[i][last]].length === 1){
-			if (graphs[cycle_list[i][last]] !== cycle_list[i][0]){
-				vertexId = cycle_list[i].splice(0,1)
+		var last = cycle_list[i].length - 1; //cycle of 3 = 2. last index
+		console.log("i = "+i+", g = "+graphs[cycle_list[i][last]]);
+		if (graphs[cycle_list[i][last]].length === 1){ //if length of last thing is 1
+			//console.log("1 if");
+			//console.log("graphs[cycle_list[i][last]]: "+graphs[cycle_list[i][last]]);
+			//console.log("cycle_list[i][0]: "+cycle_list[i][0]);
+			console.log("1 if: g = "+graphs[cycle_list[i][last]]+" vs. c = "+cycle_list[i][0]);
+			if (graphs[cycle_list[i][last]] != cycle_list[i][0]){
+				//console.log("2 if");
+				//console.log("returnList:"+returnList);
+				//console.log("1 before: "+ cycle_list);
+				//vertexId = cycle_list[i][0];
+				vertexId = cycle_list[i].splice(0,1);
 				recursiveStack[vertexId] = false;
+				console.log("2 if: removed "+vertexId);
+				//console.log("returnList:"+returnList);
+				//console.log("1 after: "+ cycle_list);
 			}
 		}
 		else{
 			if (graphs[cycle_list[i][last]][0] !== cycle_list[i][0]){
-				cycle_list[i].splice(0,1)
+				cycle_list[i].splice(0,1);
+				console.log("else statement: cycle_list ="+ cycle_list);
 			}	
 		}
 	}
-	return cycle_list
+
+
+
+
+	console.log("final: "+ cycle_list);
+
+	//console.log("returnList:"+returnList);
+	//return returnList;
+	return cycle_list;
 }
