@@ -258,11 +258,41 @@ var ElementInspector = Backbone.View.extend({
 
       var text = this.$('.cell-attrs-text').val();
 
-      text = text.replace(/[^\w\n-]/g, ' ');
+    //   for(var i = 0; i < text.length; ++i) {
+    //     if(text.charAt(i).search(/[^\w\n-]/g) != -1) {
+    //         console.log("string contains problem char");
+    //     }
+    //   }
 
+        var pChar = text.search(/[^\w\n-]/g); //took out \w
+        console.log("pChar = " +pChar);
+        var temp = text;
+        var tempRest = "";
+        while(pChar > 0) { //iterate through all problem characters
+            if(text.charAt(pChar) != " ") { //skip spaces 
+            console.log("text before = "+text);
+            text = text.substring(0, (pChar)) + "\\" + text.substring(pChar, text.length); //update text with a backslash before problem char
+            console.log("text after = "+text);
+            }
+            temp = temp.substring(pChar, text.length); //splice temp to be the string after the space or problem char
+            console.log("temp = "+temp);
+            pChar = temp.search(/[^\w\n-]/g);
+        }
+
+    //   if(pChar > 0 && text.charAt(pChar) != " ") { 
+    //     console.log("string contains problem char");
+    //     text = text.substring(0, (pChar)) + "/" + text.substring(pChar, text.length);
+    //     console.log(text);
+    //   }
+
+
+      text = text.replace(/[^\w\n-]/g, ' ');
+      console.log("text final = "+text);
       this.cell.attr({'.name': {text: text} });
       this.intention.nodeName = text;
     },
+
+
 
     /**
      * Returns an object used for providing option tags for valid satisfaction values for

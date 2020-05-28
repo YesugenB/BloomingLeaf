@@ -386,7 +386,7 @@ function cycleCheck(links, vertices) {
 			console.log("graphs[src] = "+graphs[src]);
 			console.log("graphs[src].push " + element.linkDestID);
 			//graphs[src].push(element.linkDestID); 
-			graphs[src] = [element.linkDestID]
+			graphs[src] = [element.linkDestID];
 		}
 		else{
 			//console.log("src not in graph");

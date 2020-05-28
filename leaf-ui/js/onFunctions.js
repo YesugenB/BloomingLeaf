@@ -359,8 +359,10 @@ function createLink(cell) {
  */
 function createIntention(cell) {
 
-    var name = cell.attr(".name/text") + "_" + Intention.numOfCreatedInstances;
+    var name = cell.attr(".name/text") + "_" + Intention.numOfCreatedInstances; //*
+   // checkStringForProblemCharacters(name);
     cell.attr(".name/text", name);
+
 
     // create intention object
     var type = cell.attributes.type;
@@ -401,7 +403,7 @@ function createIntention(cell) {
  * @param {joint.dia.Cell} cell
  */
 function createActor(cell) {
-	var name = cell.attr('.name/text') + "_" + Actor.numOfCreatedInstances;
+	var name = cell.attr('/text') + "_" + Actor.numOfCreatedInstances;
 	var actor = new Actor(name);
     cell.attr(".name/text", name);
 	cell.attributes.nodeID = actor.nodeID;
