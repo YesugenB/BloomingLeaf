@@ -358,7 +358,7 @@ function createLink(cell) {
  * @param {joint.dia.Cell} cell
  */
 function createIntention(cell) {
-
+    console.log("cell.attr(\".name/text\") = "+cell.attr(".name/text"));
     var name = cell.attr(".name/text") + "_" + Intention.numOfCreatedInstances; //*
    // checkStringForProblemCharacters(name);
     cell.attr(".name/text", name);
@@ -378,7 +378,7 @@ function createIntention(cell) {
     // when the intention is removed, remove the intention from the global
     // model variable as well
     cell.on("remove", function () {
-        console.log("cell.on(\"remove\", function")
+       // console.log("cell.on(\"remove\", function")
     	clearInspector();
     	var userIntention = model.getIntentionByID(cell.attributes.nodeID);
     	// remove this intention from the model
@@ -404,7 +404,9 @@ function createIntention(cell) {
  * @param {joint.dia.Cell} cell
  */
 function createActor(cell) {
-	var name = cell.attr('/text') + "_" + Actor.numOfCreatedInstances;
+   // console.log("cell.attr('/text') = "+cell.attr('/text'));
+   console.log("cell.attr('.name/text') = "+cell.attr('.name/text'));
+	var name = cell.attr('.name/text') + "_" + Actor.numOfCreatedInstances;
 	var actor = new Actor(name);
     cell.attr(".name/text", name);
 	cell.attributes.nodeID = actor.nodeID;
@@ -940,7 +942,7 @@ graph.on('remove', function(cell) {
         //console.log("hello");
         //console.log(model.getIntentionByID(cell.attributes.nodeID));
         var userIntention = model.getIntentionByID(cell.attributes.nodeID);
-        console.log("userIntention = "+userIntention);
+       // console.log("userIntention = "+userIntention);
         // remove this intention from the model
         //model.removeIntention(userIntention.nodeID);
         model.removedynamicFunction(userIntention.nodeID);
