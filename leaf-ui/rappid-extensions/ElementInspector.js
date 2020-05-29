@@ -265,17 +265,17 @@ var ElementInspector = Backbone.View.extend({
     //   }
 
         var pChar = text.search(/[^\w\n-]/g); //took out \w
-        console.log("pChar = " +pChar);
+       // console.log("pChar = " +pChar);
         var temp = text;
         var tempRest = "";
         while(pChar > 0) { //iterate through all problem characters
             if(text.charAt(pChar) != " ") { //skip spaces 
-            console.log("text before = "+text);
+          //  console.log("text before = "+text);
             text = text.substring(0, (pChar)) + "\\" + text.substring(pChar, text.length); //update text with a backslash before problem char
-            console.log("text after = "+text);
+          //  console.log("text after = "+text);
             }
             temp = temp.substring(pChar, text.length); //splice temp to be the string after the space or problem char
-            console.log("temp = "+temp);
+           // console.log("temp = "+temp);
             pChar = temp.search(/[^\w\n-]/g);
         }
 
@@ -287,7 +287,7 @@ var ElementInspector = Backbone.View.extend({
 
 
       text = text.replace(/[^\w\n-]/g, ' ');
-      console.log("text final = "+text);
+      //console.log("text final = "+text);
       this.cell.attr({'.name': {text: text} });
       this.intention.nodeName = text;
     },

@@ -378,10 +378,11 @@ function createIntention(cell) {
     // when the intention is removed, remove the intention from the global
     // model variable as well
     cell.on("remove", function () {
+        console.log("cell.on(\"remove\", function")
     	clearInspector();
     	var userIntention = model.getIntentionByID(cell.attributes.nodeID);
     	// remove this intention from the model
-        model.removeIntention(userIntention.nodeID);
+       // model.removeIntention(userIntention.nodeID); //this needs to happen later because removedynamicFunction etc require the nodeID to still exist
         // remove all intention evaluations associated with this intention
         analysisRequest.removeIntention(userIntention.nodeID);
 
@@ -705,7 +706,7 @@ graph.on("change", function(){
 	var graphtext = JSON.stringify(graph.toJSON());
 	document.cookie = "graph=" + graphtext;
     if (Tracking){
-    	console.log("User Tracking - Recorded");
+    	//console.log("User Tracking - Recorded");
         var timestamp = new Date().toUTCString();
         updateDataBase(graph, timestamp);
         accessDatabase("insert ignore into graphs(session_id,content,timestamp) values " +
@@ -939,6 +940,7 @@ graph.on('remove', function(cell) {
         //console.log("hello");
         //console.log(model.getIntentionByID(cell.attributes.nodeID));
         var userIntention = model.getIntentionByID(cell.attributes.nodeID);
+        console.log("userIntention = "+userIntention);
         // remove this intention from the model
         //model.removeIntention(userIntention.nodeID);
         model.removedynamicFunction(userIntention.nodeID);
@@ -951,6 +953,7 @@ graph.on('remove', function(cell) {
             var actor = model.getActorByID(userIntention.nodeActorID);
             actor.removeIntentionID(userIntention.nodeID, analysisRequest.userAssignmentsList);
         }
+        model.removeIntention(userIntention.nodeID); 
     }
     else if((!cell.isLink()) && (cell["attributes"]["type"]=="basic.Actor")){
         //To remove actor

@@ -141,7 +141,7 @@ class Model {
      * @param {String} nodeID
      */
     removeIntention(nodeID) {
-
+        console.log("in function removeIntention()");
         // remove the intention from the intentions array
         for (var i = 0; i < this.intentions.length; i++) {
             if (this.intentions[i].nodeID == nodeID) {
@@ -149,7 +149,7 @@ class Model {
                 break;
             }
         }
-
+        
         // remove all constraints associated with the intention
         var i = 0;
         while (i < this.constraints.length) {
@@ -164,7 +164,7 @@ class Model {
 
 
 
-
+        console.log("leaving function removeIntention()");
     }
 
     removedynamicFunction(nodeID){
