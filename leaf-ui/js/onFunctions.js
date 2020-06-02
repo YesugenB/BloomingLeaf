@@ -197,6 +197,10 @@ function switchToModellingMode() {
     $('#modelingSlider').css("display", "");
     $('#analysisSlider').css("display", "none");
    // sliderOption = 0;
+   if(sliderOption == 1 | sliderOption == 2) {
+       sliderOption = '1';
+   }
+   document.getElementById("colorReset").value = sliderOption;
     refreshColorVis();
 
 	$('#sliderValue').text("");
@@ -325,7 +329,7 @@ function refreshColorVis(){
             }
             else {
             console.log("filling intentions by: "+sliderOption);
-            changeIntentionsColorVis(false);
+            changeIntentionsColorVis();
             changeIntentionsText(true) 
             }
             break;

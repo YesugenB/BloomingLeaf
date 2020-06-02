@@ -106,8 +106,8 @@ function responseFunc(isGetNextSteps, response){
 				 analysisResult.isPathSim = true;
 				 $('#modelingSlider').css("display", "none");
 				 $('#analysisSlider').css("display", "");
-				 sliderOption = 0;
-				 refreshColorVis()
+				 document.getElementById("colorResetAnalysis").value = sliderOption;
+				 refreshColorVis();
 
 				 var percentagePerEvaluation = 0.0;
 				
@@ -195,7 +195,7 @@ function defineGradient(element) {
 
  //color intentions by their evaluation information from simulate single path
  // previously changeIntentionsByPercentage
- function changeIntentionsColorVis(isByTimePoint)
+ function changeIntentionsColorVis()
  {
 	 var count = 1;
 	 var elements = graph.getElements(); 
