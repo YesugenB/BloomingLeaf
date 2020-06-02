@@ -481,7 +481,11 @@ select > .select-placeholder {
   position: relative;
   top: -20px;
 }
-#color-button {
+#colorResetAnalysis{
+  position: relative;
+  top: -20px;
+}
+.color-button {
   cursor: pointer;
   display: inline-block;
   height: 35px;

@@ -311,6 +311,15 @@ slider.oninput = function() { //turns slider on/off and refreshes
   refreshColorVis();
 }
 
+var slider = document.getElementById("colorResetAnalysis");
+var on = false;
+slider.oninput = function() { //turns slider on/off and refreshes
+  on = !on;
+  refreshColorVis();
+}
+
+
+
 /**
  * Set up tool bar button on click functions
  */
