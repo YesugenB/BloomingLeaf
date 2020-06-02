@@ -484,6 +484,7 @@ select > .select-placeholder {
 #colorResetAnalysis{
   position: relative;
   top: -20px;
+  width: 65px;
 }
 .color-button {
   cursor: pointer;
@@ -509,6 +510,7 @@ select > .select-placeholder {
   -webkit-transition: .2s; /* 0.2 seconds transition on hover */
   transition: opacity .2s;
 }
+
 /* Mouse-over effects */
 .slider:hover {
   opacity: 1; /* Fully shown on mouse-over */

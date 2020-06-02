@@ -104,6 +104,11 @@ function responseFunc(isGetNextSteps, response){
 
 				 analysisResult.colorVis = new ColorVisual(results.elementList.length);
 				 analysisResult.isPathSim = true;
+				 $('#modelingSlider').css("display", "none");
+				 $('#analysisSlider').css("display", "");
+				 sliderOption = 0;
+				 refreshColorVis()
+
 				 var percentagePerEvaluation = 0.0;
 				
 				 //calculate evaluation percentages and other data for ColorVis
@@ -134,17 +139,18 @@ function responseFunc(isGetNextSteps, response){
 
 
 
-function defineGradient(element, isByTimePoint) {
+function defineGradient(element) {
+	//console.log("sliderOption = "+sliderOption);
 		var gradientStops = [];	
 		var offsetTotal = 0.0;
 		
-		if(isByTimePoint) {
+		if(sliderOption == 2) {
 			var percentPerTimePoint = 1.0 / element.timePoints.length;
 			var timePointColor;
-			console.log("percentPerTimePoint = "+percentPerTimePoint);
+			//console.log("percentPerTimePoint = "+percentPerTimePoint);
 			for(var j = 0; j < element.timePoints.length; ++j) {
 				timePointColor = ColorVisual.colorVisDict[element.timePoints[j]];
-				console.log("timePointColor = "+timePointColor);
+				//console.log("timePointColor = "+timePointColor);
 				//before buffer
 				offsetTotal += 0.001;
 				gradientStops.push({offset: String(offsetTotal*100) + '%',
@@ -184,9 +190,6 @@ function defineGradient(element, isByTimePoint) {
 		stops: gradientStops
 	});
 
-	console.log("gradient ID =");
-	console.log(gradientId);
-
 	return gradientId;
 }
 
@@ -212,7 +215,7 @@ function defineGradient(element, isByTimePoint) {
 		 var element = analysisResult.colorVis.intentionListColorVis[i - actorBuffer];
 			 if(intention != null && element != null) {
 
-				var gradientID = defineGradient(element, isByTimePoint);
+				var gradientID = defineGradient(element);
 				cellView.model.attr({'.outer' : {'fill' : 'url(#' + gradientID + ')'}});
 			 }
 	 }
