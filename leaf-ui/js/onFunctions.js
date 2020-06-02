@@ -293,7 +293,7 @@ function refreshColorVis(){
         changeIntentionsText(false)
     }
     else if( on && analysisResult.isPathSim){ //slider is on and a single path is simulated in analysis mode
-        changeIntentionsByPercentage();
+        changeIntentionsColorVis(true);
         changeIntentionsText(true)
     }else if(!on){ //slider is off
         returnAllColors();

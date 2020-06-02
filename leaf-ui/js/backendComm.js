@@ -5,7 +5,7 @@ function backendComm(jsObject){
 	/**
 	* Print the input to the console.
 	*/
-	console.log(JSON.stringify(jsObject));
+	//console.log(JSON.stringify(jsObject));
 	console.log(jsObject.analysisRequest.action);
 
 	console.log(nodeServer);
@@ -90,7 +90,7 @@ function responseFunc(isGetNextSteps, response){
 					 open_analysis_viewer();
 			} else {
 				var resultsString = JSON.stringify(results);
-				 console.log(JSON.stringify(results)); 
+				 //console.log(JSON.stringify(results)); 
 				 savedAnalysisData.singlePathResult = results;
 				 analysisResult.assignedEpoch = results.assignedEpoch;
 				 analysisResult.timePointPath = results.timePointPath;
@@ -106,16 +106,19 @@ function responseFunc(isGetNextSteps, response){
 				 analysisResult.isPathSim = true;
 				 var percentagePerEvaluation = 0.0;
 				
-				 //calculate evaluation percentages and other data ColorVis
+				 //calculate evaluation percentages and other data for ColorVis
 				 for(var i = 0; i < results.elementList.length; ++i) 
 				 {
 					 analysisResult.colorVis.intentionListColorVis[i].id = results.elementList[i].id;
 					 analysisResult.colorVis.intentionListColorVis[i].numEvals = analysisResult.elementList[i].status.length;
  
 					 percentPerEvaluation = 1.0 / analysisResult.colorVis.intentionListColorVis[i].numEvals;
+					 //console.log("element = "+results.elementList[i].id);
 					 for(var k = 0; k < analysisResult.colorVis.intentionListColorVis[i].numEvals; ++k) 
 					 { 
 							 var eval = analysisResult.elementList[i].status[k]; 
+							 analysisResult.colorVis.intentionListColorVis[i].timePoints.push(eval); //for fill intention by timepoint
+							 //console.log("eval = "+analysisResult.colorVis.intentionListColorVis[i].timePoints[k]);
 							 var newPercent = analysisResult.colorVis.intentionListColorVis[i].evals[eval];
 							 newPercent += percentPerEvaluation;
 							 analysisResult.colorVis.intentionListColorVis[i].evals[eval] = newPercent;
@@ -131,11 +134,33 @@ function responseFunc(isGetNextSteps, response){
 
 
 
-function defineGradient(element) {
+function defineGradient(element, isByTimePoint) {
 		var gradientStops = [];	
 		var offsetTotal = 0.0;
 		
-		for(var j = 0; j < ColorVisual.numEvals; ++j) {
+		if(isByTimePoint) {
+			var percentPerTimePoint = 1.0 / element.timePoints.length;
+			var timePointColor;
+			console.log("percentPerTimePoint = "+percentPerTimePoint);
+			for(var j = 0; j < element.timePoints.length; ++j) {
+				timePointColor = ColorVisual.colorVisDict[element.timePoints[j]];
+				console.log("timePointColor = "+timePointColor);
+				//before buffer
+				offsetTotal += 0.001;
+				gradientStops.push({offset: String(offsetTotal*100) + '%',
+				color: ColorVisual.colorVisDict[element.timePoints[j]]})
+				//element color
+				offsetTotal += percentPerTimePoint - 0.002;
+				gradientStops.push({offset: String(offsetTotal*100) + '%',
+				color: ColorVisual.colorVisDict[element.timePoints[j]]})
+				//after buffer
+				offsetTotal += 0.001;
+				gradientStops.push({offset: String(offsetTotal*100) + '%',
+				color: ColorVisual.colorVisDict[element.timePoints[j]]})
+			}
+		}
+		else {
+			for(var j = 0; j < ColorVisual.numEvals; ++j) {
 			var eval = ColorVisual.colorVisOrder[j];
 			if(element.evals[eval] > 0) {
 				//before buffer
@@ -152,25 +177,22 @@ function defineGradient(element) {
 				color: ColorVisual.colorVisDict[eval]})
 			}
 		}
+	}
 		
 	var gradientId = paper.defineGradient({
 		type: 'linearGradient',
 		stops: gradientStops
 	});
 
+	console.log("gradient ID =");
+	console.log(gradientId);
+
 	return gradientId;
 }
 
-function defineTimePointGradient(){
-
-}
-
-function changeIntentionsByTimePoints() {
-
-}
-
  //color intentions by their evaluation information from simulate single path
- function changeIntentionsByPercentage()
+ // previously changeIntentionsByPercentage
+ function changeIntentionsColorVis(isByTimePoint)
  {
 	 var count = 1;
 	 var elements = graph.getElements(); 
@@ -190,78 +212,8 @@ function changeIntentionsByTimePoints() {
 		 var element = analysisResult.colorVis.intentionListColorVis[i - actorBuffer];
 			 if(intention != null && element != null) {
 
-				var gradientID = defineGradient(element);
+				var gradientID = defineGradient(element, isByTimePoint);
 				cellView.model.attr({'.outer' : {'fill' : 'url(#' + gradientID + ')'}});
- 
-				//  var offsetPercents = [];
-				//  var offsetColors = [];
-				//  var numOffsets = 0;
-				//  var offsetTotal = 0.0;
-				//  var lastIndex = 0;
-
-				// for(var j = 0; j < ColorVisual.numEvals; ++j) //iterate through evaluations
-				//  {
-				// 	var eval = ColorVisual.colorVisOrder[j];
-
-				// 	 if(element.evals[eval] > 0)
-				// 	 {
-				// 		 //before buffer
-				// 		 offsetTotal += 0.001;
-				// 		 offsetPercents.push(offsetTotal)
-				// 		 offsetColors.push(ColorVisual.colorVisDict[eval]);
-	 
-				// 		 //actual color chunk
-				// 		 offsetTotal += element.evals[eval] - 0.002;
-				// 		 offsetPercents.push(offsetTotal);
-				// 		 offsetColors.push(ColorVisual.colorVisDict[eval]);
-						 
-				// 		 lastIndex = eval;	 
-				// 		 //after buffer
-				// 		 offsetTotal += 0.001;
-				// 		 offsetPercents.push(offsetTotal);
-				// 		 offsetColors.push(ColorVisual.colorVisDict[eval]);
-						 
-				// 		 numOffsets += 3;
-				// 	 }
-				//  }
-	 
-				//  while(numOffsets <= 24)
-				//  {
-				// 	 offsetPercents.push(100);
-				// 	 offsetColors.push(ColorVisual.colorVisDict[lastIndex]);
-				// 	 ++numOffsets;
-				//  }	 
-			// 	 cellView.model.attr({'.outer' : {'fill' :
-			// 	 {
-			// 	  type: 'linearGradient',
-			// 	 stops: [
-			// 		 { offset: offsetPercents[0], color: offsetColors[0]},
-			// 		 { offset: offsetPercents[1], color: offsetColors[1]},
-			// 		 { offset: offsetPercents[2], color: offsetColors[2]},
-			// 		 { offset: offsetPercents[3], color: offsetColors[3]},
-			// 		 { offset: offsetPercents[4], color: offsetColors[4]},
-			// 		 { offset: offsetPercents[5], color: offsetColors[5]},
-			// 		 { offset: offsetPercents[6], color: offsetColors[6]},
-			// 		 { offset: offsetPercents[7], color: offsetColors[7]},
-			// 		 { offset: offsetPercents[8], color: offsetColors[8]},
-			// 		 { offset: offsetPercents[9], color: offsetColors[9]},
-			// 		 { offset: offsetPercents[10], color: offsetColors[10]},
-			// 		 { offset: offsetPercents[11], color: offsetColors[11]},
-			// 		 { offset: offsetPercents[12], color: offsetColors[13]},
-			// 		 { offset: offsetPercents[14], color: offsetColors[14]},
-			// 		 { offset: offsetPercents[15], color: offsetColors[15]},
-			// 		 { offset: offsetPercents[16], color: offsetColors[16]},
-			// 		 { offset: offsetPercents[17], color: offsetColors[17]},
-			// 		 { offset: offsetPercents[18], color: offsetColors[18]},
-			// 		 { offset: offsetPercents[19], color: offsetColors[19]},
-			// 		 { offset: offsetPercents[20], color: offsetColors[20]},
-			// 		 { offset: offsetPercents[21], color: offsetColors[21]},
-			// 		 { offset: offsetPercents[22], color: offsetColors[22]},
-			// 		 { offset: offsetPercents[23], color: offsetColors[23]},
-			// 		 { offset: offsetPercents[24], color: offsetColors[24]}
-			// 	 ]
-			//   }
-			//   }});			  
 			 }
 	 }
  }

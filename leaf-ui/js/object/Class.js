@@ -336,6 +336,7 @@ class intentionColorVis{
         this.id;
         this.numEvals;
         this.evals;
+        this.timePoints = []; //array of evals at each time point
 
         this.initializeEvalDict();
     }
@@ -396,7 +397,7 @@ class ColorVisual {
 
     constructor(numIntentions) {
         this.numIntentions = numIntentions;
-        this.intentionListColorVis = [];        
+        this.intentionListColorVis = [];
         this.initializeIntentionListColorVis();
     }      
 
