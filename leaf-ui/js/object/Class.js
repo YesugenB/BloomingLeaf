@@ -197,6 +197,7 @@ class Model {
      * @param {String} linkID
      */
     removeLink(linkID) {
+        console.log("removing link "+linkID);
         for (var i = 0; i < this.links.length; i++) {
         }
         for (var i = 0; i < this.links.length; i++) {
@@ -804,6 +805,7 @@ class Intention {
      * @param {String} initValue
      */
     changeInitialSatValue(initValue) {
+        console.log("inside changeInitialSatValue");
         var intentionEval = analysisRequest.getUserEvaluationByID(this.nodeID, '0');
         intentionEval.evaluationValue = initValue;
 

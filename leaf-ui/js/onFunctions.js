@@ -199,10 +199,97 @@ function switchToModellingMode() {
 	mode = "Modelling";
 }
 
+function setSatValByNodeName(nodeName, newEval) {
+    var elements = graph.getElements();
+    var nodeID = "";
+    for (var i = 0; i < elements.length; i++) { //find intention to undo ISV
+        var curr = elements[i].findView(paper).model;
+        var intention = model.getIntentionByID(curr.attributes.nodeID);
+       console.log("intention = ");
+       console.log(intention);
+       console.log("curr = ");
+       console.log(curr);
+        if(intention.nodeName == nodeName){ //found node
+            nodeID = intention.nodeID;
+            console.log("found node ID:"+nodeID);
+            if (newEval == '(no value)') {
+                intention.cell.attr('.satvalue/text', '');
+            } else {
+                intention.cell.attr('.satvalue/text', satisfactionValuesDict[initSatVal].satValue);
+            }
+            break;
+        }
+    }
+    
+    
+}
+
 /**
  * Set up tool bar button on click functions
  */
 $('#btn-undo').on('click', _.bind(commandManager.undo, commandManager));
+$('#btn-undo').on('click', function(){
+//console.log("undo function");
+//var move = commandManager.storeBatchCommand();
+console.log("undo: "+commandManager.hasUndo());
+
+
+console.log("undoStack = ");
+console.log(commandManager.undoStack);
+console.log(commandManager.undoStack[0]);
+
+//console.log("data.next.text: "+commandManager.undoStack[1].data.next.text);
+console.log("commandManager.undoStack: ");
+console.log(commandManager.undoStack);
+if(commandManager.undoStack != null && commandManager.undoStack[commandManager.undoStack.length - 1] != null) { //for undoing ISV
+index = commandManager.undoStack.length - 1;
+console.log("commandManager.undoStack[index]");
+console.log(commandManager.undoStack[index]);
+var newEval = commandManager.undoStack[index].options.propertyValue;
+console.log("options.propertyValue: "+newEval);
+console.log("to binary: "+satValToBinary[newEval]);
+
+var nodeName = commandManager.undoStack[index].data.next.attrs[".name"].text;
+console.log("nodeName ="+nodeName);
+setSatValByNodeName(nodeName, newEval);
+
+}
+
+//undoing function type selection
+
+
+// for (var i = 0; i < elements.length; i++) {
+//     var curr = elements[i].findView(paper).model;
+//     var intention = model.getIntentionByID(curr.attributes.nodeID);
+//     var initSatVal = intention.getInitialSatValue();
+   // console.log("initSatVal = "+initSatVal);
+
+
+    //want to change initSatVal to match what is displayed after undo
+
+   // var initValue = elementInspector.$('#init-sat-value').val();
+   // elementInspector.intention.changeInitialSatValue(satValueDict[initValue]);
+
+    //console.log("initValue = "+initValue);
+
+   // var cellView  = elements[i].findView(paper);
+    //elementInspector.render(cellView.model);
+    //elementInspector.updateHTML(null);
+
+
+    // elements[i].removeAttr(".satvalue/d");
+	// elements[i].attr(".constraints/lastval", "none");
+	// elements[i].attr(".funcvalue/text", " ");
+	// var cellView  = elements[i].findView(paper);
+	// elementInspector.render(cellView.model);
+	// elementInspector.$('#init-sat-value').val("none"); //want to pass in whatever is displayed: goes to from undo
+    // elementInspector.updateHTML(null);
+    
+  //  console.log("markedValue: "+satvalues[elementInspector.$('#markedValue').val()]);
+//}
+
+});
+
 $('#btn-redo').on('click', _.bind(commandManager.redo, commandManager));
 $('#btn-clear-all').on('click', function(){
 	graph.clear();
@@ -358,7 +445,7 @@ function createLink(cell) {
  * @param {joint.dia.Cell} cell
  */
 function createIntention(cell) {
-    console.log("cell.attr(\".name/text\") = "+cell.attr(".name/text"));
+    //console.log("cell.attr(\".name/text\") = "+cell.attr(".name/text"));
     var name = cell.attr(".name/text") + "_" + Intention.numOfCreatedInstances; //*
    // checkStringForProblemCharacters(name);
     cell.attr(".name/text", name);
@@ -405,7 +492,7 @@ function createIntention(cell) {
  */
 function createActor(cell) {
    // console.log("cell.attr('/text') = "+cell.attr('/text'));
-   console.log("cell.attr('.name/text') = "+cell.attr('.name/text'));
+  // console.log("cell.attr('.name/text') = "+cell.attr('.name/text'));
 	var name = cell.attr('.name/text') + "_" + Actor.numOfCreatedInstances;
 	var actor = new Actor(name);
     cell.attr(".name/text", name);
@@ -429,6 +516,7 @@ var current_font = 10;
 
 // Whenever an element is added to the graph
 graph.on("add", function(cell) {
+    console.log("in function graph.on add");
 
 	if (cell instanceof joint.dia.Link){
         if (graph.getCell(cell.get("source").id) instanceof joint.shapes.basic.Actor){
@@ -916,6 +1004,7 @@ function embedBasicActor(cell) {
 
 
 graph.on('change:size', function(cell, size) {
+    console.log("in change size function");
 	cell.attr(".label/cx", 0.25 * size.width);
 
 	// Calculate point on actor boundary for label (to always remain on boundary)
@@ -928,18 +1017,20 @@ graph.on('change:size', function(cell, size) {
 
 
 graph.on('remove', function(cell) {
+    console.log("entering remove function");
     //TODO: What I have changed
     if(cell.isLink() && !(cell.prop("link-type") == 'NBT' || cell.prop("link-type") == 'NBD')){
         //To remove link
+       
         var link = cell;
         clearInspector();
-        model.removeLink(link.linkID);
+        //console.log("removing link "+link.linkID);
+       // model.removeLink(link.linkID); // already removed above
     }
 
     else if((!cell.isLink()) && (!(cell["attributes"]["type"]=="basic.Actor"))){
         //To remove intentions
         clearInspector();
-        //console.log("hello");
         //console.log(model.getIntentionByID(cell.attributes.nodeID));
         var userIntention = model.getIntentionByID(cell.attributes.nodeID);
        // console.log("userIntention = "+userIntention);
@@ -955,6 +1046,7 @@ graph.on('remove', function(cell) {
             var actor = model.getActorByID(userIntention.nodeActorID);
             actor.removeIntentionID(userIntention.nodeID, analysisRequest.userAssignmentsList);
         }
+        console.log("removing intention "+userIntention.nodeID);
         model.removeIntention(userIntention.nodeID); 
     }
     else if((!cell.isLink()) && (cell["attributes"]["type"]=="basic.Actor")){

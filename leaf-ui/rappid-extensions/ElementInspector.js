@@ -171,7 +171,7 @@ var ElementInspector = Backbone.View.extend({
      * Initializes the element inspector using previously defined templates
      */
     render: function(cell) {
-
+        console.log("inside render element inspecter function");
         this.cell = cell; // Save the clicked node's backbone model
 
         // Save the Intention object from the global model variable to
@@ -401,6 +401,7 @@ var ElementInspector = Backbone.View.extend({
      * This function is called on change for #init-sat-value,
      */
     initSatValueChanged: function(event) {
+        console.log("inside initSatValueChanged");
         var initValue = this.$('#init-sat-value').val();
         this.intention.changeInitialSatValue(satValueDict[initValue]);
         this.checkInitialSatValue();
@@ -459,6 +460,7 @@ var ElementInspector = Backbone.View.extend({
      * This function is called on change for .user-function-type
      */
     updateHTML: function(event) {
+       console.log("inside function updateHTML for element inspector");
 
         // Check if selected init sat value and functionType pair is illegal
         this.validityCheck(event);
@@ -477,6 +479,7 @@ var ElementInspector = Backbone.View.extend({
             this.$('#user-constraints').show("fast");
             this.addUDFunctionValues(null);
         } else {
+            //console.log("functionType not UD");
 
             if (funcWithSatValue.includes(functionType)) {
                 // Function with an associated satisfaction value
@@ -540,6 +543,7 @@ var ElementInspector = Backbone.View.extend({
      * select element (#markedValue) for the associated satisfaction value.
      */
     displayFunctionSatValue: function(event) {
+        console.log("inside displayFunctionSatValue");
         var functionType = this.$('.function-type').val();
         var initValue = this.$('#init-sat-value').val();
         var markedValue = this.intention.dynamicFunction.getLastMarkedVal();
@@ -621,6 +625,7 @@ var ElementInspector = Backbone.View.extend({
      * satisfaction value(s)
      */
     updateChart: function(event) {
+        console.log("inside updateChart");
         var funcType = this.intention.dynamicFunction.stringDynVis;
         var initVal = satisfactionValuesDict[this.intention.getInitialSatValue()].chartVal;
         var satVal = satvalues[this.$('#markedValue').val()];

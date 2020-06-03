@@ -231,6 +231,19 @@ var satisfactionValuesDict = {
 	}
 };
 
+var satValToBinary = { //for undoing initial satisfaction values and function type
+    "(⊥, ⊥)" : "0000",
+    "(P, ⊥)" : "0010",
+    "(F, ⊥)" : "0011",
+    "(⊥, P)" : "0100",
+    "(P, P)" : "0110",
+    "(F, P)" : "0111",
+    "(⊥, F)" : "1100",
+    "(P, F)" : "1110",
+    "(F, F)" : "1111",
+    "(no value)" : '(no value)'
+}
+
 // Required to convert old JSON models into 
 // new JSON models.
 // loadSaveFunctions.js needs this
