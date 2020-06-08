@@ -210,13 +210,17 @@ function setSatValByNodeName(nodeName, newEval) {
        console.log("curr = ");
        console.log(curr);
         if(intention.nodeName == nodeName){ //found node
+            intention.changeInitialSatValue(newEval);
             nodeID = intention.nodeID;
+            console.log(intention.getInitialSatValue());
             console.log("found node ID:"+nodeID);
-            if (newEval == '(no value)') {
-                intention.cell.attr('.satvalue/text', '');
-            } else {
-                intention.cell.attr('.satvalue/text', satisfactionValuesDict[initSatVal].satValue);
-            }
+            // if (newEval == '(no value)') {
+            //     intention.cell.attr('.satvalue/text', '');
+            // } else {
+            //     intention.cell.attr('.satvalue/text', satisfactionValuesDict[initSatVal].satValue);
+            // }
+           elementInspector.$('#init-sat-value').val(satisfactionValuesDict[intention.getInitialSatValue()].name); 
+           elementInspector.initSatValueChanged();
             break;
         }
     }
@@ -239,21 +243,61 @@ console.log(commandManager.undoStack);
 console.log(commandManager.undoStack[0]);
 
 //console.log("data.next.text: "+commandManager.undoStack[1].data.next.text);
-console.log("commandManager.undoStack: ");
-console.log(commandManager.undoStack);
-if(commandManager.undoStack != null && commandManager.undoStack[commandManager.undoStack.length - 1] != null) { //for undoing ISV
-index = commandManager.undoStack.length - 1;
-console.log("commandManager.undoStack[index]");
-console.log(commandManager.undoStack[index]);
-var newEval = commandManager.undoStack[index].options.propertyValue;
-console.log("options.propertyValue: "+newEval);
-console.log("to binary: "+satValToBinary[newEval]);
+//console.log("commandManager.undoStack: ");
+//console.log(commandManager.undoStack);
 
-var nodeName = commandManager.undoStack[index].data.next.attrs[".name"].text;
-console.log("nodeName ="+nodeName);
-setSatValByNodeName(nodeName, newEval);
+if(commandManager.hasRedo && commandManager.redoStack[commandManager.redoStack.length - 1][0] == null) {
+var lastCommand = commandManager.redoStack[commandManager.redoStack.length - 1];
+console.log("lastCommand = ");
+console.log(lastCommand);
 
+var lastCommandAction = lastCommand.options.propertyPath;
+
+if(lastCommandAction == "attrs/.satvalue/text") { //revert initial sat value
+console.log("revert initial sat value");
 }
+else if(lastCommandAction == "attrs/.funcvalue/text") { //revert initial function assignment
+console.log("revert initial function assignment");
+}
+}
+
+// if(commandManager.undoStack != null && commandManager.undoStack[commandManager.undoStack.length - 1] != null) { 
+//     var stackLastIndex = commandManager.undoStack.length - 1;
+//     var curr = commandManager.undoStack[stackLastIndex];
+//     if(curr.action == "change:attrs") {
+//         //refer to stack lastInitialSatVal or lastFunction?
+//         curr = curr.options;
+        
+//     } else if(curr[1] != null && curr[1].action == "change:attrs") {
+//         curr = curr[1].options;
+//     } else if(curr[0] != null && curr[0].action == "change:attrs") {
+//         curr = curr[0].options;
+//     } else {
+//         curr = null;
+//     }
+// }
+// console.log("curr = ");
+// console.log(curr);
+// if(curr != null && curr.propertyPath == "attrs/.satvalue/text") {
+// console.log("know to change init sat val");
+// }
+
+
+// if(commandManager.undoStack != null && commandManager.undoStack[commandManager.undoStack.length - 1] != null) { //for undoing ISV
+// index = commandManager.undoStack.length - 1;
+// console.log("commandManager.undoStack[index]");
+// console.log(commandManager.undoStack[index]);
+// if(commandManager.undoStack[index].options != null) { //undo is setting the node to its previous ISV
+// var newEval = commandManager.undoStack[index].options.propertyValue;
+// console.log("options.propertyValue: "+newEval);
+// console.log("to binary: "+satValToBinary[newEval]);
+// var nodeName = commandManager.undoStack[index].data.next.attrs[".name"].text;
+// console.log("nodeName ="+nodeName);
+// setSatValByNodeName(nodeName, satValToBinary[newEval]);
+// } else { //undo is removing the ISV
+//     var nodeName = commandManager.undoStack[index][0].data;
+// }
+// }
 
 //undoing function type selection
 

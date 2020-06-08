@@ -795,6 +795,8 @@ class Intention {
         this.nodeType = nodeType;
         this.nodeName = nodeName;
         this.dynamicFunction = new EvolvingFunction(this.nodeID);
+        this.lastInitialSatVal = []; //megan: tracking undos
+        this.lastFunction = []; //tracking undos
     }
 
     /**
@@ -807,6 +809,7 @@ class Intention {
     changeInitialSatValue(initValue) {
         console.log("inside changeInitialSatValue");
         var intentionEval = analysisRequest.getUserEvaluationByID(this.nodeID, '0');
+        this.lastInitialSatVal.push(intentionEval);
         intentionEval.evaluationValue = initValue;
 
         // if there is only one function segment, and its constant, then we need to
