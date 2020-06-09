@@ -334,7 +334,7 @@ class intentionColorVis{
     constructor()
     {
         this.id;
-        this.numEvals;
+        this.numEvals; //should put this in ColorVisual because it is consistent for all nodes
         this.evals;
         this.timePoints = []; //array of evals at each time point
 

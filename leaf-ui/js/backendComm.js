@@ -132,7 +132,7 @@ function responseFunc(isGetNextSteps, response){
 			 }
 		 }
 	 }
-	ColorVisual.curTimePoint = analysisResult.colorVis.intentionListColorVis[0].numEvals; 
+	//ColorVisual.curTimePoint = analysisResult.colorVis.intentionListColorVis[0].numEvals; 
 	//TODO: numEvals is the same for every intention, it should not be a separate variable for each intention :/
 	generateColorVisConsoleReport();
 	analysisResult.isPathSim = true;
@@ -232,15 +232,11 @@ function defineGradient(element) {
 				cellView.model.attr({'.outer' : {'fill' : 'url(#' + gradientID + ')'}});
 				 }
 				 else {
-					var timepoint = ColorVisual.curTimePoint;//get timepoint lol
+					var timepoint = ColorVisual.curTimePoint;
 					//TODO: delete instance of ColorVisual when switching to modeling mode
-					//TODO: every move on the timepoint slider must refresh EVO
-					//var index = timepoint;
-					//sliderObject.sliderValueElement;
-					//$('#sliderValue').text() ? $('#sliderValue').text() : '0';
-					//document.getElementById('sliderValue');
+					//TODO: fix bug that gives invalid timepoint immediately after simulating a single path
 					var eval = element.timePoints[timepoint];
-					console.log("eval at timepoint "+timepoint+" = "+eval);
+					//console.log("eval at timepoint "+timepoint+" = "+eval);
 					var color = ColorVisual.colorVisDict[eval];
 					cellView.model.attr({'.outer' : {'fill' : color}})
 				 }

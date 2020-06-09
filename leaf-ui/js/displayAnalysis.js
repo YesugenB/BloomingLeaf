@@ -11,7 +11,7 @@
  *   Object which contains data gotten from back end
  */
 function displayAnalysis(analysisResults){
-
+    console.log("inside displayAnalysis");
     // Change the format of the analysis result from the back end
     var currentAnalysis = new analysisObject.initFromBackEnd(analysisResults);
     currentAnalysis.type = "Single Path";
@@ -70,6 +70,8 @@ function createSlider(currentAnalysis, isSwitch) {
 
     // Set initial value of the slider
     sliderObject.sliderElement.noUiSlider.set(isSwitch ? 0 : sliderMax);
+    console.log("sliderMax = "+sliderMax);
+    ColorVisual.curTimePoint = sliderMax;
 
     sliderObject.sliderElement.noUiSlider.on('update', function( values, handle ) {
         updateSliderValues(parseInt(values[handle]), currentAnalysis);
@@ -133,7 +135,7 @@ function adjustSliderWidth(maxValue){
  */
 function updateSliderValues(sliderValue, currentAnalysis){
     console.log("inside updateSliderValues");
-    console.log("slider value = "+sliderValue);
+   // console.log("slider value = "+sliderValue);
     var value = sliderValue;
     $('#sliderValue').text(value);
     sliderObject.sliderValueElement.innerHTML = value + "|" + currentAnalysis.relativeTime[value];
@@ -145,7 +147,7 @@ function updateSliderValues(sliderValue, currentAnalysis){
 		updateNodeValues(element.id, element.status[value]);
     }
     ColorVisual.curTimePoint = value;
-    console.log("curTimePoint = "+ColorVisual.curTimePoint);
+   // console.log("curTimePoint = "+ColorVisual.curTimePoint);
     refreshColorVis(); 
 }
 

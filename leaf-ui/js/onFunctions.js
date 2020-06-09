@@ -326,18 +326,18 @@ function refreshColorVis(){
         case '2':
         case '3':
             if(!analysisResult.isPathSim ) {
-            console.log("changing intentions by initial state");
+           // console.log("changing intentions by initial state");
             changeIntentions();
             changeIntentionsText(false)
             }
             else {
-            console.log("filling intentions by: "+sliderOption);
+           // console.log("filling intentions by: "+sliderOption);
             changeIntentionsColorVis();
             changeIntentionsText(true) 
             }
             break;
         default:
-            console.log("colorVis off");
+            //console.log("colorVis off");
             returnAllColors();
             revertIntentionsText();    
                 break;
