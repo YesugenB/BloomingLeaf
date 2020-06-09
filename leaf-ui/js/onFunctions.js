@@ -197,7 +197,7 @@ function switchToModellingMode() {
     $('#modelingSlider').css("display", "");
     $('#analysisSlider').css("display", "none");
    // sliderOption = 0;
-   if(sliderOption == 1 | sliderOption == 2) {
+   if(sliderOption > 0) {
        sliderOption = '1';
    }
    document.getElementById("colorReset").value = sliderOption;
