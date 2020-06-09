@@ -132,9 +132,11 @@ function responseFunc(isGetNextSteps, response){
 			 }
 		 }
 	 }
+	ColorVisual.curTimePoint = analysisResult.colorVis.intentionListColorVis[0].numEvals; 
+	//TODO: numEvals is the same for every intention, it should not be a separate variable for each intention :/
 	generateColorVisConsoleReport();
-	 analysisResult.isPathSim = true;
-	 refreshColorVis();
+	analysisResult.isPathSim = true;
+	refreshColorVis();
  }
 
 
@@ -143,8 +145,9 @@ function defineGradient(element) {
 	//console.log("sliderOption = "+sliderOption);
 		var gradientStops = [];	
 		var offsetTotal = 0.0;
+		var gradientID;
 		
-		if(sliderOption == 2) {
+		if(sliderOption == 2) { //fill by time
 			var percentPerTimePoint = 1.0 / element.timePoints.length;
 			var timePointColor;
 			//console.log("percentPerTimePoint = "+percentPerTimePoint);
@@ -164,8 +167,12 @@ function defineGradient(element) {
 				gradientStops.push({offset: String(offsetTotal*100) + '%',
 				color: ColorVisual.colorVisDict[element.timePoints[j]]})
 			}
+			gradientId = paper.defineGradient({
+				type: 'linearGradient',
+				stops: gradientStops
+			});
 		}
-		else {
+		else if(sliderOption == 1) { //fill by %
 			for(var j = 0; j < ColorVisual.numEvals; ++j) {
 			var eval = ColorVisual.colorVisOrder[j];
 			if(element.evals[eval] > 0) {
@@ -183,12 +190,18 @@ function defineGradient(element) {
 				color: ColorVisual.colorVisDict[eval]})
 			}
 		}
+		gradientId = paper.defineGradient({
+			type: 'linearGradient',
+			stops: gradientStops
+		});
 	}
-		
-	var gradientId = paper.defineGradient({
-		type: 'linearGradient',
-		stops: gradientStops
-	});
+	//else { //fill by user selected timepoint
+	// 	var timepoint = 3;//get timepoint
+	// 	var index = timepoint - 1;
+	// 	var eval = element.timePoints[index];
+	// 	console.log("eval at timepoint "+timepoint+" = "+eval);
+	// 	gradientID = ColorVisual.colorVisDict[eval];
+	// }
 
 	return gradientId;
 }
@@ -214,9 +227,23 @@ function defineGradient(element) {
  
 		 var element = analysisResult.colorVis.intentionListColorVis[i - actorBuffer];
 			 if(intention != null && element != null) {
-
+				 if(sliderOption != 3) {
 				var gradientID = defineGradient(element);
 				cellView.model.attr({'.outer' : {'fill' : 'url(#' + gradientID + ')'}});
+				 }
+				 else {
+					var timepoint = ColorVisual.curTimePoint;//get timepoint lol
+					//TODO: delete instance of ColorVisual when switching to modeling mode
+					//TODO: every move on the timepoint slider must refresh EVO
+					//var index = timepoint;
+					//sliderObject.sliderValueElement;
+					//$('#sliderValue').text() ? $('#sliderValue').text() : '0';
+					//document.getElementById('sliderValue');
+					var eval = element.timePoints[timepoint];
+					console.log("eval at timepoint "+timepoint+" = "+eval);
+					var color = ColorVisual.colorVisDict[eval];
+					cellView.model.attr({'.outer' : {'fill' : color}})
+				 }
 			 }
 	 }
  }

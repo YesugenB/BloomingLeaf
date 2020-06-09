@@ -319,9 +319,12 @@ function refreshColorVis(){
     //     revertIntentionsText();
     // }
 
+    //console.log("sliderOption = "+sliderOption);
+
     switch(sliderOption) {
         case '1':
         case '2':
+        case '3':
             if(!analysisResult.isPathSim ) {
             console.log("changing intentions by initial state");
             changeIntentions();

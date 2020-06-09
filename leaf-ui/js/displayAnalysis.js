@@ -132,7 +132,8 @@ function adjustSliderWidth(maxValue){
  *   Contains data about the analysis that the back end performed
  */
 function updateSliderValues(sliderValue, currentAnalysis){
-
+    console.log("inside updateSliderValues");
+    console.log("slider value = "+sliderValue);
     var value = sliderValue;
     $('#sliderValue').text(value);
     sliderObject.sliderValueElement.innerHTML = value + "|" + currentAnalysis.relativeTime[value];
@@ -142,7 +143,10 @@ function updateSliderValues(sliderValue, currentAnalysis){
 	for (var i = 0; i < currentAnalysis.numOfElements; i++) {
 		var element = currentAnalysis.elements[i];
 		updateNodeValues(element.id, element.status[value]);
-	}
+    }
+    ColorVisual.curTimePoint = value;
+    console.log("curTimePoint = "+ColorVisual.curTimePoint);
+    refreshColorVis(); 
 }
 
 

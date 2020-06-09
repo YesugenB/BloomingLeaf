@@ -468,6 +468,20 @@ select > .select-placeholder {
   top: -15px;
   left: 5px;
 }
+
+#top-label-analysis{
+  background-color: #333;
+  border: none;
+  color: white;
+  text-shadow: none;
+  font-size: 0.75em;
+  margin: 0px;
+  padding: 0px;
+  position: relative;
+  top: -15px;
+  left: 105px;
+}
+
 #on-off{
   font-size: 8px;
   color: white;
@@ -483,8 +497,8 @@ select > .select-placeholder {
 }
 #colorResetAnalysis{
   position: relative;
-  top: -20px;
-  width: 65px;
+  top: -2px;
+  width: 92px; /* 92 */
 }
 .color-button {
   cursor: pointer;
@@ -498,7 +512,7 @@ select > .select-placeholder {
 }
 
 /* portion of the code from: https://www.w3schools.com/howto/howto_js_rangeslider.asp */
-.slider {
+.EVO-slider {
   -webkit-appearance: none;  /* Override default CSS styles */
   appearance: none;
   width: 50px; /* Full-width */
@@ -512,11 +526,11 @@ select > .select-placeholder {
 }
 
 /* Mouse-over effects */
-.slider:hover {
+.EVO-slider:hover {
   opacity: 1; /* Fully shown on mouse-over */
 }
 /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
-.slider::-webkit-slider-thumb {
+.EVO-slider::-webkit-slider-thumb {
   -webkit-appearance: none; /* Override default look */
   appearance: none;
   width: 25px; /* Set a specific slider handle width */
@@ -525,7 +539,7 @@ select > .select-placeholder {
   background: #27ae60; /* Green background */
   cursor: pointer; /* Cursor on hover */
 }
-.slider::-moz-range-thumb {
+.EVO-slider::-moz-range-thumb {
   width: 25px; /* Set a specific slider handle width */
   height: 25px; /* Slider handle height */
   background: #27ae60; /* Green background */
