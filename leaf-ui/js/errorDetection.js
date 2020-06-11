@@ -41,7 +41,7 @@ function cycleCheckForLinks(cycle) {
 			// else{
 			// 	var color = getRandomColor();	
 			// }	
-			for (var l = 0 ; l< cycle[1][k].length; l++){
+			for (var l = 0 ; l< cycle[1][k].length + 1; l++){
 				for (var i = 0; i < elements.length; i++) {
 				cellView  = elements[i].findView(paper);
 				//if (recursiveStack[cellView.model.attributes.elementid]) 
