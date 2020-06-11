@@ -45,7 +45,7 @@ function cycleCheckForLinks(cycle) {
 				for (var i = 0; i < elements.length; i++) {
 				cellView  = elements[i].findView(paper);
 				//if (recursiveStack[cellView.model.attributes.elementid]) 
-				if (cellView.model.attributes.elementid === cycle[1][k][l]){
+				if (cellView.model.attributes.elementid === cycle[1][k][l] && cellView.model.attributes.type != "basic.Actor"){
 						cellView.model.attr({'.outer': {'fill': color}});
 					}
 					//else {
@@ -362,7 +362,8 @@ function cycleCheck(links, vertices) {
 	links.forEach(function(element){
 		var src = element.linkSrcID;
 		if(src in graphs){
-			graphs[src].push(element.linkDestID);
+			//graphs[src].push(element.linkDestID);
+			graphs[src] = [element.linkDestID]
 		}
 		else{
 			graphs[src] = [element.linkDestID];
@@ -386,6 +387,11 @@ function cycleCheck(links, vertices) {
 	var list = [] ;
 	list.push(cycle);
 	var cycleList = checkCycleList(cycle_list,graphs);
+	for(var i = 0; i < cycleList.length;++i) {
+		if(cycleList[i].length < 3) {
+			cycleList[i] = [];
+		}
+	}
 	list.push(cycleList);
 	return list;
 }
