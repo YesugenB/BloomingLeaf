@@ -24,23 +24,23 @@ function cycleCheckForLinks(cycle) {
 	else {
 		swal("Cycle in the graph", "", "error");
 		elements = graph.getElements();
-		var color_list = [];
-		var count = 0; 
+		var color_list = initColorList();
+		//var count = 0; 
 		for (var k = 0 ; k < cycle[1].length; k++){
-			var color = getRandomColor();
-			for (var j =0 ; j < color_list.length; j++){
-				if (color !== color_list.length[j]){
-					count +=1; 
+			var color = color_list[k];
+			// for (var j =0 ; j < color_list.length; j++){
+			// 	if (color !== color_list.length[j]){
+			// 		count +=1; 
 							
-				}
-			}
+			// 	}
+			// }
 						
-			if (count === color_list.length){
-				color_list.push(color);
-			}
-			else{
-				var color = getRandomColor();	
-			}	
+			// if (count === color_list.length){
+			// 	color_list.push(color);
+			// }
+			// else{
+			// 	var color = getRandomColor();	
+			// }	
 			for (var l = 0 ; l< cycle[1][k].length; l++){
 				for (var i = 0; i < elements.length; i++) {
 				cellView  = elements[i].findView(paper);
@@ -59,15 +59,16 @@ function cycleCheckForLinks(cycle) {
 	
 }
 
-function getRandomColor() {
+function initColorList() {
 	var color_list = []
 	color_list.push('#963232')
 	color_list.push('#b82f27')
 	color_list.push('#29611f')
 	color_list.push('#bf7a10')
 	color_list.push('#670000')
-	var num = Math.round(Math.random() * 6);
-	return color_list[num];
+	//var num = Math.round(Math.random() * 6);
+	//return color_list[num];
+	return color_list;
 }
 
 /**
@@ -438,7 +439,7 @@ function checkCycleList(cycle_list,graphs){
 	for (var i = 0 ; i < cycle_list.length; i++){
 		var last = cycle_list[i].length - 1; 
 		if (graphs[cycle_list[i][last]].length === 1){
-			if (graphs[cycle_list[i][last]] !== cycle_list[i][0]){
+			if (graphs[cycle_list[i][last]] != cycle_list[i][0]){
 				vertexId = cycle_list[i].splice(0,1)
 				recursiveStack[vertexId] = false;
 			}
