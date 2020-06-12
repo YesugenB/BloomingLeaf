@@ -27,20 +27,7 @@ function cycleCheckForLinks(cycle) {
 		var color_list = initColorList();
 		//var count = 0; 
 		for (var k = 0 ; k < cycle[1].length; k++){
-			var color = color_list[k];
-			// for (var j =0 ; j < color_list.length; j++){
-			// 	if (color !== color_list.length[j]){
-			// 		count +=1; 
-							
-			// 	}
-			// }
-						
-			// if (count === color_list.length){
-			// 	color_list.push(color);
-			// }
-			// else{
-			// 	var color = getRandomColor();	
-			// }	
+			var color = color_list[k];	
 			for (var l = 0 ; l< cycle[1][k].length + 1; l++){
 				for (var i = 0; i < elements.length; i++) {
 				cellView  = elements[i].findView(paper);
@@ -60,12 +47,20 @@ function cycleCheckForLinks(cycle) {
 }
 
 function initColorList() {
-	var color_list = []
-	color_list.push('#963232')
-	color_list.push('#b82f27')
-	color_list.push('#29611f')
-	color_list.push('#bf7a10')
-	color_list.push('#670000')
+	var color_list = [];
+	//old color scheme
+	// color_list.push('#963232')
+	// color_list.push('#b82f27')
+	// color_list.push('#29611f')
+	// color_list.push('#bf7a10')
+	// color_list.push('#670000')
+
+	color_list.push('#E85D04');
+	color_list.push('#F48C06');
+	color_list.push('#FAA307');
+	color_list.push('#FFBA08');
+	color_list.push('#AC7242');
+
 	//var num = Math.round(Math.random() * 6);
 	//return color_list[num];
 	return color_list;
