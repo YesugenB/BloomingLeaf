@@ -25,14 +25,22 @@ function cycleCheckForLinks(cycle) {
 		swal("Cycle in the graph", "", "error");
 		elements = graph.getElements();
 		var color_list = initColorList();
-		//var count = 0; 
+		var cycleIndex = 0; 
 		for (var k = 0 ; k < cycle[1].length; k++){
-			var color = color_list[k];	
-			for (var l = 0 ; l< cycle[1][k].length + 1; l++){
+			if(cycle[1][k].length > 0) {
+			console.log("cycleIndex = "+cycleIndex);
+			var color = color_list[cycleIndex];
+			cycleIndex += 1;
+			console.log("color = "+color);
+			
+			console.log("k ="+k);	
+			for (var l = 0 ; l< cycle[1][k].length; l++){
+				console.log("l ="+l);
 				for (var i = 0; i < elements.length; i++) {
 				cellView  = elements[i].findView(paper);
 				//if (recursiveStack[cellView.model.attributes.elementid]) 
 				if (cellView.model.attributes.elementid === cycle[1][k][l] && cellView.model.attributes.type != "basic.Actor"){
+					console.log("coloring "+cellView.model.attributes.elementid);
 						cellView.model.attr({'.outer': {'fill': color}});
 					}
 					//else {
@@ -42,6 +50,7 @@ function cycleCheckForLinks(cycle) {
 			}
 			
 		}	
+	}
 	}
 	
 }
@@ -55,11 +64,17 @@ function initColorList() {
 	// color_list.push('#bf7a10')
 	// color_list.push('#670000')
 
-	color_list.push('#E85D04');
-	color_list.push('#F48C06');
-	color_list.push('#FAA307');
-	color_list.push('#FFBA08');
-	color_list.push('#AC7242');
+	// color_list.push('#E85D04');
+	// color_list.push('#F48C06');
+	// color_list.push('#FAA307');
+	// color_list.push('#FFBA08');
+	// color_list.push('#AC7242');
+
+	color_list.push('#ccff00'); //orange
+	color_list.push('#09fbd3'); //green blue *
+	color_list.push('#ff00c0'); //pink *
+	color_list.push('#00ff00'); //green *
+	color_list.push('#fffd5a'); //yellow *
 
 	//var num = Math.round(Math.random() * 6);
 	//return color_list[num];
@@ -385,9 +400,12 @@ function cycleCheck(links, vertices) {
 	var cycleList = checkCycleList(cycle_list,graphs);
 	for(var i = 0; i < cycleList.length;++i) {
 		if(cycleList[i].length < 3) {
+			//cycleList.pop(i); 
 			cycleList[i] = [];
 		}
+
 	}
+	console.log(list);
 	list.push(cycleList);
 	return list;
 }
@@ -435,15 +453,15 @@ function checkCycleList(cycle_list,graphs){
 		var last = cycle_list[i].length - 1; 
 		if (graphs[cycle_list[i][last]].length === 1){
 			if (graphs[cycle_list[i][last]] != cycle_list[i][0]){
-				vertexId = cycle_list[i].splice(0,1)
+				vertexId = cycle_list[i].splice(0,1);
 				recursiveStack[vertexId] = false;
 			}
 		}
 		else{
 			if (graphs[cycle_list[i][last]][0] !== cycle_list[i][0]){
-				cycle_list[i].splice(0,1)
+				cycle_list[i].splice(0,1);
 			}	
 		}
 	}
-	return cycle_list
+	return cycle_list;
 }
