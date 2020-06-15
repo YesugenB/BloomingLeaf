@@ -200,6 +200,30 @@ function switchToModellingMode() {
  * Set up tool bar button on click functions
  */
 $('#btn-undo').on('click', _.bind(commandManager.undo, commandManager));
+$('#btn-undo').on('click', function(){
+    if(commandManager.hasRedo && commandManager.redoStack[commandManager.redoStack.length - 1] != null && commandManager.redoStack[commandManager.redoStack.length - 1][0] == null) {
+        var lastCommand = commandManager.redoStack[commandManager.redoStack.length - 1];
+        var nodeName = lastCommand.data.next.attrs[".name"].text
+       // console.log("lastCommand = ");
+        //console.log(lastCommand);
+       // console.log("nodeName = "+nodeName);
+        
+        var lastCommandAction = lastCommand.options.propertyPath;
+        
+        if(lastCommandAction == "attrs/.satvalue/text") { //revert initial sat value
+        console.log("revert initial sat value");
+        var intention = model.getIntentionByName(nodeName);
+        intention.setPrevSatVal();
+        }
+
+        else if(lastCommandAction == "attrs/.funcvalue/text") { //revert initial function assignment
+        console.log("revert initial function assignment");
+        var intention = model.getIntentionByName(nodeName);
+        intention.setPrevFuncVal();
+        }
+        }
+});
+
 $('#btn-redo').on('click', _.bind(commandManager.redo, commandManager));
 $('#btn-clear-all').on('click', function(){
     graph.clear();

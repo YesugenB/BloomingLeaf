@@ -1122,23 +1122,28 @@ class Intention {
      * Sets node to previous sat value, used for undo
      */
     setPrevSatVal() {
-        console.log("inside setPrevSatVal()");
-        console.log("lastInitialSatVal = "+this.lastInitialSatVal);
+        //console.log("inside setPrevSatVal()");
+        //console.log("lastInitialSatVal = "+this.lastInitialSatVal);
+        var satVal = "(no value)";
         if(this.lastInitialSatVal != null) {
             var satVal = this.lastInitialSatVal[this.lastInitialSatVal.length - 1];
-            this.changeInitialSatValue(satVal);
         }
-        else {
-            this.changeInitialSatValue("(no value)");
-        }
+        this.changeInitialSatValue(satVal);
         this.lastInitialSatVal.pop();
-
+        elementInspector.$('#init-sat-value').val(satVal);
+        console.log("sat val = "+this.getInitialSatValue());
     }
     /**
      * Sets node to prev function value, used for undo
      */
     setPrevFuncVal() {
-
+        if(this.lastFunction != null) {
+            var funcType = this.lastFunction[this.lastFunction.length - 1];
+            this.setEvolvingFunction(funcType);
+        }
+        else {
+            this.setEvolvingFunction("No Function");
+        }
     }
 }
 Intention.numOfCreatedInstances = 0; // static variable to keep track of number of instances

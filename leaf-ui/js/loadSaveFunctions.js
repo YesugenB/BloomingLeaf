@@ -57,7 +57,8 @@ reader.onload = function() {
 		        // create intention evaluation
 		        var initSat = cells[i].attrs['.satvalue'].text;
 		        initSat = (initSat !== ' ' && initSat !== '')  ?  oldSatValToBinary[initSat] : '0000';
-			    var intentionEval = new UserEvaluation(intention.nodeID, '0', initSat);
+				var intentionEval = new UserEvaluation(intention.nodeID, '0', initSat);
+				intention.lastInitialSatVal.push(initSat);
 			    analysisRequest.userAssignmentsList.push(intentionEval);
 		    
 		        // make the T upside down
