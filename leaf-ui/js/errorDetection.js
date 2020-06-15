@@ -70,7 +70,7 @@ function initColorList() {
 	// color_list.push('#FFBA08');
 	// color_list.push('#AC7242');
 
-	color_list.push('#ccff00'); //orange
+	color_list.push('#ccff00'); //yellow-green
 	color_list.push('#09fbd3'); //green blue *
 	color_list.push('#ff00c0'); //pink *
 	color_list.push('#00ff00'); //green *
