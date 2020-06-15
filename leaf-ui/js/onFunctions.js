@@ -224,9 +224,8 @@ function setSatValByNodeName(nodeName, newEval) {
             break;
         }
     }
-    
-    
 }
+
 
 /**
  * Set up tool bar button on click functions
@@ -248,13 +247,19 @@ console.log(commandManager.undoStack[0]);
 
 if(commandManager.hasRedo && commandManager.redoStack[commandManager.redoStack.length - 1][0] == null) {
 var lastCommand = commandManager.redoStack[commandManager.redoStack.length - 1];
+var nodeName = lastCommand.data.next.attrs[".name"].text
 console.log("lastCommand = ");
 console.log(lastCommand);
+console.log("nodeName = "+nodeName);
 
 var lastCommandAction = lastCommand.options.propertyPath;
 
 if(lastCommandAction == "attrs/.satvalue/text") { //revert initial sat value
 console.log("revert initial sat value");
+var intention = model.getIntentionByName(nodeName);
+intention.setPrevSatVal();
+
+//change init sat value from list
 }
 else if(lastCommandAction == "attrs/.funcvalue/text") { //revert initial function assignment
 console.log("revert initial function assignment");

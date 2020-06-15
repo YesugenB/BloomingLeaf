@@ -32,6 +32,18 @@ class Model {
     }
 
     /**
+     * Returns the Intention with node name
+     * @param {*} nodeName 
+     */
+    getIntentionByName(nodeName) {
+        for (var i = 0; i < this.intentions.length; i++) {
+            if (this.intentions[i].nodeName == nodeName) {
+                return this.intentions[i];
+            }
+        }
+    }
+
+    /**
      * Returns the Actor with nodeID nodeID
      *
      * @param {String} nodeID
@@ -1100,6 +1112,27 @@ class Intention {
             var repSegLen = repSegList.length;
             repSegList[repSegLen - 1].funcX = satVal;
         }
+    }
+
+    /**
+     * Sets node to previous sat value, used for undo
+     */
+    setPrevSatVal() {
+        console.log("inside setPrevSatVal()");
+        console.log("lastInitialSatVal = "+this.lastInitialSatVal);
+        if(this.lastInitialSatVal != null) {
+            var satVal = this.lastInitialSatVal[this.lastInitialSatVal.length - 1];
+            this.changeInitialSatValue(satVal);
+        }
+        else {
+            this.changeInitialSatValue("(no value)");
+        }
+        this.lastInitialSatVal.pop();
+
+    }
+
+    setPrevFuncVal() {
+
     }
 }
 Intention.numOfCreatedInstances = 0; // static variable to keep track of number of instances
