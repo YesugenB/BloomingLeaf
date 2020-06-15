@@ -32,6 +32,17 @@ class Model {
     }
 
     /**
+     * Finds and returns intention given its node name
+     * @param {*} nodeName 
+     */
+    getIntentionByName(nodeName) {
+        for (var i = 0; i < this.intentions.length; i++) {
+            if (this.intentions[i].nodeName == nodeName) {
+                return this.intentions[i];
+            }
+        }
+    }
+    /**
      * Returns the Actor with nodeID nodeID
      *
      * @param {String} nodeID
