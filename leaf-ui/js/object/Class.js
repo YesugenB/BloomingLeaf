@@ -803,6 +803,8 @@ class Intention {
         this.nodeType = nodeType;
         this.nodeName = nodeName;
         this.dynamicFunction = new EvolvingFunction(this.nodeID);
+        this.lastInitialSatVal = []; //for undo feature
+        this.lastFunction = []; //for undo feature
     }
 
     /**
@@ -814,6 +816,7 @@ class Intention {
      */
     changeInitialSatValue(initValue) {
         var intentionEval = analysisRequest.getUserEvaluationByID(this.nodeID, '0');
+        this.lastInitialSatVal.push(intentionEval.evaluationValue);
         intentionEval.evaluationValue = initValue;
 
         // if there is only one function segment, and its constant, then we need to
@@ -1103,6 +1106,28 @@ class Intention {
             var repSegLen = repSegList.length;
             repSegList[repSegLen - 1].funcX = satVal;
         }
+    }
+    /**
+     * Sets node to previous sat value, used for undo
+     */
+    setPrevSatVal() {
+        console.log("inside setPrevSatVal()");
+        console.log("lastInitialSatVal = "+this.lastInitialSatVal);
+        if(this.lastInitialSatVal != null) {
+            var satVal = this.lastInitialSatVal[this.lastInitialSatVal.length - 1];
+            this.changeInitialSatValue(satVal);
+        }
+        else {
+            this.changeInitialSatValue("(no value)");
+        }
+        this.lastInitialSatVal.pop();
+
+    }
+    /**
+     * Sets node to prev function value, used for undo
+     */
+    setPrevFuncVal() {
+
     }
 }
 Intention.numOfCreatedInstances = 0; // static variable to keep track of number of instances
