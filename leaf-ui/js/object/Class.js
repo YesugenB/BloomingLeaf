@@ -937,6 +937,9 @@ class Intention {
 
         // Add new absolute constraints if required
         this.addAbsConst(funcType);
+        this.lastFunction.push(funcType);
+        console.log("lastFunction = ");
+        console.log(lastFunction);
 
         var initValue = analysisRequest.getUserEvaluationByID(this.nodeID, '0').evaluationValue;
 
