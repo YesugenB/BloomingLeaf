@@ -341,7 +341,8 @@ console.log("revert initial function assignment");
 
 $('#btn-redo').on('click', _.bind(commandManager.redo, commandManager));
 $('#btn-clear-all').on('click', function(){
-	graph.clear();
+    graph.clear();
+    model.removeAnalysis();
 	// Delete cookie by setting expiry to past date
 	document.cookie='graph={}; expires=Thu, 18 Dec 2013 12:00:00 UTC';
 });
@@ -1093,17 +1094,17 @@ graph.on('remove', function(cell) {
         // from the actor
         if (userIntention.nodeActorID !== '-') {
             var actor = model.getActorByID(userIntention.nodeActorID);
-            actor.removeIntentionID(userIntention.nodeID, analysisRequest.userAssignmentsList);
+            actor.removeIntentionID(userIntention.nodeID,analysisRequest.userAssignmentsList);
         }
-        console.log("removing intention "+userIntention.nodeID);
-        model.removeIntention(userIntention.nodeID); 
+        model.removeIntention(userIntention.nodeID);
     }
     else if((!cell.isLink()) && (cell["attributes"]["type"]=="basic.Actor")){
         //To remove actor
         model.removeActor(cell['attributes']['nodeID']);
 
-    }
 
+    }
+    
     //TODO: What I have changed finished
 	else if (cell.isLink() && (cell.prop("link-type") == 'NBT' || cell.prop("link-type") == 'NBD')) {
 		// Verify if is a Not both type. If it is remove labels from source and target node
