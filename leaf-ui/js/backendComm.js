@@ -7,6 +7,7 @@ function backendComm(jsObject){
 	*/
 	console.log(JSON.stringify(jsObject));
 	console.log(jsObject.analysisRequest.action);
+	console.log(jsObject.analysisRequest.userAssignmentsList);
 
 	console.log(nodeServer);
     if(nodeServer){

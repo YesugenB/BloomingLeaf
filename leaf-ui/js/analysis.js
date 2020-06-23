@@ -1393,6 +1393,7 @@ function save_current_state(){
 
 
 //This function should get the current state and generate a new window with the next possible states
+//Explore Possible Next States ????
 function generate_next_states(){
 
     // Object to be sent to the backend
