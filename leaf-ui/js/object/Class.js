@@ -210,8 +210,13 @@ class Model {
            if (this.links[i].linkSrcID == nodeID || this.links[i].linkDestID == nodeID) {
                this.links.splice(i, 1);
            }
-
        }
+       //added a second loop to catch biconditional arrows
+       for (var i = 0; i < this.links.length; i++) {
+        if (this.links[i].linkSrcID == nodeID || this.links[i].linkDestID == nodeID) {
+            this.links.splice(i, 1);
+        }
+    }
    }
 
     /**
@@ -841,6 +846,13 @@ class Intention {
         // }
         this.dynamicFunction.stringDynVis = 'NT';
         this.dynamicFunction.functionSegList = [];
+    }
+
+    /**
+     * Sets the initial satisfaction value for this Intention to '(no value)'
+     */
+    removeInitialSatValue() {
+        this.changeInitialSatValue('(no value)');
     }
 
     /**
