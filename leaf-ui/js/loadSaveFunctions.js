@@ -68,7 +68,8 @@ reader.onload = function() {
 		        // create the evolving function
 		        if (cells[i].attrs['.funcvalue'] != null) {
 
-			        var stringDynVis = cells[i].attrs['.funcvalue'].text;
+					var stringDynVis = cells[i].attrs['.funcvalue'].text;
+					intention.lastFunction.push(stringDynVis);
 			    
 			        if (stringDynVis == 'UD') {
 			            var funcSegArr = [];

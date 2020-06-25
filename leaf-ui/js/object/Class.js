@@ -937,9 +937,10 @@ class Intention {
 
         // Add new absolute constraints if required
         this.addAbsConst(funcType);
+        //want to store CURRENT function, funcType is the new function. smh
         this.lastFunction.push(funcType);
         console.log("lastFunction = ");
-        console.log(lastFunction);
+        console.log(this.lastFunction);
 
         var initValue = analysisRequest.getUserEvaluationByID(this.nodeID, '0').evaluationValue;
 
@@ -1126,12 +1127,13 @@ class Intention {
      */
     setPrevSatVal() {
         //console.log("inside setPrevSatVal()");
-        //console.log("lastInitialSatVal = "+this.lastInitialSatVal);
+        console.log("lastInitialSatVal = "+this.lastInitialSatVal);
         var satVal = "(no value)";
         if(this.lastInitialSatVal != null) {
             var satVal = this.lastInitialSatVal[this.lastInitialSatVal.length - 1];
         }
         this.changeInitialSatValue(satVal);
+        this.lastInitialSatVal.pop();
         this.lastInitialSatVal.pop();
         elementInspector.$('#init-sat-value').val(satVal);
         console.log("sat val = "+this.getInitialSatValue());
@@ -1140,13 +1142,16 @@ class Intention {
      * Sets node to prev function value, used for undo
      */
     setPrevFuncVal() {
+        console.log("lastFunction = "+this.lastFunction);
         if(this.lastFunction != null) {
-            var funcType = this.lastFunction[this.lastFunction.length - 1];
+            var funcType = this.lastFunction[this.lastFunction.length - 2];
             this.setEvolvingFunction(funcType);
         }
         else {
-            this.setEvolvingFunction("No Function");
+            this.EvolvingFunction = new EvolvingFunction(this.nodeID);
         }
+        this.lastFunction.pop();
+        this.lastFunction.pop();
     }
 }
 Intention.numOfCreatedInstances = 0; // static variable to keep track of number of instances
