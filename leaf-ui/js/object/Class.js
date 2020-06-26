@@ -1229,3 +1229,24 @@ class AnalysisRequest {
 
 
 }
+
+class CycleDetection {
+
+    constructor() {
+        //dict of node ID + isVisited ? to remove one after each visit
+
+
+        //dict that stores [srcID][destID] : destID
+        //dict that stores destID : srcID
+    }
+
+    cycleSearch() {
+        //conducts depth first searches until every node has been visited at least once
+
+        //pick root node
+        //traverse graph depth first using recursion
+        //if node isVisited, you've found a cycle
+    }
+
+
+}

@@ -369,6 +369,10 @@ function cycleCheck(links, vertices) {
 	var visited = {};
 	var cycle_list = []; 
 	var cycle = false;
+	//create a list of nodes that are both a destination and src for links
+	//conduct a depth first search, see if a node returns to its parent node during a walk
+
+
 	// Iterate over links to create map between src node and dest node of each link
 	links.forEach(function(element){
 		var src = element.linkSrcID;
@@ -386,11 +390,11 @@ function cycleCheck(links, vertices) {
 		recursiveStack[vertex.id] = false;
 	});
 
-	vertices.forEach(function(vertex){
+	vertices.forEach(function(vertex){ //for each vertex, see if it's a cycle ?
 			if (!visited[vertex.id]) {
 				cycle_sublist = []; 
 				cycle_sublist.push(vertex.id);
-				if (isCycle(vertex.id, visited, graphs,cycle_sublist,cycle_list)){
+				if (isCycle(vertex.id, visited, graphs,cycle_sublist,cycle_list)){ //recursively checks if there is a cycle connected to the vertex
 					cycle = true;
 				}
 			}
@@ -399,14 +403,15 @@ function cycleCheck(links, vertices) {
 	list.push(cycle);
 	var cycleList = checkCycleList(cycle_list,graphs);
 	for(var i = 0; i < cycleList.length;++i) {
-		if(cycleList[i].length < 3) {
-			//cycleList.pop(i); 
-			cycleList[i] = [];
-		}
+		// if(cycleList[i].length < 3) {
+		// 	//cycleList.pop(i); 
+		// 	cycleList[i] = [];
+		// }
 
 	}
 	console.log(list);
 	list.push(cycleList);
+	//console.log(list);
 	return list;
 }
 
