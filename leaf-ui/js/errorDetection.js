@@ -355,6 +355,174 @@ function syntaxCheck() {
     return false;
 }
 
+function isCycle(cycleList) {
+	return (cycleList != null);
+}
+
+function cycleSearch() {
+	var links = getLinks();
+	var vertices = getElementList();
+	var isCycle = false;
+	var linkMap = {};
+	var notVisited = getElementList();
+
+	links.forEach(function(element){
+
+	});
+
+}
+
+function cycleSearchLinkEliminationMethod() {
+	var links = getLinks();
+	var vertices = getElementList();
+	var isCycle = false;
+	var linkMap = [];
+	var notVisited = getElementList();
+
+	links.forEach(function(element){ //create array of links: each link has it's scrID in slot 0 and destID in slot 1
+		var linkNodes = [];
+		linkNodes.push(element.linkSrcID);
+		linkNodes.push(element.linkDestID);
+
+		linkMap.push(linkNodes);
+	});
+
+	console.log(linkMap);
+
+for(var k = 0, allCycleLinks = false; k < linkMap.length && allCycleLinks == false; ++k) {
+	var destMatch = false;
+	var srcMatch = false;
+	allCycleLinks = true;
+
+	for(var i = 0; i < linkMap.length; ++i) {
+		destMatch = false;
+		var srcID = linkMap[i][0];
+		for(var j = 0; j < linkMap.length; ++j) {
+			var destID = linkMap[j][1];
+			if(destID == srcID) {
+				destMatch = true;
+				allCycleLinks = false;
+			}
+		}
+		if(!destMatch) { //eliminate link at linkMap[i]
+			linkMap.splice(i, 1);
+		}
+	}
+
+	//console.log(linkMap);
+
+	for(var i = 0; i < linkMap.length; ++i) {
+		var destID = linkMap[i][1];
+		srcMatch = false
+		for(var j = 0; j < linkMap.length; ++j) {
+			var srcID = linkMap[j][0];
+			if(destID == srcID) {
+				srcMatch = true;
+				allCycleLinks = false;
+			}
+		}
+		if(!srcMatch) { //eliminate link at linkMap[i]
+			linkMap.splice(i, 1);
+		}
+	}
+
+	//console.log(linkMap);
+}
+
+console.log(linkMap);
+if(linkMap.length == 0) {
+	return null;
+}
+//transpose graph xxx
+
+
+//distinguish cycles
+
+var cycleNodeList = [];
+
+	//console.log(linkMap.indexOf(currID));
+	while(linkMap.length > 0) {
+		var cycle = [];
+		var startID = linkMap[0][0];
+		linkMap.splice(0, 1);
+
+		cycle.push(startID);
+
+	while(currID != startID) { //iterate through cycle
+		cycle.push(currID);
+		var prevIndex = getIndexOfSrcID(currID, linkMap);
+		if(prevIndex != -1)  {
+		var currID = linkMap[prevIndex][1]; 
+		linkMap.splice(prevIndex, 1);
+		}
+		else {
+			console.log("something went wrong lol");
+		}
+	}
+
+	console.log(cycle);
+	cycleNodeList.push(cycle);
+}
+
+
+console.log(cycleNodeList);
+return cycleNodeList;
+}
+
+function getIndexOfSrcID(nodeID, linkMap) {
+	for(var i = 0; i < linkMap.length; ++i) {
+		if(linkMap[i][0] == nodeID) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+function colorCycles(cycleList) {
+	var elements;
+	var cellView;
+		// If there is no cycle, leave the color the way it was
+	if (!isCycle(cycleList)) {
+		elements = graph.getElements();
+		for (var i = 0; i < elements.length; i++) {
+			cellView  = elements[i].findView(paper);
+			cellView.model.changeToOriginalColour();
+		}
+	}
+	else {
+		swal("Cycle in the graph", "", "error");
+		elements = graph.getElements();
+		var color_list = initColorList();
+		var cycleIndex = 0; 
+		for (var k = 0 ; k < cycle[1].length; k++){
+			if(cycle[1][k].length > 0) {
+			//console.log("cycleIndex = "+cycleIndex);
+			var color = color_list[cycleIndex];
+			cycleIndex += 1;
+			//console.log("color = "+color);
+			
+			//console.log("k ="+k);	
+			for (var l = 0 ; l< cycle[1][k].length; l++){
+				console.log("l ="+l);
+				for (var i = 0; i < elements.length; i++) {
+				cellView  = elements[i].findView(paper);
+				//if (recursiveStack[cellView.model.attributes.elementid]) 
+				if (cellView.model.attributes.elementid === cycle[1][k][l] && cellView.model.attributes.type != "basic.Actor"){
+					//console.log("coloring "+cellView.model.attributes.elementid);
+						cellView.model.attr({'.outer': {'fill': color}});
+					}
+					//else {
+						//cellView.model.changeToOriginalColour();
+					//}
+				}	
+			}
+			
+		}	
+	}
+	}
+}
+
+
 /**
  * Returns true iff there is a cycle in the graph represented by
  * links and vertices. 
@@ -365,54 +533,54 @@ function syntaxCheck() {
  * @returns {Boolean}
  */
 function cycleCheck(links, vertices) {
-	var graphs = {};
-	var visited = {};
-	var cycle_list = []; 
-	var cycle = false;
-	//create a list of nodes that are both a destination and src for links
-	//conduct a depth first search, see if a node returns to its parent node during a walk
+	// var graphs = {};
+	// var visited = {};
+	// var cycle_list = []; 
+	// var cycle = false;
+	// //create a list of nodes that are both a destination and src for links
+	// //conduct a depth first search, see if a node returns to its parent node during a walk
 
 
-	// Iterate over links to create map between src node and dest node of each link
-	links.forEach(function(element){
-		var src = element.linkSrcID;
-		if(src in graphs){
-			//graphs[src].push(element.linkDestID);
-			graphs[src] = [element.linkDestID]
-		}
-		else{
-			graphs[src] = [element.linkDestID];
-		}
-	});
-	// Iterate over all vertices to initialize visited stack and recursive stack to false
-	vertices.forEach(function(vertex){
-		visited[vertex.id] = false;
-		recursiveStack[vertex.id] = false;
-	});
+	// // Iterate over links to create map between src node and dest node of each link
+	// links.forEach(function(element){
+	// 	var src = element.linkSrcID;
+	// 	if(src in graphs){
+	// 		//graphs[src].push(element.linkDestID);
+	// 		graphs[src] = [element.linkDestID]
+	// 	}
+	// 	else{
+	// 		graphs[src] = [element.linkDestID];
+	// 	}
+	// });
+	// // Iterate over all vertices to initialize visited stack and recursive stack to false
+	// vertices.forEach(function(vertex){
+	// 	visited[vertex.id] = false;
+	// 	recursiveStack[vertex.id] = false;
+	// });
 
-	vertices.forEach(function(vertex){ //for each vertex, see if it's a cycle ?
-			if (!visited[vertex.id]) {
-				cycle_sublist = []; 
-				cycle_sublist.push(vertex.id);
-				if (isCycle(vertex.id, visited, graphs,cycle_sublist,cycle_list)){ //recursively checks if there is a cycle connected to the vertex
-					cycle = true;
-				}
-			}
-	});
-	var list = [] ;
-	list.push(cycle);
-	var cycleList = checkCycleList(cycle_list,graphs);
-	for(var i = 0; i < cycleList.length;++i) {
-		// if(cycleList[i].length < 3) {
-		// 	//cycleList.pop(i); 
-		// 	cycleList[i] = [];
-		// }
+	// vertices.forEach(function(vertex){ //for each vertex, see if it's a cycle ?
+	// 		if (!visited[vertex.id]) {
+	// 			cycle_sublist = []; 
+	// 			cycle_sublist.push(vertex.id);
+	// 			if (isCycle(vertex.id, visited, graphs,cycle_sublist,cycle_list)){ //recursively checks if there is a cycle connected to the vertex
+	// 				cycle = true;
+	// 			}
+	// 		}
+	// });
+	// var list = [] ;
+	// list.push(cycle);
+	// var cycleList = checkCycleList(cycle_list,graphs);
+	// for(var i = 0; i < cycleList.length;++i) {
+	// 	// if(cycleList[i].length < 3) {
+	// 	// 	//cycleList.pop(i); 
+	// 	// 	cycleList[i] = [];
+	// 	// }
 
-	}
-	console.log(list);
-	list.push(cycleList);
-	//console.log(list);
-	return list;
+	// }
+	// console.log(list);
+	// list.push(cycleList);
+	// //console.log(list);
+	// return list;
 }
 
 /**

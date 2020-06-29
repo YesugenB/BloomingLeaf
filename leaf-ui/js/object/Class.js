@@ -1234,7 +1234,7 @@ class CycleDetection {
 
     constructor() {
         //dict of node ID + isVisited ? to remove one after each visit
-
+        this.cycleList = {};
 
         //dict that stores [srcID][destID] : destID
         //dict that stores destID : srcID
@@ -1248,5 +1248,12 @@ class CycleDetection {
         //if node isVisited, you've found a cycle
     }
 
+    isCycle() {
+        return (cycleList != null | this.cycleList.length > 0);
+    }
+
+    getCycleList() {
+        return this.cycleList;
+    }
 
 }
