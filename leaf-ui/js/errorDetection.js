@@ -355,11 +355,11 @@ function syntaxCheck() {
     return false;
 }
 
-function isCycle(cycleList) {
+function isACycle(cycleList) {
 	return (cycleList != null);
 }
 
-function cycleSearch() {
+function cycleSearchDFSMethod() {
 	var links = getLinks();
 	var vertices = getElementList();
 	var isCycle = false;
@@ -371,6 +371,8 @@ function cycleSearch() {
 	});
 
 }
+
+
 
 function cycleSearchLinkEliminationMethod() {
 	var links = getLinks();
@@ -393,19 +395,20 @@ for(var k = 0, allCycleLinks = false; k < linkMap.length && allCycleLinks == fal
 	var destMatch = false;
 	var srcMatch = false;
 	allCycleLinks = true;
+	var oneMoreTime = 3;
+	console.log("pass");
 
 	for(var i = 0; i < linkMap.length; ++i) {
-		destMatch = false;
+		//destMatch = false;
 		var srcID = linkMap[i][0];
 		for(var j = 0; j < linkMap.length; ++j) {
 			var destID = linkMap[j][1];
 			if(destID == srcID) {
-				destMatch = true;
+				//destMatch = true;
 				allCycleLinks = false;
+				linkMap.splice(i, 1);
+				break;
 			}
-		}
-		if(!destMatch) { //eliminate link at linkMap[i]
-			linkMap.splice(i, 1);
 		}
 	}
 
@@ -413,65 +416,79 @@ for(var k = 0, allCycleLinks = false; k < linkMap.length && allCycleLinks == fal
 
 	for(var i = 0; i < linkMap.length; ++i) {
 		var destID = linkMap[i][1];
-		srcMatch = false
+		//srcMatch = false;
 		for(var j = 0; j < linkMap.length; ++j) {
 			var srcID = linkMap[j][0];
 			if(destID == srcID) {
-				srcMatch = true;
+				//srcMatch = true;
 				allCycleLinks = false;
+				linkMap.splice(i, 1);
+				break;
 			}
 		}
-		if(!srcMatch) { //eliminate link at linkMap[i]
-			linkMap.splice(i, 1);
-		}
+	}
+
+	if(allCycleLinks == true){
+		console.log("here");
+		--oneMoreTime;
 	}
 
 	//console.log(linkMap);
 }
 
 console.log(linkMap);
-if(linkMap.length == 0) {
-	return null;
-}
-//transpose graph xxx
+// if(linkMap.length == 0) {
+// 	return null;
+// }
+// //transpose graph xxx
 
 
-//distinguish cycles
+// //distinguish cycles
 
-var cycleNodeList = [];
+// var cycleNodeList = [];
 
-	//console.log(linkMap.indexOf(currID));
-	while(linkMap.length > 0) {
-		var cycle = [];
-		var startID = linkMap[0][0];
-		linkMap.splice(0, 1);
+// 	//console.log(linkMap.indexOf(currID));
+// 	var temp = 0;
+// 	while(linkMap.length > 0 && temp < 100) {
+// 		var cycle = [];
+// 		var startID = linkMap[0][0];
+// 		console.log("startID = "+startID);
+// 		var currID = linkMap[0][1];
 
-		cycle.push(startID);
+// 		linkMap.splice(0, 1);
 
-	while(currID != startID) { //iterate through cycle
-		cycle.push(currID);
-		var prevIndex = getIndexOfSrcID(currID, linkMap);
-		if(prevIndex != -1)  {
-		var currID = linkMap[prevIndex][1]; 
-		linkMap.splice(prevIndex, 1);
-		}
-		else {
-			console.log("something went wrong lol");
-		}
-	}
+// 		cycle.push(startID);
 
-	console.log(cycle);
-	cycleNodeList.push(cycle);
-}
+// 	while(currID != startID && temp < 100) { //iterate through cycle
+// 		cycle.push(currID);
+// 		var prevIndex = getIndexOfSrcID(currID, linkMap);
+// 		if(prevIndex != -1)  {
+// 		currID = linkMap[prevIndex][1]; 
+// 		linkMap.splice(prevIndex, 1);
+// 		}
+// 		else {
+// 			console.log("something went wrong lol");
+// 			break;
+// 		}
+// 		++temp;
+// 	}
+
+// 	console.log(cycle);
+// 	cycleNodeList.push(cycle);
+// 	++temp;
+// }
 
 
-console.log(cycleNodeList);
-return cycleNodeList;
+// console.log(cycleNodeList);
+// return cycleNodeList;
+
+return null;
 }
 
 function getIndexOfSrcID(nodeID, linkMap) {
 	for(var i = 0; i < linkMap.length; ++i) {
 		if(linkMap[i][0] == nodeID) {
+			console.log("found "+nodeID+" at index "+i);
 			return i;
 		}
 	}
@@ -482,7 +499,7 @@ function colorCycles(cycleList) {
 	var elements;
 	var cellView;
 		// If there is no cycle, leave the color the way it was
-	if (!isCycle(cycleList)) {
+	if (!isACycle(cycleList)) {
 		elements = graph.getElements();
 		for (var i = 0; i < elements.length; i++) {
 			cellView  = elements[i].findView(paper);
@@ -494,20 +511,20 @@ function colorCycles(cycleList) {
 		elements = graph.getElements();
 		var color_list = initColorList();
 		var cycleIndex = 0; 
-		for (var k = 0 ; k < cycle[1].length; k++){
-			if(cycle[1][k].length > 0) {
+		for (var k = 0 ; k < cycleList.length; k++){
+			//if(cycle[1][k].length > 0) {
 			//console.log("cycleIndex = "+cycleIndex);
 			var color = color_list[cycleIndex];
 			cycleIndex += 1;
 			//console.log("color = "+color);
 			
 			//console.log("k ="+k);	
-			for (var l = 0 ; l< cycle[1][k].length; l++){
-				console.log("l ="+l);
+			for (var l = 0 ; l< cycleList[k].length; l++){
+				//console.log("l ="+l);
 				for (var i = 0; i < elements.length; i++) {
 				cellView  = elements[i].findView(paper);
 				//if (recursiveStack[cellView.model.attributes.elementid]) 
-				if (cellView.model.attributes.elementid === cycle[1][k][l] && cellView.model.attributes.type != "basic.Actor"){
+				if (cellView.model.attributes.elementid === cycleList[k][l] && cellView.model.attributes.type != "basic.Actor"){
 					//console.log("coloring "+cellView.model.attributes.elementid);
 						cellView.model.attr({'.outer': {'fill': color}});
 					}
@@ -517,7 +534,7 @@ function colorCycles(cycleList) {
 				}	
 			}
 			
-		}	
+		//}	
 	}
 	}
 }
