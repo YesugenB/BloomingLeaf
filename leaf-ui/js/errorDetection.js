@@ -640,13 +640,14 @@ function traverseGraphRecursive(linkMap, currNode, walkList, notVisited, cycleLi
 	if(linkMap[currNode].length > 0) {
 		for(var i = 0; i < linkMap[currNode].length; ++i) {
 		var next = linkMap[currNode][i];
-		walkList = traverseGraphRecursive(linkMap, next, walkList, notVisited, cycleList)
+		walkList = traverseGraphRecursive(linkMap, next, walkList, notVisited, cycleList);
 		}
 		//linkMap[currNode] = []; //once all links are visited, remove them
 	}
 		//if not, go back/return
 		//console.log("resetting walkList");
 		//walkList = []; //reset walkList
+		walkList.pop();
 		return walkList;
 }
 /**
