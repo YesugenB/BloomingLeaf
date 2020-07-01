@@ -500,14 +500,15 @@ function colorCycles(cycleList) {
 	var elements;
 	var cellView;
 		// If there is no cycle, leave the color the way it was
-	if (!isACycle(cycleList)) {
+	//if (!isACycle(cycleList)) {
 		elements = graph.getElements();
 		for (var i = 0; i < elements.length; i++) {
 			cellView  = elements[i].findView(paper);
 			cellView.model.changeToOriginalColour();
 		}
-	}
-	else {
+	//}
+	//else {
+		if(isACycle(cycleList)) {
 		swal("Cycle in the graph", "", "error");
 		elements = graph.getElements();
 		var color_list = initColorList();
@@ -515,6 +516,7 @@ function colorCycles(cycleList) {
 		for (var k = 0 ; k < cycleList.length; k++){
 			//if(cycle[1][k].length > 0) {
 			//console.log("cycleIndex = "+cycleIndex);
+			cycleIndex = k % 5;
 			var color = color_list[cycleIndex];
 			cycleIndex += 1;
 			//console.log("color = "+color);
