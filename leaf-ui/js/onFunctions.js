@@ -11,8 +11,10 @@ $('#analysis-btn').on('click', function() {
     //var cycle;
     syntaxCheck();
 
-    var cycleList = cycleSearchLinkEliminationMethod();
-    colorCycles(cycleList)
+    var cycleList = cycleSearchDFSMethod();
+
+    // var cycleList = cycleSearchLinkEliminationMethod();
+    colorCycles(cycleList);
 
   //  var cycleList = cycleSearch();
  //   colorCycles(cycleList);

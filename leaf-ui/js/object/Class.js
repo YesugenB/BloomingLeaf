@@ -1257,3 +1257,24 @@ class CycleDetection {
     }
 
 }
+
+class cycleDetectLinkedList {
+    constructor(links) {
+        this.startNodes = []; //it will have to be a series of linked lists because that graph may not all be connected
+        links.forEach(function(element){
+
+        });
+    }
+
+    getLLNodeByID(nodeID) {
+
+    }
+}
+
+class cycleDetectLLNode {
+    constructor(nodeID) {
+        this.nodeID = nodeID;
+        this.destIDs = []; //list of dest nodes linked to curr node as the src
+        
+    }
+}
