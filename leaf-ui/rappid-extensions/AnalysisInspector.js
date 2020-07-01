@@ -180,6 +180,7 @@ var AnalysisInspector = Backbone.View.extend({
 	 * This function is called on click for #btn-all-next-state
 	 */
 	getAllNextStates: function () {
+		console.log("inside getAllNextStates");
 		//Create the object and fill the JSON file to be sent to backend.
 		//Get the AnalysisInspector view information
 		analysisRequest.action = "allNextStates";
@@ -223,6 +224,7 @@ var AnalysisInspector = Backbone.View.extend({
 	 *   InputAnalysis() object
 	 */
 	sendToBackend: function () {
+		console.log('inside sendToBackend');
 
 		// Object to be sent to the backend
 		var jsObject = {};

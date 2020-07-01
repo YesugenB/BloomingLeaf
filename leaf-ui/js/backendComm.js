@@ -2,6 +2,7 @@ var nodeServer = true;      						// Whether the tool is running locally on a No
 var url = "http://localhost:8080/untitled.html";	// Hardcoded URL for Node calls. 
 
 function backendComm(jsObject){	
+	console.log("inside backendComm");
 	/**
 	* Print the input to the console.
 	*/
@@ -57,7 +58,16 @@ function nodeBackendCommFunc(jsObject){
            else{
                isGetNextSteps = false;
         	}
-            
+			//executeJava(isGetNextSteps);
+			// ///getFileResults(isGetNextSteps);
+			// results = JSON.parse(response['data']);
+
+			// if(isGetNextSteps){
+			// 	savedAnalysisData.allNextStatesResult = results;
+			// 	//console.log("in backendcomm, saving all next state results");
+				
+			// 	open_analysis_viewer();
+			// }
             var response = xhr.responseText;
    			responseFunc(isGetNextSteps,response);
 
@@ -65,6 +75,7 @@ function nodeBackendCommFunc(jsObject){
    }
    xhr.send(data);	// Why is this sent down here? What is this send function.
 
+   //getFileResults(isGetNextSteps);
    // console.log(xhr.responseText);
    // response=xhr.responseText;
    // responseFunc(isGetNextSteps,response);
@@ -226,14 +237,14 @@ function responseFunc(isGetNextSteps, response){
 //prints colorVis information
  function generateColorVisConsoleReport()
  {
-	 console.log("");
-	 console.log("Color Visualization Output:");
+	// console.log("");
+	// console.log("Color Visualization Output:");
 
 	 for(var i = 0; i < analysisResult.colorVis.numIntentions; ++i)
 	 {
 		var intention = analysisResult.colorVis.intentionListColorVis[i];
 
-		 console.log("Intention " + intention.id+":");
+		// console.log("Intention " + intention.id+":");
 
 		 for(var j = 0; j < ColorVisual.numEvals; ++j)
 		 {
@@ -241,16 +252,17 @@ function responseFunc(isGetNextSteps, response){
 			 if(intention.evals[evalType] > 0.0)
 			 {
 				 //output it to the console
-				 console.log(evalType
-				 + " -> "
-				 + Math.floor(intention.evals[evalType] * 1000)/10
-				 + "%");
+				// console.log(evalType
+				//  + " -> "
+				//  + Math.floor(intention.evals[evalType] * 1000)/10
+				//  + "%");
 			 }
 		 }
 	 }
  }
 
 function executeJava(isGetNextSteps){
+	console.log("executeJava");
 	var pathToCGI = "./cgi-bin/executeJava.cgi";
 	$.ajax({
 		url: pathToCGI,
@@ -262,13 +274,14 @@ function executeJava(isGetNextSteps){
 		}
 	})
 	.fail(function(){
-		msg = "Ops! Something went wrong. Executing java.";
+		msg = "Oops! Something went wrong. Executing java.";
 		alert(msg);
 	});
 }
 
 
 function getFileResults(isGetNextSteps){
+	console.log("inside getFileResults");
 	var pathToCGI = "./cgi-bin/fileRead.cgi";
 
 	//Executing action to send backend
@@ -298,10 +311,12 @@ function getFileResults(isGetNextSteps){
 				// do not need to store the past result for all next states
 				if(isGetNextSteps){
                     savedAnalysisData.allNextStatesResult = results;
-                    console.log("in backendcomm, saving all next state results");
+					console.log("in backendcomm, saving all next state results");
+					
 					open_analysis_viewer();
 				}else{
-                    savedAnalysisData.singlePathResult = results;
+					savedAnalysisData.singlePathResult = results;
+					///console.log(results);
                     analysisResult.assignedEpoch = results.assignedEpoch;
                     analysisResult.timePointPath = results.timePointPath;
                     analysisResult.timePointPathSize = results.timePointPathSize;
