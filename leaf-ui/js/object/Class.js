@@ -396,6 +396,8 @@ class ColorVisual {
     static curTimePoint = 0;
     //user selected slider option
     static sliderOption = 0;
+    //is color blind mode activated
+    static isColorBlindMode = false;
 
     /**
      * Checks validity, sets sliderOption, and refreshes visualization

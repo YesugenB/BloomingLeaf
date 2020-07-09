@@ -355,6 +355,20 @@ $('#btn-fnt').on('click', function(){
 	}
 });
 
+$('#colorblind-mode-isOff').on('click', function(){ //activates colorblind mode
+    $('#colorblind-mode-isOff').css("display", "none");
+    $('#colorblind-mode-isOn').css("display", "");
+
+    ColorVisual.isColorBlindMode = true;
+});
+
+$('#colorblind-mode-isOn').on('click', function(){ //turns off colorblind mode
+    $('#colorblind-mode-isOn').css("display", "none");
+    $('#colorblind-mode-isOff').css("display", "");
+
+    ColorVisual.isColorBlindMode = false;
+});
+
 /**
  * Creates an instance of a Link object and saves it in the global model
  * variable
