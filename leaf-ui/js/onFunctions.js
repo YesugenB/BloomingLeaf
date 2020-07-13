@@ -7,22 +7,14 @@ It also contains the setup for Rappid elements.
  * Switches to Analysis view iff there are no cycles and no syntax errors.
  */
 $('#analysis-btn').on('click', function() {
-    var jsLinks;
-    var cycle;
-    jsLinks = getLinks();
-    cycle = cycleCheck(jsLinks, getElementList());
-    //console.log("before filtration: "+cycle);
-
-    //console.log("after filtration: "+cycle);
-
     syntaxCheck();
-    // If there are no cycles then switch view to Analysis
-    if (!cycle[0]) {
-        switchToAnalysisMode(); 
-    }
 
-    // If there are cycles, then display error message. Otherwise, remove any "red" elements.
-    cycleCheckForLinks(cycle);
+    var cycleList = cycleSearch();
+    cycleResponse(cycleList); //If there are cycles, then display error message. Otherwise, remove any "red" elements.
+
+    if(!isACycle(cycleList)) {
+        switchToAnalysisMode();
+    }
 });
 
 $('#load-sample').on('click', function() {
@@ -350,23 +342,35 @@ $('#btn-clear-all').on('click', function(){
 $('#btn-clear-elabel').on('click', function(){
 	var elements = graph.getElements();
 	for (var i = 0; i < elements.length; i++){
-		elements[i].removeAttr(".satvalue/d");
-		elements[i].attr(".constraints/lastval", "none");
-		elements[i].attr(".funcvalue/text", " ");
-		var cellView  = elements[i].findView(paper);
-		elementInspector.render(cellView.model);
-		elementInspector.$('#init-sat-value').val("none");
-		elementInspector.updateHTML(null);
+        var cellView = elements[i].findView(paper); 
+        var cell = cellView.model;
+        var intention = model.getIntentionByID(cellView.model.attributes.nodeID);
 
+        if(intention != null && intention.getInitialSatValue() != '(no value)') {
+            intention.removeInitialSatValue();
+     
+            cell.attr(".satvalue/text", "");
+            cell.attr(".funcvalue/text", "");
+     
+            elementInspector.$('#init-sat-value').val('(no value)');
+            elementInspector.$('.function-type').val('(no value)');
+        }
 	}
-
 });
+
 $('#btn-clear-flabel').on('click', function(){
-	var elements = graph.getElements();
+    var elements = graph.getElements();
+    
 	for (var i = 0; i < elements.length; i++){
-		if (elements[i].attr(".constraints/lastval") != "none"){
-			elements[i].attr(".funcvalue/text", "C");
-		}
+        var cellView = elements[i].findView(paper); 
+        var cell = cellView.model;
+        var intention = model.getIntentionByID(cellView.model.attributes.nodeID);
+
+        if(intention != null) {
+            intention.removeFunction();
+            cell.attr(".funcvalue/text", "");
+            elementInspector.$('.function-type').val('(no value)');
+        }
 	}
 });
 
@@ -375,24 +379,7 @@ $('#btn-clear-flabel').on('click', function(){
  * cycle detection function
  */
 $('#btn-clear-cycle').on('click',function(){
-	var cycleElements = graph.getElements();
-
-	var elements = graph.getElements();
-	for (var i = 0; i < elements.length; i++){
-			var cellView  = elements[i].findView(paper);
-			if(cellView.model.attributes.type == "basic.Task"){
-				cellView.model.attr({'.outer': {'fill': '#92E3B1'}});
-			}
-			if(cellView.model.attributes.type == "basic.Goal"){
-				cellView.model.attr({'.outer': {'fill': '#FFCC66'}});
-			}
-			if(cellView.model.attributes.type == "basic.Resource"){
-				cellView.model.attr({'.outer': {'fill': '#92C2FE'}});
-			}
-			if(cellView.model.attributes.type == "basic.Softgoal"){
-				cellView.model.attr({'.outer': {'fill': '#FF984F'}});
-			}
-	}
+    clearCycleHighlighting();
 });
 
 // Open as SVG
@@ -414,6 +401,7 @@ $('#btn-zoom-out').on('click', function() {
 $('#btn-save').on('click', function() {
 	var name = window.prompt("Please enter a name for your file. \nIt will be saved in your Downloads folder. \n.json will be added as the file extension.", "<file name>");
 	if (name){
+        clearCycleHighlighting();
 		var fileName = name + ".json";
 		var obj = getFullJson();
 		download(fileName, JSON.stringify(obj));

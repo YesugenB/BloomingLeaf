@@ -86,6 +86,8 @@ function responseFunc(isGetNextSteps, response){
         }
        else {
            if(isGetNextSteps){
+				   console.log("All Paths Results (responseFunc):")
+				   console.log(JSON.stringify(results));
                    savedAnalysisData.allNextStatesResult = results;
                    console.log("in backendcomm, saving all next state results");
                     open_analysis_viewer();
@@ -153,6 +155,8 @@ function getFileResults(isGetNextSteps){
 
 				// do not need to store the past result for all next states
 				if(isGetNextSteps){
+					console.log("All Paths Results (getFileResults):")
+				    console.log(JSON.stringify(results));
                     savedAnalysisData.allNextStatesResult = results;
                     console.log("in backendcomm, saving all next state results");
 					open_analysis_viewer();
