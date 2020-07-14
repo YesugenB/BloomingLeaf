@@ -835,6 +835,13 @@ class Intention {
     }
 
     /**
+     * Sets the initial satisfaction value for this Intention to '(no value)'
+     */
+    removeInitialSatValue() {
+        this.changeInitialSatValue('(no value)');
+    }
+
+    /**
      * Creates and returns a 4 digit ID for this node
      *
      * @returns {String}
@@ -903,6 +910,13 @@ class Intention {
         }
     }
 
+    /**
+     * Resets dynamic function
+     */
+    removeFunction() {
+        this.removeAbsCosnt();
+        this.dynamicFunction = new EvolvingFunction(this.nodeID);
+    }
 
     /**
      * Returns the number of function segments for this
