@@ -318,8 +318,6 @@ Actor.numOfCreatedInstances = 0;
 
 
 class AnalysisResult {
-
-
     /**
      * @param {Array.<String>} assignedEpoch
      * @param {Array.<String>} timePointPath
@@ -333,13 +331,432 @@ class AnalysisResult {
      *   ex: {'0000': {'0': '0000', '7': 'DNE'}}
      *   (for nodeID 0000, time point 0, its satisfaction value is none)
      */
+
     constructor() {
         this.assignedEpoch;
         this.timePointPath ;
         this.timePointPathSize;
-        this.elementList;
+        this.elementList; 
         this.allSolution;
+        this.elementListPercentEvals;
+        this.isPathSim = false; //used for slider visualization
+        this.colorVis; //color visualization for analysis mode  
     }
+}
+
+class intentionColorVis{
+    constructor()
+    {
+        this.id;
+        this.evals; //list of percentages that each evaluation holds
+        this.timePoints = []; //array of evals at each time point
+        this.initializeEvalDict();
+    }
+
+    initializeEvalDict()
+    {
+        this.evals = {};
+
+        this.evals = {
+            "0000" : 0.0, 
+            "0011" : 0.0, 
+            "0010" : 0.0,
+            "0100" : 0.0,
+            "0110" : 0.0,
+            "1111" : 0.0,
+            "0111" : 0.0,
+            "1100" : 0.0,
+            "1110" : 0.0 };
+    }
+}
+
+class ColorVisual {
+    // static colorVisDict = {
+    //     "0000" : "#FFFFFF",
+    //     "0011" : "#001196",
+    //     "0010" : "#8FB8DE",
+    //     "0100" : "#DBAADD",
+    //     "0110" : "#643A71",
+    //     "0111" : "#8B5FBF", 
+    //     "1100" : "#FF2600",
+    //     "1110" : "#8D5A97", 
+    //     "1111" : "#0D0221" };
+//replaced white with grey for readability
+    static colorVisDict = {
+        "0000" : "#D3D3D3",
+        "0011" : "#003fff",
+        "0010" : "#8FB8DE",
+        "0100" : "#fbaca8",
+        "0110" : "#9400D3",
+        "0111" : "#5946b2", 
+        "1100" : "#FF2600",
+        "1110" : "#ca2c92", 
+        "1111" : "#0D0221" };
+    /**
+     * Defines order of evaluations for filling intentions by %
+     */
+    static colorVisOrder = {
+            6: "0000" ,
+            1: "0011" ,
+            2: "0010" ,
+            8: "0100" ,
+            4: "0110" ,
+            3: "0111" ,
+            9: "1100" ,
+            7: "1110" ,
+            5: "1111" };
+
+     //replaces all conflicting evals with dark grey
+     static colorVisDictColorBlind = {
+            "0000" : "#D3D3D3",
+            "0011" : "#003fff",
+            "0010" : "#8FB8DE",
+            "0100" : "#fbaca8",
+            "0110" : "#333333",
+            "0111" : "#333333", 
+            "1100" : "#FF2600",
+            "1110" : "#333333", 
+            "1111" : "#333333" };
+
+    //number of evaluation types
+    static numEvals = Object.keys(ColorVisual.colorVisDict).length + 1;
+    //current time point, defined by selection in lower time point slider after simulating a single path
+    static curTimePoint = 0;
+    //user selected slider option
+    static sliderOption = 0;
+    //whether color blind mode is activated
+    static isColorBlindMode = false;
+
+    /**
+     * Checks validity, sets sliderOption, and refreshes visualization
+     * @param {*} newSliderOption 
+     */
+    static setSliderOption(newSliderOption) {
+        if(newSliderOption >= 0 && newSliderOption <= 3) {
+            ColorVisual.sliderOption = newSliderOption;
+        }
+        else {
+            console.log("ERROR: invalid sliderOption");
+        }
+        ColorVisual.refresh();
+    }
+
+    /**
+     * Set new time point and refresh
+     * @param {*} newTimePoint 
+     */
+    static setCurTimePoint(newTimePoint) {
+        ColorVisual.curTimePoint = newTimePoint;
+        ColorVisual.refresh();
+    }
+
+    /**
+     * Runs after any event that may change visualization, such as setting a sat value, changing slider option, or selecting a time point
+     */
+    static refresh() {
+        console.log("inside ColorVisualSlider static method refresh()");
+        switch(this.sliderOption) {
+            case '1':
+            case '2':
+            case '3':
+                if(!analysisResult.isPathSim ) {
+               // console.log("changing intentions by initial state");
+                ColorVisual.colorIntentionsModeling();
+                }
+                else {
+               // console.log("filling intentions by: "+sliderOption);
+                ColorVisual.colorIntentionsAnalysis();
+                }
+                ColorVisual.changeIntentionsText();
+                break;
+            default://colorVis off
+                ColorVisual.returnAllColors();
+                ColorVisual.revertIntentionsText();    
+                    break;
+        }
+    }
+        
+    constructor(elementList) {
+        this.numIntentions = elementList.length;
+        this.numTimePoints = elementList[0].status.length;
+        this.intentionListColorVis = [];        
+        this.initializeIntentionList();
+    }  
+
+    static toggleColorBlindMode(isTurningOnColorBlindMode) {
+        ColorVisual.isColorBlindMode = isTurningOnColorBlindMode;
+        ColorVisual.refresh();
+    }
+
+    /**
+     * Switches to analysis slider, uses the single path analysis results to calculate evaluation percentages, stores time point info, prints info to console
+     * @param {*} elementList List of elements containing analysis results
+     */
+    singlePathResponse(elementList) {
+        console.log("inside singlePathResponse");
+        $('#modelingSlider').css("display", "none");
+        $('#analysisSlider').css("display", "");
+        document.getElementById("colorResetAnalysis").value = ColorVisual.sliderOption;
+
+        var percentPerEvaluation = 1.0 / this.numTimePoints;
+        console.log("percentagePerEvaluation = "+percentPerEvaluation);
+       
+        //calculate evaluation percentages and other data for ColorVis
+        for(var i = 0; i < this.numIntentions; ++i) 
+        {
+            this.intentionListColorVis[i].id = elementList[i].id;
+            for(var k = 0; k < this.numTimePoints; ++k) 
+            { 
+                    var currEval = elementList[i].status[k]; 
+                    this.intentionListColorVis[i].timePoints.push(currEval); //for fill intention by timepoint
+                    var newPercent = this.intentionListColorVis[i].evals[currEval];
+                    newPercent += percentPerEvaluation;
+                    this.intentionListColorVis[i].evals[currEval] = newPercent;
+            }
+        }
+        this.generateConsoleReport();
+        ColorVisual.refresh();
+    }    
+
+    /**
+     * Initialize the list of intentions
+     */
+    initializeIntentionList()  {
+        for(var i = 0; i < this.numIntentions; ++i) {
+            this.intentionListColorVis[i] = new intentionColorVis();
+        }
+    }
+
+    /**
+     * Prints evaluation percentage information to console
+     */
+    generateConsoleReport() {
+        console.log("");
+        console.log("Color Visualization Output:");
+
+        if(analysisResult.colorVis != null) {
+        for(var i = 0; i < analysisResult.colorVis.numIntentions; ++i) {
+            var intention = analysisResult.colorVis.intentionListColorVis[i];
+            console.log("Intention " + intention.id+":");
+
+            for(var j = 0; j < ColorVisual.numEvals; ++j) {
+                var evalType = ColorVisual.colorVisOrder[j];
+                if(intention.evals[evalType] > 0.0)  {
+                    //output it to the console
+                    console.log(evalType
+                    + " -> "
+                    + Math.floor(intention.evals[evalType] * 1000)/10
+                    + "%");
+                }
+            }
+        }
+        }
+        else {
+            console.log("ERROR: colorVis is undefined.");
+        }
+    }
+
+    /**
+     * Used for filling intentions by time points or %. Creates a stripe visualization using gradients with a before and after buffer.
+     * @param {*} element 
+     * Returns gradientID 
+     */
+    static defineGradient(element) {
+            var gradientStops = [];	
+            var offsetTotal = 0.0;
+            var currColor;
+            //var gradientID;
+
+            if(ColorVisual.sliderOption == 2) { //fill by time
+            var percentPerTimePoint = 1.0 / element.timePoints.length;
+            //var timePointColor;
+            for(var j = 0; j < element.timePoints.length; ++j) {
+                currColor = ColorVisual.getColor(element.timePoints[j]);
+
+                //before buffer
+                offsetTotal += 0.001;
+                gradientStops.push({offset: String(offsetTotal*100) + '%',
+                color: currColor})
+                //element color
+                offsetTotal += percentPerTimePoint - 0.002;
+                gradientStops.push({offset: String(offsetTotal*100) + '%',
+                color: currColor})
+                //after buffer
+                offsetTotal += 0.001;
+                gradientStops.push({offset: String(offsetTotal*100) + '%',
+                color: currColor})
+            }
+
+            }
+            else if(ColorVisual.sliderOption == 1) { //fill by %
+            for(var j = 0; j < ColorVisual.numEvals; ++j) {
+            var intentionEval = ColorVisual.colorVisOrder[j];
+            if(element.evals[intentionEval] > 0) {
+                currColor = ColorVisual.getColor(intentionEval);
+                //before buffer
+                offsetTotal += 0.001;
+                gradientStops.push({offset: String(offsetTotal*100) + '%',
+                color: currColor})
+                //element color
+                offsetTotal += element.evals[intentionEval] - 0.002;
+                gradientStops.push({offset: String(offsetTotal*100) + '%',
+                color: currColor})
+                //after buffer
+                offsetTotal += 0.001;
+                gradientStops.push({offset: String(offsetTotal*100) + '%',
+                color: currColor})
+            }
+            } }
+
+            var gradientId = paper.defineGradient({
+            type: 'linearGradient',
+            stops: gradientStops
+            });
+
+            return gradientId;
+     }
+
+     /**
+      * Colors intentions by their evaluation information and slider option after simulating single path
+      */
+    static colorIntentionsAnalysis()
+    {
+        var count = 1;
+        var elements = graph.getElements(); 
+        var actorBuffer = 0;
+    
+        for (var i = 0; i < elements.length; i++) { 
+            ++count;
+            var cellView  = elements[i].findView(paper);
+            var intention = model.getIntentionByID(cellView.model.attributes.nodeID);
+    
+            if(intention == null) { //is an actor or something went wrong
+                actorBuffer += 1;
+            }
+    
+            var element = analysisResult.colorVis.intentionListColorVis[i - actorBuffer];
+                if(intention != null && element != null) {
+                    if(ColorVisual.sliderOption != 3) {
+                    var gradientID = this.defineGradient(element);
+                    cellView.model.attr({'.outer' : {'fill' : 'url(#' + gradientID + ')'}});
+                    } //visualize model at user selected timepoint
+                    else {
+                        var timepoint = ColorVisual.curTimePoint;
+                        var intentionEval = element.timePoints[timepoint];
+                        var color = ColorVisual.getColor(intentionEval);
+                        cellView.model.attr({'.outer' : {'fill' : color}})
+                    }
+                }
+        }
+    }
+
+    /**
+     * Makes text on intentions white when EVO is activated
+     */
+    static changeIntentionsText(){
+        var elements = graph.getElements();
+        var curr;
+        var intention;
+        var initSatVal;
+        for (var i = 0; i < elements.length; i++) {
+            curr = elements[i].findView(paper).model;
+
+            if (curr.attributes.type !== 'basic.Goal' &&
+                curr.attributes.type !== 'basic.Task' &&
+                curr.attributes.type !== 'basic.Softgoal' &&
+                curr.attributes.type !== 'basic.Resource') {
+                continue;
+            }
+            intention = model.getIntentionByID(curr.attributes.nodeID);
+            initSatVal = intention.getInitialSatValue();
+            if(!analysisResult.isPathSim){   
+                if (initSatVal === '(no value)') {
+                    curr.attr('.satvalue/text', '');
+                    curr.attr({text: {fill: 'black',stroke:'none','font-weight' : 'normal','font-size': 10}});
+
+                }else{
+                    curr = elements[i].findView(paper).model;
+                    curr.attr({text: {fill: 'white',stroke:'none'}});
+                }
+            }else{
+                curr = elements[i].findView(paper).model;
+                curr.attr({text: {fill: 'white',stroke:'none'}});    
+            }
+        }
+    }
+
+    /**
+     * returns text to black in modeling mode
+     */
+    static revertIntentionsText(){
+        var elements = graph.getElements();
+        var curr;
+        for (var i = 0; i < elements.length; i++) {
+            curr = elements[i].findView(paper).model;
+            curr.attr({text: {fill: 'black',stroke:'none'}});
+        }
+    }
+
+    /**
+     * changes each intention by their initial user set satisfaction value in modeling mode
+     */
+    static colorIntentionsModeling(){
+        var elements = graph.getElements();
+        for (var i = 0; i < elements.length; i++){ 
+            var cellView = elements[i].findView(paper); 
+            var intention = model.getIntentionByID(cellView.model.attributes.nodeID); //aquires current intention
+            if (intention != null){
+            var initSatVal = intention.getInitialSatValue(); //user set initial sat value
+            console.log(initSatVal);
+            if (initSatVal == '(no value)')
+            {
+                cellView.model.changeToOriginalColour();
+            }
+           // var colorChange = ColorVisual.colorVisDict[initSatVal]; //get color for cooresponding sat value
+           var colorChange = ColorVisual.getColor(initSatVal);
+           console.log("color = "+colorChange);
+            cellView.model.attr({'.outer': {'fill': colorChange}}); //change intention color to match sat value
+        }else{
+            cellView.model.changeToOriginalColour();
+        }
+        }
+    }
+
+    /**
+     * Returns color that corresponds to an intention eval. Checks for color blind mode first.
+     * @param {*} intentionEval four digit code that corresponds to evidence pair (ex. 0011)
+     */
+    static getColor(intentionEval) {
+        if(ColorVisual.isColorBlindMode) {
+            return ColorVisual.colorVisDictColorBlind[intentionEval];
+        }
+        return ColorVisual.colorVisDict[intentionEval];
+    }
+
+    /**
+     * Returns element color to based on element type
+     */
+    static returnAllColors(){
+            var elements = graph.getElements();
+            for (var i = 0; i < elements.length; i++){
+                var cellView = elements[i].findView(paper);
+                cellView.model.changeToOriginalColour();
+            }
+        }
+
+    /**
+     * Switch back to modeling slider, if EVO is on the visualization returns to filling by initial state.
+     */
+     static switchToModelingMode() {
+            $('#modelingSlider').css("display", "");
+            $('#analysisSlider').css("display", "none");
+        if(ColorVisual.sliderOption > 0) {
+            ColorVisual.sliderOption = '1';
+        }
+        document.getElementById("colorReset").value = ColorVisual.sliderOption;
+        ColorVisual.refresh();
+        }
+
 }
 
 class Link {

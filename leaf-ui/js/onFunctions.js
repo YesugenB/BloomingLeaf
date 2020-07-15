@@ -73,8 +73,9 @@ function reassignIntentionIDs() {
 /**
  * Helper function for switching to Analysis view.
  */
+var inAnalysis = false;
 function switchToAnalysisMode() {
-
+    inAnalysis = true;
 	reassignIntentionIDs();
 	
 	// Clear the right panel
@@ -91,9 +92,10 @@ function switchToAnalysisMode() {
 	$('#analysis-btn').css("display", "none");
 	$('#symbolic-btn').css("display", "none");
 	$('#cycledetect-btn').css("display", "none");
-	$('#dropdown-model').css("display", "");
+    $('#dropdown-model').css("display", "");
+    //$('#on-off').css("display", "none");
 
-	$('#model-toolbar').css("display", "none");
+    $('#model-toolbar').css("display", "none");
 
 	$('#modeText').text("Analysis");
 
@@ -104,7 +106,9 @@ function switchToAnalysisMode() {
 	if (currentHalo) {
 		currentHalo.remove();
 	}
-	mode = "Analysis";
+    mode = "Analysis";
+    
+    ColorVisual.refresh();
 }
 
 // Switches to modeling mode
@@ -114,7 +118,9 @@ $('#model-cur-btn').on('click', function() {
 	// Cleaning the previous analysis data for new execution
 	//globalAnalysisResult.elementList = "";
 	savedAnalysisData.finalAssignedEpoch="";
-	savedAnalysisData.finalValueTimePoints="";
+    savedAnalysisData.finalValueTimePoints="";
+    
+    analysisResult.isPathSim = false;
 });
 
 
@@ -137,12 +143,15 @@ function revertNodeValuesToInitial() {
 
 		var intention = model.getIntentionByID(curr.attributes.nodeID);
 
-		var initSatVal = intention.getInitialSatValue();
+		/**var initSatVal = intention.getInitialSatValue();
 		if (initSatVal === '(no value)') {
-			curr.attr('.satvalue/text', '');
+            curr.attr('.satvalue/text', '');
+            curr.attr({text: {fill: 'black',stroke:'none','font-weight' : 'normal','font-size': 10}});
+
 		} else {
-			curr.attr('.satvalue/text', satisfactionValuesDict[initSatVal].satValue);
-		}
+            curr.attr('.satvalue/text', satisfactionValuesDict[initSatVal].satValue);
+            curr.attr({text: {fill: 'black',stroke:'none','font-weight' : 'normal','font-size': 10}});
+		}**/
 		curr.attr({text: {fill: 'black'}});
 	}
 }
@@ -153,6 +162,7 @@ function revertNodeValuesToInitial() {
  * Display the modeling mode page
  */
 function switchToModellingMode() {
+    analysisResult.isPathSim = false; //reset isPathSim for color visualization slider
 	analysisRequest.previousAnalysis = null;
 	clearInspector();
 
@@ -173,9 +183,14 @@ function switchToModellingMode() {
 	$('#analysis-btn').css("display","");
 	$('#symbolic-btn').css("display","");
 	$('#cycledetect-btn').css("display","");
-	$('#dropdown-model').css("display","none");
+    $('#dropdown-model').css("display","none");
+    $('#on-off').css("display", "");
 
-	$('#model-toolbar').css("display","");
+    $('#model-toolbar').css("display","");
+
+    ColorVisual.switchToModelingMode();
+    analysisResult.colorVis = [];
+
 
 	$('#sliderValue').text("");
 
@@ -188,7 +203,25 @@ function switchToModellingMode() {
 	// Clear previous slider setup
 	clearHistoryLog();
 
-	mode = "Modelling";
+    mode = "Modelling";
+
+}
+
+/**
+ * Source:https://www.w3schools.com/howto/howto_js_rangeslider.asp 
+ * Two option modeling mode slider
+ */
+var sliderModeling = document.getElementById("colorReset");
+//var sliderOption = sliderModeling.value;
+sliderModeling.oninput = function() { //turns slider on/off and refreshes
+  ColorVisual.setSliderOption(this.value);
+}
+/**
+ * Four option analysis mode slider
+ */
+var sliderAnalysis = document.getElementById("colorResetAnalysis");
+sliderAnalysis.oninput = function() { //changes slider mode and refreshes
+    ColorVisual.setSliderOption(this.value);
 }
 
 /**
@@ -265,10 +298,12 @@ $('#btn-zoom-out').on('click', function() {
 $('#btn-save').on('click', function() {
 	var name = window.prompt("Please enter a name for your file. \nIt will be saved in your Downloads folder. \n.json will be added as the file extension.", "<file name>");
 	if (name){
+        ColorVisual.returnAllColors();
         clearCycleHighlighting();
 		var fileName = name + ".json";
 		var obj = getFullJson();
-		download(fileName, JSON.stringify(obj));
+        download(fileName, JSON.stringify(obj));
+        ColorVisual.refresh();
 	}
 });
 
@@ -303,6 +338,20 @@ $('#btn-fnt').on('click', function(){
 	for (var i = 0; i < elements.length; i++){
 		elements[i].attr(".name/font-size", 10);
 	}
+});
+
+$('#colorblind-mode-isOff').on('click', function(){ //activates colorblind mode
+    $('#colorblind-mode-isOff').css("display", "none");
+    $('#colorblind-mode-isOn').css("display", "");
+
+    ColorVisual.toggleColorBlindMode(true);
+});
+
+$('#colorblind-mode-isOn').on('click', function(){ //turns off colorblind mode
+    $('#colorblind-mode-isOn').css("display", "none");
+    $('#colorblind-mode-isOff').css("display", "");
+
+    ColorVisual.toggleColorBlindMode(false);
 });
 
 /**
