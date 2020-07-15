@@ -227,13 +227,6 @@ sliderAnalysis.oninput = function() { //changes slider mode and refreshes
     ColorVisual.setSliderOption(this.value);
 }
 
-var sliderAnalysis = document.getElementById("colorResetAnalysis");
-sliderAnalysis.oninput = function() { //changes slider mode and refreshes
-  sliderOption = this.value;
- // console.log("option (analysis slider)= "+sliderOption);
-  refreshColorVis();
-}
-
 
 
 /**
