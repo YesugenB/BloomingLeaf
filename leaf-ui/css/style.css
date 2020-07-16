@@ -482,7 +482,20 @@ select > .select-placeholder {
   left: 105px;
 }
 
-#on-off{
+#top-label-nextState{
+  background-color: #333;
+  border: none;
+  color: white;
+  text-shadow: none;
+  font-size: 0.75em;
+  margin: 0px;
+  padding: 0px;
+  position: relative;
+  top: -15px;
+  left: 5px;
+}
+
+.on-off{
   font-size: 8px;
   color: white;
   position: relative;
@@ -499,6 +512,10 @@ select > .select-placeholder {
   position: relative;
   top: -2px;
   width: 92px; /* 92 */
+}
+#colorResetNextState{
+  position: relative;
+  top: -20px;
 }
 .color-button {
   cursor: pointer;
@@ -545,8 +562,6 @@ select > .select-placeholder {
   background: #27ae60; /* Green background */
   cursor: pointer; /* Cursor on hover */
 }
-
-/* end of representive slider styling */
 
 /* end of representive slider styling */
 

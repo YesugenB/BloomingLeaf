@@ -15,6 +15,7 @@
 
         <link rel="stylesheet" type="text/css" href="./css/analysis_html.css" />
 
+
 		<style>
 		.pagination a {
 		    color: white;
@@ -35,7 +36,8 @@
     </head>
     <body>
         <p id="name">BloomingLeaf</p>
-        <div class="toolbar">   <!-- TODO: Could be "toolbar-div"-->
+       <div class="toolbar">   <!-- TODO: Could be "toolbar-div" -->
+
             <!-- <div id="model-toolbar">
                 <button id="btn-save" class="btn">Save</button>
             </div> -->
@@ -52,7 +54,16 @@
                 <a id="btn-fnt-up">Increase</a>
                 <a id="btn-fnt-down">Decrease</a>
               </div>
+
             </div>
+
+
+            <div class = "color-button" id="nextStateSlider"> <!-- slider div -->
+              <input type="range" min="0" max="1" value="0" class="EVO-slider" id="colorResetNextState"> <!-- makes slider -->
+              <p id = "top-label-nextState" style = "display: inline-block" >EVO</p> <!-- sat slider label -->
+              <p class = "on-off">  Off &ensp; On</p> <!--  on/off label -->
+            </div>
+
 
             <!-- <div class="dropdown">
               <div class="btn">Help</div>
@@ -146,6 +157,7 @@
 
         <script src="./js/object/InputAnalysis.js"></script>
         <script src="./js/object/InputModel.js"></script>
+        <script src="./js/object/Class.js"></script>
         <!-- Model elements -->
         <script src="./js/object/InputActor.js"></script>
         <script src="./js/object/InputConstraint.js"></script>

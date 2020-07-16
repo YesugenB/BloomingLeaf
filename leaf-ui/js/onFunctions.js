@@ -184,7 +184,7 @@ function switchToModellingMode() {
 	$('#symbolic-btn').css("display","");
 	$('#cycledetect-btn').css("display","");
     $('#dropdown-model').css("display","none");
-    $('#on-off').css("display", "");
+    //$('#on-off').css("display", "");
 
     $('#model-toolbar').css("display","");
 
@@ -223,6 +223,8 @@ var sliderAnalysis = document.getElementById("colorResetAnalysis");
 sliderAnalysis.oninput = function() { //changes slider mode and refreshes
     ColorVisual.setSliderOption(this.value);
 }
+
+
 
 /**
  * Set up tool bar button on click functions

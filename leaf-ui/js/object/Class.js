@@ -426,6 +426,8 @@ class ColorVisual {
     static sliderOption = 0;
     //whether color blind mode is activated
     static isColorBlindMode = false;
+    //user selected slider option in the next state window
+    static sliderOptionNextState = 0;
 
     /**
      * Checks validity, sets sliderOption, and refreshes visualization
@@ -439,6 +441,16 @@ class ColorVisual {
             console.log("ERROR: invalid sliderOption");
         }
         ColorVisual.refresh();
+    }
+
+    static setSliderOptionNextState(newSliderOption) {
+        if(newSliderOption >= 0 && newSliderOption <= 3) {
+            ColorVisual.sliderOptionNextState = newSliderOption;
+        }
+        else {
+            console.log("ERROR: invalid sliderOption");
+        }
+        ColorVisual.refreshNextState();
     }
 
     /**
@@ -468,6 +480,30 @@ class ColorVisual {
                 ColorVisual.colorIntentionsAnalysis();
                 }
                 ColorVisual.changeIntentionsText();
+                break;
+            default://colorVis off
+                ColorVisual.returnAllColors();
+                ColorVisual.revertIntentionsText();    
+                    break;
+        }
+    }
+
+    static refreshNextState() {
+        console.log("inside ColorVisualSlider static method refresh()");
+        switch(this.sliderOption) {
+            case '1':
+            //case '2':
+            //case '3':
+            ColorVisual.colorIntentionsModeling();
+            //     if(!analysisResult.isPathSim ) {
+            //    // console.log("changing intentions by initial state");
+            //     ColorVisual.colorIntentionsModeling();
+            //     }
+            //     else {
+            //    // console.log("filling intentions by: "+sliderOption);
+            //     ColorVisual.colorIntentionsAnalysis();
+            //     }
+            //     ColorVisual.changeIntentionsText();
                 break;
             default://colorVis off
                 ColorVisual.returnAllColors();

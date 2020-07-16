@@ -23,7 +23,11 @@ var satValueDict = {
     "none": "0000"
 };
 
-
+var sliderNextState = document.getElementById("colorResetNextState");
+sliderNextState.oninput = function() { //changes slider mode and refreshes
+    console.log("inside sliderNextState oninput");
+    ColorVisual.setSliderOptionNextState(this.value);
+}
 
 //Executing scripts only when page is fully loaded
 window.onload = function(){
