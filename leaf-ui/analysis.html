@@ -59,9 +59,9 @@
 
 
             <div class = "color-button" id="nextStateSlider"> <!-- slider div -->
-              <input type="range" min="0" max="1" value="0" class="EVO-slider" id="colorResetNextState"> <!-- makes slider -->
+              <input type="range" min="0" max="2" value="0" class="EVO-slider" id="colorResetNextState"> <!-- makes slider -->
               <p id = "top-label-nextState" style = "display: inline-block" >EVO</p> <!-- sat slider label -->
-              <p class = "on-off">  Off &ensp; On</p> <!--  on/off label -->
+              <p class = "on-off">  Off &ensp; State  &ensp; %</p> <!--  on/off label -->
             </div>
 
 
@@ -147,6 +147,7 @@
         <script src="./js/objects.js"></script>
 
         <script src="./rappid-extensions/ElementInspector.js"></script>
+        <script src="./rappid-extensions/ActorInspector.js"></script>
         <script src="./rappid-extensions/LinkInspector.js"></script>
         <script src="./rappid-extensions/AnalysisInspector.js"></script>
         <script src="./rappid-extensions/joint.extensions.js"></script>
@@ -156,7 +157,7 @@
         <script src="./js/backendComm.js"></script>
 
         <script src="./js/object/InputAnalysis.js"></script>
-        <script src="./js/object/InputModel.js"></script>
+        <!-- <script src="./js/object/InputModel.js"></script> -->
         <script src="./js/object/Class.js"></script>
         <!-- Model elements -->
         <script src="./js/object/InputActor.js"></script>
@@ -165,6 +166,7 @@
         <script src="./js/object/InputIntention.js"></script>
         <script src="./js/object/InputLink.js"></script>
         <script src="./js/object/InputEvaluation.js"></script>
+
         <!-- <script src="./plugins/keyboard/keyboard.js"></script>
          <script src="./plugins/chart/Chart.bundle.min.js"></script>
 

@@ -25,7 +25,7 @@ var satValueDict = {
 
 var sliderNextState = document.getElementById("colorResetNextState");
 sliderNextState.oninput = function() { //changes slider mode and refreshes
-    console.log("inside sliderNextState oninput");
+    console.log("inside sliderNextState oninput: "+this.value);
     ColorVisual.setSliderOptionNextState(this.value);
 }
 
@@ -127,6 +127,65 @@ function renderNavigationSidebar(currentPage = 0){
     updateNodesValues(currentPage);
     //updateSliderValues(currentPage);
 }
+
+
+/**
+ * Set up on events for Rappid/JointJS objets
+ */
+var max_font = 20;
+var min_font = 6;
+var current_font = 10;
+
+$('#btn-zoom-in').on('click', function() {
+	analysis.paperScroller.zoom(0.2, { max: 3 });
+});
+
+// Zoom out
+$('#btn-zoom-out').on('click', function() {
+	analysis.paperScroller.zoom(-0.2, { min: 0.2 });
+});
+
+// Increase font size
+$('#btn-fnt-up').on('click', function(){
+	var elements = graph.getElements();
+	for (var i = 0; i < elements.length; i++){
+       // console.log(elements[i]);
+        var cellView = elements[i].findView(analysis.paper); 
+       // cellView.model.attr({'.outer': {'fill': 'white'}});
+
+		// if (elements[i].attr(".name/font-size") < max_font){
+		// 	elements[i].attr(".name/font-size", elements[i].attr(".name/font-size") + 1);
+        // }
+        
+        if (cellView.model.attr(".name/font-size") < max_font){
+			cellView.model.attr(".name/font-size", cellView.model.attr(".name/font-size") + 1);
+		}
+	}
+});
+
+// Decrease font size
+$('#btn-fnt-down').on('click', function(){
+	var elements = graph.getElements();
+	for (var i = 0; i < elements.length; i++){
+        var cellView = elements[i].findView(analysis.paper); 
+		// if (elements[i].attr(".name/font-size") > min_font){
+		// 	elements[i].attr(".name/font-size", elements[i].attr(".name/font-size") - 1);
+        // }
+        if (cellView.model.attr(".name/font-size") > min_font){
+			cellView.model.attr(".name/font-size", cellView.model.attr(".name/font-size") - 1);
+		}
+	}
+});
+
+// Default font size
+$('#btn-fnt').on('click', function(){
+	var elements = graph.getElements();
+	for (var i = 0; i < elements.length; i++){
+        var cellView = elements[i].findView(analysis.paper); 
+        //elements[i].attr(".name/font-size", 10);
+        cellView.model.attr(".name/font-size", 10);
+	}
+});
 
 function updateNodesValues(currentPage, step = 0){
     if(currentPage == "")

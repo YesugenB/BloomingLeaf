@@ -500,7 +500,7 @@ select > .select-placeholder {
   padding: 0px;
   position: relative;
   top: -15px;
-  left: 5px;
+  left: 7px;
 }
 
 .on-off{
@@ -515,6 +515,7 @@ select > .select-placeholder {
 #colorResetNextState{
   position: relative;
   top: -20px;
+  width: 66px;
 }
 .color-button {
   cursor: pointer;

@@ -482,19 +482,6 @@ select > .select-placeholder {
   left: 105px;
 }
 
-#top-label-nextState{
-  background-color: #333;
-  border: none;
-  color: white;
-  text-shadow: none;
-  font-size: 0.75em;
-  margin: 0px;
-  padding: 0px;
-  position: relative;
-  top: -15px;
-  left: 5px;
-}
-
 .on-off{
   font-size: 8px;
   color: white;
@@ -511,7 +498,7 @@ select > .select-placeholder {
 #colorResetAnalysis{
   position: relative;
   top: -2px;
-  width: 92px; /* 92 */
+  width: 92px;
 }
 #colorResetNextState{
   position: relative;
