@@ -14,6 +14,7 @@ var current;
 
 var model;
 
+
 var satValueDict = {
     "unknown": "0000",
     "satisfied": "0011",
@@ -23,11 +24,6 @@ var satValueDict = {
     "none": "0000"
 };
 
-var sliderNextState = document.getElementById("colorResetNextState");
-sliderNextState.oninput = function() { //changes slider mode and refreshes
-    console.log("inside sliderNextState oninput: "+this.value);
-    ColorVisual.setSliderOptionNextState(this.value);
-}
 
 //Executing scripts only when page is fully loaded
 window.onload = function(){
@@ -128,64 +124,46 @@ function renderNavigationSidebar(currentPage = 0){
     //updateSliderValues(currentPage);
 }
 
+//These functions are used in the nav bar in both windows. Is there a better place to put them?
 
-/**
- * Set up on events for Rappid/JointJS objets
- */
-var max_font = 20;
-var min_font = 6;
-var current_font = 10;
+function zoomIn(pPaperScroller) {
+    pPaperScroller.zoom(0.2, { max: 3 });
+}
 
-$('#btn-zoom-in').on('click', function() {
-	analysis.paperScroller.zoom(0.2, { max: 3 });
-});
+function zoomOut(pPaperScroller) {
+pPaperScroller.zoom(-0.2, { min: 0.2 });
+}
 
-// Zoom out
-$('#btn-zoom-out').on('click', function() {
-	analysis.paperScroller.zoom(-0.2, { min: 0.2 });
-});
-
-// Increase font size
-$('#btn-fnt-up').on('click', function(){
-	var elements = graph.getElements();
+function fontUp(pPaper) {
+    var elements = graph.getElements();
 	for (var i = 0; i < elements.length; i++){
-       // console.log(elements[i]);
-        var cellView = elements[i].findView(analysis.paper); 
-       // cellView.model.attr({'.outer': {'fill': 'white'}});
-
-		// if (elements[i].attr(".name/font-size") < max_font){
-		// 	elements[i].attr(".name/font-size", elements[i].attr(".name/font-size") + 1);
-        // }
+        var cellView = elements[i].findView(pPaper); 
         
         if (cellView.model.attr(".name/font-size") < max_font){
 			cellView.model.attr(".name/font-size", cellView.model.attr(".name/font-size") + 1);
 		}
 	}
-});
+}
 
-// Decrease font size
-$('#btn-fnt-down').on('click', function(){
-	var elements = graph.getElements();
+function fontDown(pPaper) {
+    var elements = graph.getElements();
 	for (var i = 0; i < elements.length; i++){
-        var cellView = elements[i].findView(analysis.paper); 
-		// if (elements[i].attr(".name/font-size") > min_font){
-		// 	elements[i].attr(".name/font-size", elements[i].attr(".name/font-size") - 1);
-        // }
+        var cellView = elements[i].findView(pPaper); 
         if (cellView.model.attr(".name/font-size") > min_font){
 			cellView.model.attr(".name/font-size", cellView.model.attr(".name/font-size") - 1);
 		}
 	}
-});
+}
 
-// Default font size
-$('#btn-fnt').on('click', function(){
-	var elements = graph.getElements();
+function defaultFont(pPaper) {
+    var elements = graph.getElements();
 	for (var i = 0; i < elements.length; i++){
-        var cellView = elements[i].findView(analysis.paper); 
-        //elements[i].attr(".name/font-size", 10);
+        var cellView = elements[i].findView(pPaper); 
         cellView.model.attr(".name/font-size", 10);
 	}
-});
+}
+
+//end nav bar functions
 
 function updateNodesValues(currentPage, step = 0){
     if(currentPage == "")

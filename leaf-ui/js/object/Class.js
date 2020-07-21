@@ -345,16 +345,14 @@ class AnalysisResult {
 }
 
 class intentionColorVis{
-    constructor()
-    {
+    constructor() {
         this.id;
         this.evals; //list of percentages that each evaluation holds
         this.timePoints = []; //array of evals at each time point
         this.initializeEvalDict();
     }
 
-    initializeEvalDict()
-    {
+    initializeEvalDict() {
         this.evals = {};
 
         this.evals = {
@@ -426,9 +424,6 @@ class ColorVisual {
     static sliderOption = 0;
     //whether color blind mode is activated
     static isColorBlindMode = false;
-    //user selected slider option in the next state window
-    static sliderOptionNextState = 0;
-
     /**
      * Checks validity, sets sliderOption, and refreshes visualization
      * @param {*} newSliderOption 
@@ -441,16 +436,6 @@ class ColorVisual {
             console.log("ERROR: invalid sliderOption");
         }
         ColorVisual.refresh();
-    }
-
-    static setSliderOptionNextState(newSliderOption) {
-        if(newSliderOption >= 0 && newSliderOption <= 3) {
-            ColorVisual.sliderOptionNextState = newSliderOption;
-        }
-        else {
-            console.log("ERROR: invalid sliderOption");
-        }
-        ColorVisual.refreshNextState();
     }
 
     /**
@@ -467,6 +452,7 @@ class ColorVisual {
      */
     static refresh() {
         console.log("inside ColorVisualSlider static method refresh()");
+        console.log(model);
         switch(this.sliderOption) {
             case '1':
             case '2':
@@ -480,30 +466,6 @@ class ColorVisual {
                 ColorVisual.colorIntentionsAnalysis();
                 }
                 ColorVisual.changeIntentionsText();
-                break;
-            default://colorVis off
-                ColorVisual.returnAllColors();
-                ColorVisual.revertIntentionsText();    
-                    break;
-        }
-    }
-
-    static refreshNextState() {
-        console.log("inside ColorVisualSlider static method refresh()");
-        switch(this.sliderOption) {
-            case '1':
-            //case '2':
-            //case '3':
-            ColorVisual.colorIntentionsModeling();
-            //     if(!analysisResult.isPathSim ) {
-            //    // console.log("changing intentions by initial state");
-            //     ColorVisual.colorIntentionsModeling();
-            //     }
-            //     else {
-            //    // console.log("filling intentions by: "+sliderOption);
-            //     ColorVisual.colorIntentionsAnalysis();
-            //     }
-            //     ColorVisual.changeIntentionsText();
                 break;
             default://colorVis off
                 ColorVisual.returnAllColors();
@@ -758,6 +720,7 @@ class ColorVisual {
         }
     }
 
+
     /**
      * Returns color that corresponds to an intention eval. Checks for color blind mode first.
      * @param {*} intentionEval four digit code that corresponds to evidence pair (ex. 0011)
@@ -793,6 +756,85 @@ class ColorVisual {
         ColorVisual.refresh();
         }
 
+}
+
+class ColorVisualNextState {
+
+    //user selected slider option in the next state window
+    static sliderOptionNextState = 0;
+
+    static setSliderOption(newSliderOption) {
+        if(newSliderOption >= 0 && newSliderOption <= 2) {
+            ColorVisualNextState.sliderOptionNextState = newSliderOption;
+        }
+        else {
+            console.log("ERROR: invalid sliderOption");
+        }
+        ColorVisualNextState.refresh();
+    }
+
+    static refresh() {
+        console.log("inside ColorVisualSlider static method refreshNextState()");
+        console.log(model);
+        switch(this.sliderOptionNextState) {
+            case '1':
+                ColorVisualNextState.colorIntentionsByState();
+            break;
+            case '2':
+            //case '3':
+            ColorVisualNextState.colorIntentionsByPercents();
+            //     if(!analysisResult.isPathSim ) {
+            //    // console.log("changing intentions by initial state");
+            //     ColorVisual.colorIntentionsModeling();
+            //     }
+            //     else {
+            //    // console.log("filling intentions by: "+sliderOption);
+            //     ColorVisual.colorIntentionsAnalysis();
+            //     }
+            //     ColorVisual.changeIntentionsText();
+                break;
+            default://colorVis off
+            console.log("off");
+               // ColorVisual.returnAllColors();
+               // ColorVisual.revertIntentionsText();    
+                break;
+        }
+    }
+
+    /**
+     * changes each intention by their satisfaction value for the displayed state
+     */
+    static colorIntentionsByState(){
+        console.log("inside colorIntentionsByStateNextState()");
+        var elements = analysis.graph.getElements();
+
+        for (var i = 0; i < model.intentions.length ; i++){
+            model.intentions[i]
+        }
+
+        // for (var i = 0; i < elements.length; i++){ 
+        //     var cellView = elements[i].findView(analysis.paper); 
+        //     var intention = model.getIntentionByID(cellView.model.attributes.nodeID); //aquires current intention
+        //     if (intention != null){
+        //     var initSatVal = intention.getInitialSatValue(); //user set initial sat value
+        //     console.log(initSatVal);
+        //     if (initSatVal == '(no value)')
+        //     {
+        //         cellView.model.changeToOriginalColour();
+        //     }
+        //    // var colorChange = ColorVisual.colorVisDict[initSatVal]; //get color for cooresponding sat value
+        //    var colorChange = ColorVisual.getColor(initSatVal);
+        //    console.log("color = "+colorChange);
+        //     cellView.model.attr({'.outer': {'fill': colorChange}}); //change intention color to match sat value
+        // }else{
+        //     cellView.model.changeToOriginalColour();
+        // }
+        //}
+    }
+
+    static colorIntentionsByPercents(){
+        console.log("inside colorIntentionsByPercentNextState()");
+    }
 }
 
 class Link {
