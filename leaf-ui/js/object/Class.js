@@ -512,7 +512,7 @@ class ColorVisual {
                     this.intentionListColorVis[i].evals[currEval] = newPercent;
             }
         }
-        this.generateConsoleReport();
+       // this.generateConsoleReport();
         ColorVisual.refresh();
     }    
 
@@ -778,7 +778,7 @@ class ColorVisualNextState {
         console.log(model);
         switch(this.sliderOptionNextState) {
             case '1':
-                ColorVisualNextState.colorIntentionsByState();
+            ColorVisualNextState.colorIntentionsByState();
             break;
             case '2':
             //case '3':
@@ -809,8 +809,14 @@ class ColorVisualNextState {
         var elements = analysis.graph.getElements();
 
         for (var i = 0; i < model.intentions.length ; i++){
-            model.intentions[i]
+            var curr = model.intentions[i];
+            console.log(curr);
+            var satVal = curr.getInitialSatValue();
+            console.log(satVal);
         }
+        // for (var i = 0; i < analysis.graph.length ; i++){ 
+        //     console.log(analysis.graph[i]);
+        // }
 
         // for (var i = 0; i < elements.length; i++){ 
         //     var cellView = elements[i].findView(analysis.paper); 
