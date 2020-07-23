@@ -181,7 +181,7 @@ function updateNodesValues(currentPage, step = 0){
         cell.attributes.attrs[".satvalue"].value = value;
 
         //Change backend value to user friendly view
-        /*if ((value == "0001") || (value == "0011")) {
+        if ((value == "0001") || (value == "0011")) {
             cell.attr(".satvalue/text", "(F, ⊥)");
             cell.attr({text:{fill:'black'}});
         }else if(value == "0010") {
@@ -210,7 +210,7 @@ function updateNodesValues(currentPage, step = 0){
             cell.attr({text:{fill:'black'}});
         }else {
             cell.removeAttr(".satvalue/d");
-        }*/
+        }
     }
 
 }
