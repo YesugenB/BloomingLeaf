@@ -122,6 +122,7 @@ function renderNavigationSidebar(currentPage = 0){
     updatePagination(currentPage);
     updateNodesValues(currentPage);
     //updateSliderValues(currentPage);
+    ColorVisualNextState.refresh();
 }
 
 //These functions are used in the nav bar in both windows. Is there a better place to put them?
@@ -301,7 +302,7 @@ function goToState(){
 
 function add_filter(){
     console.log("clicked");
-    tempResults = jQuery.extend(true, {}, window.opener.savedAnalysisData.allNextStatesResult);
+    tempResults = jQuery.extend(true, {}, window.opener.savedAnalysisData.allNextStatesResult); //does this provide all the infromation of next states?
     var checkboxes = document.getElementsByClassName("filter_checkbox");
     for (var i_element = 0; i_element < checkboxes.length; i_element++){
         var checkbox = checkboxes[i_element];
@@ -1456,6 +1457,4 @@ function generate_next_states(){
     console.log(analysisRequest);
 
     backendComm(jsObject);
-
-
 }

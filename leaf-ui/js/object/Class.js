@@ -806,36 +806,21 @@ class ColorVisualNextState {
      */
     static colorIntentionsByState(){
         console.log("inside colorIntentionsByStateNextState()");
-        var elements = analysis.graph.getElements();
+        var cell;
+        var value;
+        var cellView;
+        var colorChange;
 
-        for (var i = 0; i < model.intentions.length ; i++){
-            var curr = model.intentions[i];
-            console.log(curr);
-            var satVal = curr.getInitialSatValue();
-            console.log(satVal);
+        for(var i = 0; i < analysis.elements.length; i++){
+            cell = analysis.elements[i];
+            
+            value = cell.attributes.attrs[".satvalue"].value;
+            cellView = cell.findView(analysis.paper); 
+            colorChange = ColorVisual.getColor(value);
+
+            cellView.model.attr({'.outer': {'fill': colorChange}});
         }
-        // for (var i = 0; i < analysis.graph.length ; i++){ 
-        //     console.log(analysis.graph[i]);
-        // }
 
-        // for (var i = 0; i < elements.length; i++){ 
-        //     var cellView = elements[i].findView(analysis.paper); 
-        //     var intention = model.getIntentionByID(cellView.model.attributes.nodeID); //aquires current intention
-        //     if (intention != null){
-        //     var initSatVal = intention.getInitialSatValue(); //user set initial sat value
-        //     console.log(initSatVal);
-        //     if (initSatVal == '(no value)')
-        //     {
-        //         cellView.model.changeToOriginalColour();
-        //     }
-        //    // var colorChange = ColorVisual.colorVisDict[initSatVal]; //get color for cooresponding sat value
-        //    var colorChange = ColorVisual.getColor(initSatVal);
-        //    console.log("color = "+colorChange);
-        //     cellView.model.attr({'.outer': {'fill': colorChange}}); //change intention color to match sat value
-        // }else{
-        //     cellView.model.changeToOriginalColour();
-        // }
-        //}
     }
 
     static colorIntentionsByPercents(){

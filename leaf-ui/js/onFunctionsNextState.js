@@ -39,6 +39,8 @@ $('#btn-fnt').on('click', function(){
 
 var sliderNextState = document.getElementById("colorResetNextState"); ///problem: analysis.js is rendered first, because colorResetNextState doesn't exist we get an error
 sliderNextState.oninput = function() { //changes slider mode and refreshes 
-    console.log("inside sliderNextState oninput: "+this.value);
+   // console.log("inside sliderNextState oninput: "+this.value);
+    //console.log("model = ");
+   // console.log(model);
     ColorVisualNextState.setSliderOption(this.value);
 }
