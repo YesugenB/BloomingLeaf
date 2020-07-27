@@ -14,6 +14,9 @@ var current;
 
 var model;
 
+var selectedTimePoint = 0;
+var maxTimePoint = 0;
+
 
 var satValueDict = {
     "unknown": "0000",
@@ -100,6 +103,10 @@ function init(){
         analysis.analysisResult = savedAnalysisData.allNextStatesResult;
     }
     model =  jQuery.extend({}, window.opener.model);
+
+   // maxTimePoint = analysis.analysisResult.elementList[0].status.length;
+   // console.log("maxTimePoint = "+maxTimePoint);
+    console.log(window.opener.analysisResult.elementList[0].status.length);
 }
 
 function renderNavigationSidebar(currentPage = 0){
