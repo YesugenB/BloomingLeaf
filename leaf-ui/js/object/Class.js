@@ -368,6 +368,157 @@ class intentionColorVis{
     }
 }
 
+class ColorVisualMaster {
+    constructor() {
+        this.sliderOption();
+        this.intentionList = [];
+    }
+
+    setSliderOption(newSliderOption) {
+        this.sliderOption = newSliderOption;
+        this.refresh();
+    }
+
+    refresh(){
+        //different for each child class
+    }
+
+    /**
+     * Returns element color to based on element type
+     */
+    static returnAllColors(elements, paper){
+        for (var i = 0; i < elements.length; i++){
+            var cellView = elements[i].findView(paper);
+            cellView.model.changeToOriginalColour();
+        }
+    }
+
+}
+
+class ColorVisualNextState extends ColorVisualMaster {
+//extends ColorVisualMaster {
+
+    //user selected slider option in the next state window
+    static sliderOptionNextState = 0;
+
+    // constructor() {
+    //     super();
+    // }
+
+    static setSliderOption(newSliderOption) {
+        if(newSliderOption >= 0 && newSliderOption <= 2) {
+            ColorVisualNextState.sliderOptionNextState = newSliderOption;
+        }
+        else {
+            console.log("ERROR: invalid sliderOption");
+        }
+        ColorVisualNextState.refresh();
+    }
+
+    static refresh() {
+        console.log("inside ColorVisualSlider static method refreshNextState()");
+       // console.log(model);
+        switch(this.sliderOptionNextState) {
+            case '1':
+            ColorVisualNextState.colorIntentionsByState();
+            break;
+            case '2':
+            ColorVisualNextState.colorIntentionsByPercents();
+            //     ColorVisual.changeIntentionsText();
+                break;
+            default://colorVis off
+            console.log("off");
+               //ColorVisualNextState.returnAllColors();
+               super.returnAllColors(analysis.elements, analysis.paper);
+               // ColorVisual.revertIntentionsText();    
+                break;
+        }
+    }
+
+    /**
+     * changes each intention by their satisfaction value for the displayed state
+     */
+    static colorIntentionsByState(){
+        var cell;
+        var value;
+        var cellView;
+        var colorChange;
+
+        for(var i = 0; i < analysis.elements.length; i++){
+            cell = analysis.elements[i];
+            value = cell.attributes.attrs[".satvalue"].value;
+            cellView = cell.findView(analysis.paper); 
+            colorChange = ColorVisual.getColor(value);
+            cellView.model.attr({'.outer': {'fill': colorChange}});  //TODO update text color
+            //TODO: remove colors before saving selected state
+        }
+    }
+
+    static colorIntentionsByPercents(){
+        var intentionPercents = [];
+        //acquire all next state info
+        console.log(analysis.analysisResult);
+        var percentPerEvaluation = 1.0 / analysis.analysisResult.allSolution.length; //number of next states
+        var step = 0;
+        //store: ID + percents per eval
+        for(var i = 0; i< analysis.elements.length; i++){ //for each elements
+            //compile and calculate % for each node -> % must be updated every time a filter is applied
+            intentionPercents.push(new intentionColorVis());
+            for(var j = 0; j < analysis.analysisResult.allSolution.length; j++) { //for each next state
+            var currEval = analysis.analysisResult.allSolution[j].intentionElements[i].status[step];
+            var newPercent = intentionPercents[i].evals[currEval];
+            newPercent += percentPerEvaluation;
+            intentionPercents[i].evals[currEval] = newPercent;
+            }
+            var gradientID = this.defineGradient(intentionPercents[i]);
+            var cell = analysis.elements[i];
+            var cellView = cell.findView(analysis.paper); 
+            cellView.model.attr({'.outer' : {'fill' : 'url(#' + gradientID + ')'}});
+        }
+        //compile and calculate % for each node -> % must be updated every time a filter is applied
+        //create gradient
+        //fill intention
+    }
+
+    static defineGradient(element) {
+        var gradientStops = [];	
+        var offsetTotal = 0.0;
+        var currColor;
+        //var gradientID;
+
+        for(var j = 0; j < ColorVisual.numEvals; ++j) {
+        var intentionEval = ColorVisual.colorVisOrder[j];
+        if(element.evals[intentionEval] > 0) {
+            currColor = ColorVisual.getColor(intentionEval);
+            //before buffer
+            offsetTotal += 0.001;
+            gradientStops.push({offset: String(offsetTotal*100) + '%',
+            color: currColor})
+            //element color
+            offsetTotal += element.evals[intentionEval] - 0.002;
+            gradientStops.push({offset: String(offsetTotal*100) + '%',
+            color: currColor})
+            //after buffer
+            offsetTotal += 0.001;
+            gradientStops.push({offset: String(offsetTotal*100) + '%',
+            color: currColor})
+        }
+        }
+
+        var gradientId = analysis.paper.defineGradient({
+        type: 'linearGradient',
+        stops: gradientStops
+        });
+
+        return gradientId;
+    }
+
+    static returnAllColors() {
+
+    }
+
+}
+
 class ColorVisual {
     // static colorVisDict = {
     //     "0000" : "#FFFFFF",
@@ -756,76 +907,6 @@ class ColorVisual {
         ColorVisual.refresh();
         }
 
-}
-
-class ColorVisualNextState {
-
-    //user selected slider option in the next state window
-    static sliderOptionNextState = 0;
-
-    static setSliderOption(newSliderOption) {
-        if(newSliderOption >= 0 && newSliderOption <= 2) {
-            ColorVisualNextState.sliderOptionNextState = newSliderOption;
-        }
-        else {
-            console.log("ERROR: invalid sliderOption");
-        }
-        ColorVisualNextState.refresh();
-    }
-
-    static refresh() {
-        console.log("inside ColorVisualSlider static method refreshNextState()");
-        console.log(model);
-        switch(this.sliderOptionNextState) {
-            case '1':
-            ColorVisualNextState.colorIntentionsByState();
-            break;
-            case '2':
-            //case '3':
-            ColorVisualNextState.colorIntentionsByPercents();
-            //     if(!analysisResult.isPathSim ) {
-            //    // console.log("changing intentions by initial state");
-            //     ColorVisual.colorIntentionsModeling();
-            //     }
-            //     else {
-            //    // console.log("filling intentions by: "+sliderOption);
-            //     ColorVisual.colorIntentionsAnalysis();
-            //     }
-            //     ColorVisual.changeIntentionsText();
-                break;
-            default://colorVis off
-            console.log("off");
-               // ColorVisual.returnAllColors();
-               // ColorVisual.revertIntentionsText();    
-                break;
-        }
-    }
-
-    /**
-     * changes each intention by their satisfaction value for the displayed state
-     */
-    static colorIntentionsByState(){
-        console.log("inside colorIntentionsByStateNextState()");
-        var cell;
-        var value;
-        var cellView;
-        var colorChange;
-
-        for(var i = 0; i < analysis.elements.length; i++){
-            cell = analysis.elements[i];
-            
-            value = cell.attributes.attrs[".satvalue"].value;
-            cellView = cell.findView(analysis.paper); 
-            colorChange = ColorVisual.getColor(value);
-
-            cellView.model.attr({'.outer': {'fill': colorChange}});
-        }
-
-    }
-
-    static colorIntentionsByPercents(){
-        console.log("inside colorIntentionsByPercentNextState()");
-    }
 }
 
 class Link {
