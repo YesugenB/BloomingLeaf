@@ -104,9 +104,14 @@ function init(){
     }
     model =  jQuery.extend({}, window.opener.model);
 
-   // maxTimePoint = analysis.analysisResult.elementList[0].status.length;
-   // console.log("maxTimePoint = "+maxTimePoint);
-    console.log(window.opener.analysisResult.elementList[0].status.length);
+    maxTimePoint = window.opener.analysisResult.elementList[0].status.length - 1
+    console.log(maxTimePoint);
+    
+    var i = window.opener.analysisRequest.currentState.indexOf('|', 0);
+    selectedTimePoint = parseInt(window.opener.analysisRequest.currentState.substring(0, i));
+    console.log(selectedTimePoint);
+
+
 }
 
 function renderNavigationSidebar(currentPage = 0){
@@ -123,6 +128,9 @@ function renderNavigationSidebar(currentPage = 0){
     //}
 
     num_states_lbl.innerHTML += (analysis.analysisResult.allSolution.length);
+
+    var selected_timepoint = document.getElementById("time-point-selected");
+    selected_timepoint.innerHTML = selectedTimePoint; //MEGAN
 
     currentPageIn.value = currentPage.toString();
 

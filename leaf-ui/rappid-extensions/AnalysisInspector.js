@@ -178,7 +178,8 @@ var AnalysisInspector = Backbone.View.extend({
 	 * to get all next possible states.
 	 *
 	 * This function is called on click for #btn-all-next-state
-	 */
+	 * MEGAN
+	 */ 
 	getAllNextStates: function () {
 		//Create the object and fill the JSON file to be sent to backend.
 		//Get the AnalysisInspector view information
