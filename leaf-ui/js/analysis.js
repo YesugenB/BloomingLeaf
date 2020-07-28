@@ -1388,7 +1388,7 @@ function save_current_state(){
 
 
     window.opener.backendComm(jsObject);
-
+    window.close();
 }
 
 
