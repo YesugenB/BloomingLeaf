@@ -14,6 +14,9 @@ var current;
 
 var model;
 
+var maxTimePoint = 0;
+var selectedTimePoint = 0;
+
 var satValueDict = {
     "unknown": "0000",
     "satisfied": "0011",
@@ -100,6 +103,12 @@ function init(){
         analysis.analysisResult = savedAnalysisData.allNextStatesResult;
     }
     model =  jQuery.extend({}, window.opener.model);
+
+    maxTimePoint = window.opener.analysisResult.elementList[0].status.length - 1
+    //console.log(maxTimePoint);
+    
+    var i = window.opener.analysisRequest.currentState.indexOf('|', 0);
+    selectedTimePoint = parseInt(window.opener.analysisRequest.currentState.substring(0, i));
 }
 
 function renderNavigationSidebar(currentPage = 0){
@@ -122,6 +131,8 @@ function renderNavigationSidebar(currentPage = 0){
     updatePagination(currentPage);
     updateNodesValues(currentPage);
     //updateSliderValues(currentPage);
+    var selected_timepoint = document.getElementById("time-point-selected");
+    selected_timepoint.innerHTML = selectedTimePoint; 
 }
 
 function updateNodesValues(currentPage, step = 0){
