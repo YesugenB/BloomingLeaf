@@ -16,6 +16,12 @@ public class ModelSpecBuilder {
 
 	
 	public static ModelSpec buildModelSpec(InputObject frontendObject){
+		System.out.println("inside buildModelSpec()");
+
+		//MEGAN
+		//idea: initialize nothing as null for all booleans instead of false
+		//then allow all false to still create a constraint
+
 		//Frontend model and analysis information
 		InputModel frontendModel = frontendObject.getModel();
 		
@@ -60,7 +66,7 @@ public class ModelSpecBuilder {
 
 			if (DEBUG) System.out.println("Read Relative Time");
 
-			AnalysisResult prevResult = analysis.getPreviousAnalysis();
+			AnalysisResult prevResult = analysis.getPreviousAnalysis(); //MEGAN
 
 			if(prevResult != null) {
 				// If there was an analysis before the current analysis, do the following:				
@@ -92,22 +98,26 @@ public class ModelSpecBuilder {
 				
 				// Set initial satisfaction values
 				// If previous analysis does not matter
-				
+
 				List<OutputElement> elementlist = prevResult.getElementList();
 				boolean[][][] initialValues = new boolean[elementlist.size()][currentState+1][4];
 				//System.out.println("parsing previous analysis result");
 				for (int i_state = 0; i_state <  currentState+1; i_state ++){
 					for (OutputElement e: elementlist){
-						String value = e.getStatus().get(i_state);
+						String value = e.getStatus().get(i_state); //status 
 						if (value != null){
-							for (int i = 0; i < 4; i++){
+							//System.out.println("value is not null"); //doesn't print
+							for (int i = 0; i < 4; i++){ //MEGAN. Init intial values
 								if (value.charAt(i) == '1'){
 									initialValues[Integer.parseInt(e.getId())][i_state][i] = true;
 								} else {
 									initialValues[Integer.parseInt(e.getId())][i_state][i] = false;
 								}
 							}
-						} else {
+						} else { //MEGAN. Same init for nothing and (bot, bot) this is the init for nothing
+						//if this was all set to null, would that work instead. to differentiate later.
+						//then we would need if statements to check before doing anything 
+							//System.out.println("value is null");
 							initialValues[Integer.parseInt(e.getId())][i_state][0] = false;
 							initialValues[Integer.parseInt(e.getId())][i_state][1] = false;
 							initialValues[Integer.parseInt(e.getId())][i_state][2] = false;
@@ -168,14 +178,16 @@ public class ModelSpecBuilder {
 				if (DEBUG) System.out.println("Handled Previous Result");
 			}*/
 			
-			else {
+			else { //MEGAN 
 				// deal with no previous analysis but initial states
 				ArrayList<IntentionEvaluation> initUserAssign = analysis.getInitialIntentionEvaluations();
 				boolean[][][] initialValues = new boolean[frontendModel.getIntentions().size()][1][4];
 				if (!(initUserAssign == null) && !(initUserAssign.size() == 0)){
+					System.out.println("initUserAssign isn't null");
 					for (IntentionEvaluation curr: initUserAssign){
+						System.out.println("curr = "+curr);
 						String evalValue = curr.getEvaluationValue();
-						for (int i = 0; i < 4; i ++){
+						for (int i = 0; i < 4; i ++){ //MEGAN
 							if (evalValue.charAt(i) == '1'){
 								initialValues[Integer.parseInt(curr.getIntentionID())][0][i] = true;
 							} else {
@@ -189,8 +201,6 @@ public class ModelSpecBuilder {
 					initialValueTimePointsArray[0] = 0;
 					modelSpec.setInitialValueTimePoints(initialValueTimePointsArray);
 				}
-				
-				
 				
 			}
 			
@@ -472,11 +482,13 @@ public class ModelSpecBuilder {
 
 			}
 			if (DEBUG) System.out.println("Read User Evaluations");
+			System.out.println("end of try modelSpec function");
 
 		} catch (Exception e) {
 			throw new RuntimeException(e.getMessage());
 		}
 
+		System.out.println("end of modelSpec function");
 		return modelSpec;
 
 	}

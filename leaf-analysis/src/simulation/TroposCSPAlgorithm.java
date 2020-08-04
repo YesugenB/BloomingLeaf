@@ -745,19 +745,19 @@ public class TroposCSPAlgorithm {
 	 * 		this.values = new BooleanVar[this.numIntentions][this.spec.getInitialValueTimePoints().length + 1][4];	// For Next State
 	 * 		this.values = new BooleanVar[this.numIntentions][this.numTimePoints][4];								// For Path
 	 */
-	private void initializeBooleanVarForValues() {	
+	private void initializeBooleanVarForValues() {	 //MEGAN is this where this.values is initialized?
 		boolean[][][] initialValues = this.spec.getInitialValues();		
-    	for (int i = 0; i < this.intentions.length; i++){
+    	for (int i = 0; i < this.intentions.length; i++){ //for each intention
     		IntentionalElement element = this.intentions[i];
     		if(element.getIdNum() != i)
     			throw new RuntimeException("Intention ID does not match orderied ID in TroposCSP");
 
-    		for (int t = 0; t < this.values[i].length; t++){
+    		for (int t = 0; t < this.values[i].length; t++){ //for each time point
     			// Creates IntVars and adds the FS -> PS invariant.
     			initializeNodeVariables(this.store, this.sat, this.values[i][t], element.getId() + "_" + t);
     			
     			if (problemType == SearchType.PATH){
-        			// Initial initialValues.   
+        			// Initial initialValues.   MEGAN. by here it's too late. none is init same as no value
         			if ((t == 0) && (initialValues[i].length == 1) && 
         					(!initialValues[i][t][0] && !initialValues[i][t][1] && !initialValues[i][t][2] && !initialValues[i][t][3]))
         				continue;
@@ -2131,7 +2131,7 @@ public class TroposCSPAlgorithm {
     		finalValueTimePoints[i] = this.timePoints[indexOrder[i]].value();
    		this.spec.setFinalValueTimePoints(finalValueTimePoints);
     	
-   		boolean[][][] finalValues = new boolean[this.intentions.length][indexOrder.length][4];
+   		boolean[][][] finalValues = new boolean[this.intentions.length][indexOrder.length][4]; //MEGAN. too late.
     	for (int i = 0; i < this.intentions.length; i++){
     		for (int t = 0; t < this.values[i].length; t++){
         		for (int v = 0; v < this.values[i][t].length; v++)

@@ -234,26 +234,26 @@ public class ModelSpec {
 		this.allSolutionsValues = finalValues2;
 	}
 
-	public OutputModel getOutputModel() {
+	public OutputModel getOutputModel() { //where in the code is no value initialized to 0000?
 		OutputModel output = new OutputModel();
     	// Print out Single Path Solotions.
-		if(getFinalValues() != null){
+		if(getFinalValues() != null){ //Megan
 	    	int i = -1;
-	    	for (IntentionalElement element : getIntElements()){
+	    	for (IntentionalElement element : getIntElements()){ //for each elements
 	    		i++;
 	    		OutputElement outputElement = new OutputElement();
 	    		
 	    		outputElement.setId(element.getId());
-	    		for (int t = 0; t < getFinalValues()[i].length; t++){
+	    		for (int t = 0; t < getFinalValues()[i].length; t++){ //for each time point ?
 	    			StringBuilder value = new StringBuilder();
-	    			for (int v = 0; v < getFinalValues()[i][t].length; v++){
-	        			if(getFinalValues()[i][t][v]){
+	    			for (int v = 0; v < getFinalValues()[i][t].length; v++){ //for each bool?
+	        			if(getFinalValues()[i][t][v]){ //if true
 	        				value.append("1");
 	        			}else{
-	        				value.append("0");
+	        				value.append("0"); //if false
 	        			}
 	        		}
-	        			outputElement.getStatus().add(value.toString());
+	        			// outputElement.getStatus().add(value.toString()); //so why would value be false?
 	    		}
 	    		output.getElementList().add(outputElement);
 	    	} 			

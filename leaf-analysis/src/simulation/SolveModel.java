@@ -26,6 +26,7 @@ public class SolveModel {
 	 * @param args Default command line arguments.
 	 */
 	public static void main(String[] args) {
+		System.out.println("inside main for SolveModel()");
 		//This is the default filePath to be executed if no file is pass through parameters
 		String filePath = "temp/"; 			
 		String inputFile = "default.json";
@@ -128,7 +129,7 @@ public class SolveModel {
 			InputObject frontendObject = gson.fromJson(new FileReader(filePath), InputObject.class);
 			System.out.println(frontendObject.toString());*/
 			InputObject frontendObject = gson.fromJson(new FileReader(filePath), InputObject.class);
-			
+			System.out.println("here");
 			ModelSpec modelSpec =  ModelSpecBuilder.buildModelSpec(frontendObject);
 			return modelSpec;
 			
