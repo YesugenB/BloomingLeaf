@@ -14,7 +14,7 @@ var current;
 
 var model;
 
-var maxTimePoint = 0;
+var maxTimePoint = 100;
 var selectedTimePoint = 0;
 
 var satValueDict = {
@@ -104,7 +104,7 @@ function init(){
     }
     model =  jQuery.extend({}, window.opener.model);
 
-    maxTimePoint = window.opener.analysisResult.elementList[0].status.length - 1
+    //maxTimePoint = window.opener.analysisResult.elementList[0].status.length - 1
     //console.log(maxTimePoint);
     
     var i = window.opener.analysisRequest.currentState.indexOf('|', 0);
@@ -711,8 +711,6 @@ function updateAnalysisRequestWithCurrentState(){
     // getting next time point
     var nextTimePoint = savedAnalysisData.singlePathResult.timePointPath[currentState];
     console.log(nextTimePoint);
-
-
 
     // get the list of all epochs
     var allEpochs = {}; // intention id : list of epoch names
@@ -1399,33 +1397,51 @@ function save_current_state(){
 
 
     window.opener.backendComm(jsObject);
-    window.close();
+    //window.close();
 }
 
 
 //This function should get the current state and generate a new window with the next possible states
+//MEGAN
 function generate_next_states(){
 
-    // Object to be sent to the backend
-    var jsObject = {};
-    //Get the Graph Model
-    jsObject.model = model;
-
-    if(jsObject.model == null) {
-        return null;
+    if(selectedTimePoint >= maxTimePoint - 1)   {
+        console.log("in here");
+        swal("Can't Explore Next States From Last Time Point", "", "error");
     }
+    else {
+    save_current_state();
+    console.log("here");
+    //need to update slider selection to one after the current
+    window.opener.analysisInspector.getAllNextStates(); //why doesn't this WORK
 
-    updateAnalysisRequestWithCurrentState();
+    // // Object to be sent to the backend
+    // var jsObject = {};
+    // //Get the Graph Model
+    // jsObject.model = model;
+
+    // if(jsObject.model == null) {
+    //     return null;
+    // }
+
+    // updateAnalysisRequestWithCurrentState();
+
+   //window.opener.analysisInspector.getAllNextStates();
+
 
     /*for (var i = 0; i < analysisRequest.previousAnalysis.elementList.length ; i++){
         analysisRequest.previousAnalysis.elementList[i].status.slice(0, current+2);
     }*/
-    analysisRequest.action = "allNextStates";
 
-    jsObject.analysisRequest = analysisRequest;
-    console.log(analysisRequest);
+    // analysisRequest.action = "allNextStates";
 
-    backendComm(jsObject);
+    // jsObject.analysisRequest = analysisRequest;
+    // console.log(analysisRequest);
 
+    // backendComm(jsObject);
+    
+
+    //window.opener.close();
+    }
 
 }

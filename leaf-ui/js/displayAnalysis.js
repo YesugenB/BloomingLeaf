@@ -133,6 +133,8 @@ function adjustSliderWidth(maxValue){
  */
 function updateSliderValues(sliderValue, currentAnalysis){
 
+    console.log(typeof sliderValue);
+
     var value = sliderValue;
     $('#sliderValue').text(value);
     sliderObject.sliderValueElement.innerHTML = value + "|" + currentAnalysis.relativeTime[value];

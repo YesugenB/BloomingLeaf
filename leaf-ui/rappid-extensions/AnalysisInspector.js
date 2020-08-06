@@ -182,6 +182,9 @@ var AnalysisInspector = Backbone.View.extend({
 	getAllNextStates: function () {
 		//Create the object and fill the JSON file to be sent to backend.
 		//Get the AnalysisInspector view information
+		var sliderNum = 5;
+		updateSliderValues(sliderNum, currentAnalysis);
+
 		analysisRequest.action = "allNextStates";
 
 		analysisRequest.previousAnalysis = _.clone(savedAnalysisData.singlePathResult);

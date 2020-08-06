@@ -1006,3 +1006,7 @@ function checkForMultipleNB(node) {
 	return num >= 1;
 }
 
+function nextStateInNextState() {
+    //save current info
+    
+}
