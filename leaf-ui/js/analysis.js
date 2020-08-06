@@ -135,6 +135,7 @@ function renderNavigationSidebar(currentPage = 0){
     selected_timepoint.innerHTML = selectedTimePoint; 
 }
 
+
 function updateNodesValues(currentPage, step = 0){
     if(currentPage == "")
         currentPage = 0;

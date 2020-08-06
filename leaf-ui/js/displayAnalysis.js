@@ -49,6 +49,7 @@ function displayAnalysis(analysisResults){
 function createSlider(currentAnalysis, isSwitch) {
 
     var sliderMax = currentAnalysis.timeScale;
+    analysisResult.maxTimePoint = sliderMax;
     var density = (sliderMax < 25) ? (100 / sliderMax) : 4;
 
     noUiSlider.create(sliderObject.sliderElement, {
@@ -133,7 +134,7 @@ function adjustSliderWidth(maxValue){
  */
 function updateSliderValues(sliderValue, currentAnalysis){
 
-    console.log(typeof sliderValue);
+    analysisResult.selectedTimePoint = sliderValue;
 
     var value = sliderValue;
     $('#sliderValue').text(value);
