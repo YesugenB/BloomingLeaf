@@ -13,7 +13,11 @@
 function displayAnalysis(analysisResults){
 
     // Change the format of the analysis result from the back end
-    var currentAnalysis = new analysisObject.initFromBackEnd(analysisResults);
+    //var currentAnalysis = new analysisObject.initFromBackEnd(analysisResults);
+    console.log("analysisResults = ");
+    console.log(analysisResults);
+    
+    currentAnalysis = new analysisObject.initFromBackEnd(analysisResults);
     currentAnalysis.type = "Single Path";
 
     // Save data for get possible next states
@@ -47,6 +51,10 @@ function displayAnalysis(analysisResults){
  *   with the history log, false otherwise
  */
 function createSlider(currentAnalysis, isSwitch) {
+    console.log("inside createSlider");
+
+    console.log("currentAnalysis = ");
+    console.log(currentAnalysis);
 
     var sliderMax = currentAnalysis.timeScale;
     analysisResult.maxTimePoint = sliderMax;
@@ -77,7 +85,10 @@ function createSlider(currentAnalysis, isSwitch) {
     });
 
     adjustSliderWidth(sliderMax);
+    console.log("sliderMax = "+sliderMax);
+    
 }
+
 
 /*
  * Creates and displays new slider after the user clicks a different
@@ -134,6 +145,8 @@ function adjustSliderWidth(maxValue){
  */
 function updateSliderValues(sliderValue, currentAnalysis){
 
+    console.log("sliderValue = "+sliderValue);
+
     analysisResult.selectedTimePoint = sliderValue;
 
     var value = sliderValue;
@@ -146,6 +159,16 @@ function updateSliderValues(sliderValue, currentAnalysis){
 		var element = currentAnalysis.elements[i];
 		updateNodeValues(element.id, element.status[value]);
 	}
+}
+
+/**
+ * Changes the slider value and updates appearance. Used to change slider without user input.
+ * @param {*} sliderValue 
+ * @param {*} currentAnalysis 
+ */
+function changeSliderDisplay(sliderValue, currentAnalysis) {
+    sliderObject.sliderElement.noUiSlider.set(sliderValue);
+    updateSliderValues(sliderValue, currentAnalysis)
 }
 
 

@@ -1413,8 +1413,11 @@ function generate_next_states(){
     else {
     save_current_state();
     console.log("here");
+    window.opener.console.log("test in prev window");
     //need to update slider selection to one after the current
     window.opener.analysisInspector.getAllNextStates(); //why doesn't this WORK
+    
+
 
     // // Object to be sent to the backend
     // var jsObject = {};

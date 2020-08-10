@@ -180,12 +180,17 @@ var AnalysisInspector = Backbone.View.extend({
 	 * This function is called on click for #btn-all-next-state
 	 */
 	getAllNextStates: function () {
+		console.log("inside getAllNextStates");
+
+		var sliderNum = 5;
+		changeSliderDisplay(sliderNum, currentAnalysis)
+
+		//problem: results.elementlist does not list elements?
+
 		if(analysisRequest.action != null) { //path has been simulated
 			if(analysisResult.selectedTimePoint != analysisResult.maxTimePoint) { //last timepoint is not selected
 		//Create the object and fill the JSON file to be sent to backend.
 		//Get the AnalysisInspector view information
-		var sliderNum = 5;
-		updateSliderValues(sliderNum, currentAnalysis);
 
 		analysisRequest.action = "allNextStates";
 
