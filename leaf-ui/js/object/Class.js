@@ -384,22 +384,23 @@ class ColorVisualNextState  {
     }
 
     static refresh() {
-        console.log("inside ColorVisualSlider static method refreshNextState()");
-       // console.log(model);
         switch(this.sliderOptionNextState) {
+
             case '1':
             ColorVisualNextState.colorIntentionsByState();
             this.changeIntentionsText(analysis.elements, analysis.paper);
                 break;
+
             case '2':
             ColorVisualNextState.colorIntentionsByPercents();
             this.changeIntentionsText(analysis.elements, analysis.paper);
                 break;
+
             default://colorVis off
-            console.log("off");
                this.returnAllColors(analysis.elements, analysis.paper);
                this.revertIntentionsText();    
                 break;
+
         }
     }
 
@@ -417,13 +418,11 @@ class ColorVisualNextState  {
             value = cell.attributes.attrs[".satvalue"].value;
             cellView = cell.findView(analysis.paper); 
             colorChange = ColorVisual.getColor(value);
-            cellView.model.attr({'.outer': {'fill': colorChange}});  //TODO update text color
-            //TODO: remove colors before saving selected state
+            cellView.model.attr({'.outer': {'fill': colorChange}}); 
         }
     }
 
     static revertIntentionsText(){
-        //var elements = graph.getElements();
         var curr;
         for (var i = 0; i < analysis.elements.length; i++) {
             curr = analysis.elements[i].findView(analysis.paper).model;
@@ -434,7 +433,6 @@ class ColorVisualNextState  {
     static colorIntentionsByPercents(){
         var intentionPercents = [];
         //acquire all next state info
-        console.log(analysis.analysisResult);
         var percentPerEvaluation = 1.0 / analysis.analysisResult.allSolution.length; //number of next states
         var step = 0;
         //store: ID + percents per eval
@@ -589,8 +587,6 @@ class ColorVisual {
      * Runs after any event that may change visualization, such as setting a sat value, changing slider option, or selecting a time point
      */
     static refresh() {
-        console.log("inside ColorVisualSlider static method refresh()");
-        console.log(model);
         switch(this.sliderOption) {
             case '1':
             case '2':
@@ -629,13 +625,11 @@ class ColorVisual {
      * @param {*} elementList List of elements containing analysis results
      */
     singlePathResponse(elementList) {
-        console.log("inside singlePathResponse");
         $('#modelingSlider').css("display", "none");
         $('#analysisSlider').css("display", "");
         document.getElementById("colorResetAnalysis").value = ColorVisual.sliderOption;
 
         var percentPerEvaluation = 1.0 / this.numTimePoints;
-        console.log("percentagePerEvaluation = "+percentPerEvaluation);
        
         //calculate evaluation percentages and other data for ColorVis
         for(var i = 0; i < this.numIntentions; ++i) 
@@ -650,7 +644,7 @@ class ColorVisual {
                     this.intentionListColorVis[i].evals[currEval] = newPercent;
             }
         }
-       // this.generateConsoleReport();
+       this.generateConsoleReport();
         ColorVisual.refresh();
     }    
 
@@ -831,14 +825,10 @@ class ColorVisual {
             var intention = model.getIntentionByID(cellView.model.attributes.nodeID); //aquires current intention
             if (intention != null){
             var initSatVal = intention.getInitialSatValue(); //user set initial sat value
-            console.log(initSatVal);
-            if (initSatVal == '(no value)')
-            {
+            if (initSatVal == '(no value)') {
                 cellView.model.changeToOriginalColour();
             }
-           // var colorChange = ColorVisual.colorVisDict[initSatVal]; //get color for cooresponding sat value
            var colorChange = ColorVisual.getColor(initSatVal);
-           console.log("color = "+colorChange);
             cellView.model.attr({'.outer': {'fill': colorChange}}); //change intention color to match sat value
         }else{
             cellView.model.changeToOriginalColour();

@@ -105,11 +105,11 @@ function init(){
     model =  jQuery.extend({}, window.opener.model);
 
     maxTimePoint = window.opener.analysisResult.elementList[0].status.length - 1
-    console.log(maxTimePoint);
+    //console.log(maxTimePoint);
     
     var i = window.opener.analysisRequest.currentState.indexOf('|', 0);
     selectedTimePoint = parseInt(window.opener.analysisRequest.currentState.substring(0, i));
-    console.log(selectedTimePoint);
+    //console.log(selectedTimePoint);
 
 
 }
