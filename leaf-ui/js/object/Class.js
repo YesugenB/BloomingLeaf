@@ -368,42 +368,10 @@ class intentionColorVis{
     }
 }
 
-class ColorVisualMaster {
-    constructor() {
-        this.sliderOption();
-        this.intentionList = [];
-    }
-
-    setSliderOption(newSliderOption) {
-        this.sliderOption = newSliderOption;
-        this.refresh();
-    }
-
-    refresh(){
-        //different for each child class
-    }
-
-    /**
-     * Returns element color to based on element type
-     */
-    static returnAllColors(elements, paper){
-        for (var i = 0; i < elements.length; i++){
-            var cellView = elements[i].findView(paper);
-            cellView.model.changeToOriginalColour();
-        }
-    }
-
-}
-
-class ColorVisualNextState extends ColorVisualMaster {
-//extends ColorVisualMaster {
+class ColorVisualNextState  {
 
     //user selected slider option in the next state window
     static sliderOptionNextState = 0;
-
-    // constructor() {
-    //     super();
-    // }
 
     static setSliderOption(newSliderOption) {
         if(newSliderOption >= 0 && newSliderOption <= 2) {
@@ -421,16 +389,16 @@ class ColorVisualNextState extends ColorVisualMaster {
         switch(this.sliderOptionNextState) {
             case '1':
             ColorVisualNextState.colorIntentionsByState();
-            break;
+            this.changeIntentionsText(analysis.elements, analysis.paper);
+                break;
             case '2':
             ColorVisualNextState.colorIntentionsByPercents();
-            //     ColorVisual.changeIntentionsText();
+            this.changeIntentionsText(analysis.elements, analysis.paper);
                 break;
             default://colorVis off
             console.log("off");
-               //ColorVisualNextState.returnAllColors();
-               super.returnAllColors(analysis.elements, analysis.paper);
-               // ColorVisual.revertIntentionsText();    
+               this.returnAllColors(analysis.elements, analysis.paper);
+               this.revertIntentionsText();    
                 break;
         }
     }
@@ -451,6 +419,15 @@ class ColorVisualNextState extends ColorVisualMaster {
             colorChange = ColorVisual.getColor(value);
             cellView.model.attr({'.outer': {'fill': colorChange}});  //TODO update text color
             //TODO: remove colors before saving selected state
+        }
+    }
+
+    static revertIntentionsText(){
+        //var elements = graph.getElements();
+        var curr;
+        for (var i = 0; i < analysis.elements.length; i++) {
+            curr = analysis.elements[i].findView(analysis.paper).model;
+            curr.attr({text: {fill: 'black',stroke:'none'}});
         }
     }
 
@@ -475,9 +452,6 @@ class ColorVisualNextState extends ColorVisualMaster {
             var cellView = cell.findView(analysis.paper); 
             cellView.model.attr({'.outer' : {'fill' : 'url(#' + gradientID + ')'}});
         }
-        //compile and calculate % for each node -> % must be updated every time a filter is applied
-        //create gradient
-        //fill intention
     }
 
     static defineGradient(element) {
@@ -513,10 +487,23 @@ class ColorVisualNextState extends ColorVisualMaster {
         return gradientId;
     }
 
-    static returnAllColors() {
-
+    static changeIntentionsText(elements, paper){
+        var curr;
+        var intention;
+        for (var i = 0; i < elements.length; i++) {
+            curr = elements[i].findView(paper).model;
+            if(curr.attributes.type !== 'basic.Actor') {
+                curr.attr({text: {fill: 'white',stroke:'none'}});
+        }
+        }
     }
 
+    static returnAllColors(elements, paper){
+        for (var i = 0; i < elements.length; i++){
+            var cellView = elements[i].findView(paper);
+            cellView.model.changeToOriginalColour();
+        }
+    }
 }
 
 class ColorVisual {
@@ -619,7 +606,7 @@ class ColorVisual {
                 ColorVisual.changeIntentionsText();
                 break;
             default://colorVis off
-                ColorVisual.returnAllColors();
+                ColorVisual.returnAllColors(graph.getElements(), paper);
                 ColorVisual.revertIntentionsText();    
                     break;
         }
@@ -806,32 +793,20 @@ class ColorVisual {
         var elements = graph.getElements();
         var curr;
         var intention;
-        var initSatVal;
         for (var i = 0; i < elements.length; i++) {
             curr = elements[i].findView(paper).model;
-
-            if (curr.attributes.type !== 'basic.Goal' &&
-                curr.attributes.type !== 'basic.Task' &&
-                curr.attributes.type !== 'basic.Softgoal' &&
-                curr.attributes.type !== 'basic.Resource') {
-                continue;
-            }
             intention = model.getIntentionByID(curr.attributes.nodeID);
-            initSatVal = intention.getInitialSatValue();
-            if(!analysisResult.isPathSim){   
-                if (initSatVal === '(no value)') {
-                    curr.attr('.satvalue/text', '');
-                    curr.attr({text: {fill: 'black',stroke:'none','font-weight' : 'normal','font-size': 10}});
 
-                }else{
-                    curr = elements[i].findView(paper).model;
-                    curr.attr({text: {fill: 'white',stroke:'none'}});
-                }
-            }else{
-                curr = elements[i].findView(paper).model;
-                curr.attr({text: {fill: 'white',stroke:'none'}});    
+            if(curr.attributes.type !== 'basic.Actor') {
+            if(!analysisResult.isPathSim && intention.getInitialSatValue() === '(no value)'){ 
+                curr.attr('.satvalue/text', '');
+                curr.attr({text: {fill: 'black',stroke:'none','font-weight' : 'normal','font-size': 10}});
+            }
+            else {
+                curr.attr({text: {fill: 'white',stroke:'none'}});
             }
         }
+    }
     }
 
     /**
