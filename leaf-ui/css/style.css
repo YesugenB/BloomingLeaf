@@ -500,10 +500,10 @@ select > .select-placeholder {
   top: -2px;
   width: 92px;
 }
-#colorResetNextState{
+/* #colorResetNextState{
   position: relative;
   top: -20px;
-}
+} */
 .color-button {
   cursor: pointer;
   display: inline-block;
