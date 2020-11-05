@@ -80,6 +80,7 @@ var ElementInspector = Backbone.View.extend({
                 '<option value=partiallysatisfied> Partially Satisfied (P, ⊥) </option>',
                 '<option value=partiallydenied> Partially Denied (⊥, P)</option>',
                 '<option value=denied> Denied (⊥, F)</option>',
+                '<option value=undetermined> undetermined (X, X)</option>',
             '</select>',
             '<br>',
             '<div id="function-div">',
