@@ -228,7 +228,7 @@ var satisfactionValuesDict = {
         name: "undetermined",
         satValue: "(X, X)",
         color: "black",
-        chartVal: undetermined,
+        chartVal: 5,
 
     },
 	"(no value)": {
