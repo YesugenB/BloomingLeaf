@@ -19,12 +19,13 @@ var current;
 var model;
 
 var satValueDict = {
-    "unknown": "0000",
-    "satisfied": "0011",
-    "partiallysatisfied": "0010",
-    "partiallydenied": "0100",
-    "denied": "1100",
-    "none": "0000"
+    "unknown": "00000",
+    "satisfied": "00110",
+    "partiallysatisfied": "00100",
+    "partiallydenied": "01000",
+    "denied": "11000",
+    "none": "00000",
+    "undetermined": "00001"
 };
 
 //Executing scripts only when page is fully loaded
@@ -145,33 +146,38 @@ function updateNodesValues(currentPage, step = 0){
         cell.attributes.attrs[".satvalue"].value = value;
 
         //Change backend value to user friendly view
-        if ((value == "0001") || (value == "0011")) {
+        if ((value == "00010") || (value == "00110")) {
             cell.attr(".satvalue/text", "(F, ⊥)");
             cell.attr({text:{fill:'black'}});
-        }else if(value == "0010") {
+        }else if(value == "00100") {
             cell.attr(".satvalue/text", "(P, ⊥)");
             cell.attr({text:{fill:'black'}});
-        }else if ((value == "1000") || (value == "1100")){
+        }else if ((value == "10000") || (value == "1100")){
             cell.attr(".satvalue/text", "(⊥, F)");
             cell.attr({text:{fill:'black'}});
-        }else if (value == "0100") {
+        }else if (value == "01000") {
             cell.attr(".satvalue/text", "(⊥, P)");
             cell.attr({text:{fill:'black'}});
-        }else if (value == "0110") {
+        }else if (value == "01100") {
             cell.attr(".satvalue/text", "(P, P)");
             cell.attr({text:{fill:'red'}});
-        }else if ((value == "1110") || (value == "1010")){
+        }else if ((value == "11100") || (value == "1010")){
             cell.attr(".satvalue/text", "(P, F)");
             cell.attr({text:{fill:'red'}});
-        }else if ((value == "0111") || (value == "0101")){
+        }else if ((value == "01110") || (value == "01010")){
             cell.attr(".satvalue/text", "(F, P)");
             cell.attr({text:{fill:'red'}});
-        }else if ((value == "1111") || (value == "1001") || (value == "1101") || (value == "1011") ){
+        }else if ((value == "11110") || (value == "10010") || (value == "11010") || (value == "10110") ){
             cell.attr(".satvalue/text", "(F, F)");
             cell.attr({text:{fill:'red'}});
-        }else if (value == "0000") {
+        }else if (value == "00000") {
             cell.attr(".satvalue/text", "(⊥,⊥)");
             cell.attr({text:{fill:'black'}});
+        
+        }else if (value == '00001'){
+            cell.attr(".satvalue/text", "(X, X)");
+            cell.attr({text:{fill:'black'}});
+
         }else {
             cell.removeAttr(".satvalue/d");
         }
@@ -294,15 +300,15 @@ function add_filter(){
                 for (var solution_index=0; solution_index < tempResults.allSolution.length; solution_index++) {
                     for (var element_index=0; element_index < tempResults.allSolution[solution_index].intentionElements.length; element_index++){
                         var value = tempResults.allSolution[solution_index].intentionElements[element_index].status[0];
-                        if (	(value == "0110") ||
-                            (value == "0111") ||
-                            (value == "0101") ||
-                            (value == "1110") ||
-                            (value == "1010") ||
-                            (value == "1111") ||
-                            (value == "1001") ||
-                            (value == "1101") ||
-                            (value == "1011") ){
+                        if (	(value == "01100") ||
+                            (value == "01110") ||
+                            (value == "01010") ||
+                            (value == "11100") ||
+                            (value == "10100") ||
+                            (value == "11110") ||
+                            (value == "10010") ||
+                            (value == "11010") ||
+                            (value == "10110") ){
                             index_to_rm.push(solution_index);
                             break;
                         }
@@ -320,7 +326,7 @@ function add_filter(){
                 for (var solution_index=0; solution_index < tempResults.allSolution.length; solution_index++) {
                     for (var element_index=0; element_index < tempResults.allSolution[solution_index].intentionElements.length; element_index++){
                         var value = tempResults.allSolution[solution_index].intentionElements[element_index].status[0];
-                        if (	value == "0000"){
+                        if (	value == "00000"){
                             index_to_rm.push(solution_index);
                             break;
                         }
@@ -344,7 +350,7 @@ function add_filter(){
                         //
                         if (tempResults.allSolution[solution_index].intentionElements[element_index].type === "TASK"){
                             var value = tempResults.allSolution[solution_index].intentionElements[element_index].status[0];
-                            if ((value == "0010" || value == "0011")){
+                            if ((value == "00100" || value == "00110")){
                                 num_t_s ++;
                             }
                         }
@@ -380,7 +386,7 @@ function add_filter(){
                         //
                         if (tempResults.allSolution[solution_index].intentionElements[element_index].type === "TASK"){
                             var value = tempResults.allSolution[solution_index].intentionElements[element_index].status[0];
-                            if ((value == "0010" || value == "0011")){
+                            if ((value == "00100" || value == "00110")){
                                 num_t_s ++;
                             }
                         }
@@ -415,7 +421,7 @@ function add_filter(){
                     for (var element_index=0; element_index < tempResults.allSolution[solution_index].intentionElements.length; element_index++){
                         if (tempResults.allSolution[solution_index].intentionElements[element_index].type === "RESOURCE"){
                             var value = tempResults.allSolution[solution_index].intentionElements[element_index].status[0];
-                            if ((value == "0010" || value == "0011")){
+                            if ((value == "00100" || value == "00110")){
                                 num_r_s ++;
                             }
                         }
@@ -450,7 +456,7 @@ function add_filter(){
                     for (var element_index=0; element_index < tempResults.allSolution[solution_index].intentionElements.length; element_index++){
                         if (tempResults.allSolution[solution_index].intentionElements[element_index].type === "RESOURCE"){
                             var value = tempResults.allSolution[solution_index].intentionElements[element_index].status[0];
-                            if ((value == "0010" || value == "0011")){
+                            if ((value == "00100" || value == "00110")){
                                 num_r_s ++;
                             }
                         }
@@ -485,7 +491,7 @@ function add_filter(){
                     for (var element_index=0; element_index < tempResults.allSolution[solution_index].intentionElements.length; element_index++){
                         if (tempResults.allSolution[solution_index].intentionElements[element_index].type === "GOAL"){
                             var value = tempResults.allSolution[solution_index].intentionElements[element_index].status[0];
-                            if ((value == "0010" || value == "0011")){
+                            if ((value == "00100" || value == "00110")){
                                 num_g_s ++;
                             }
                         }
@@ -520,7 +526,7 @@ function add_filter(){
                     for (var element_index=0; element_index < tempResults.allSolution[solution_index].intentionElements.length; element_index++){
                         if (tempResults.allSolution[solution_index].intentionElements[element_index].type === "GOAL"){
                             var value = tempResults.allSolution[solution_index].intentionElements[element_index].status[0];
-                            if ((value == "0010" || value == "0011")){
+                            if ((value == "00100" || value == "00110")){
                                 num_g_s ++;
                             }
                         }
@@ -556,15 +562,15 @@ function add_filter(){
                             actors[tempResults.allSolution[solution_index].intentionElements[element_index].actorId] = 0;
                         }
                         var value = tempResults.allSolution[solution_index].intentionElements[element_index].status[0];
-                        if ((value == "0010" || value == "0011" || (value == "0110") ||
-                            (value == "0111") ||
-                            (value == "0101") ||
-                            (value == "1110") ||
-                            (value == "1010") ||
-                            (value == "1111") ||
-                            (value == "1001") ||
-                            (value == "1101") ||
-                            (value == "1011"))){
+                        if ((value == "00100" || value == "00110" || (value == "01100") ||
+                            (value == "01110") ||
+                            (value == "01010") ||
+                            (value == "11100") ||
+                            (value == "10100") ||
+                            (value == "11110") ||
+                            (value == "10010") ||
+                            (value == "11010") ||
+                            (value == "10110"))){
                             actors[tempResults.allSolution[solution_index].intentionElements[element_index].actorId] =1;
                         }
                     }
@@ -601,15 +607,15 @@ function add_filter(){
                             actors[tempResults.allSolution[solution_index].intentionElements[element_index].actorId] = 0;
                         }
                         var value = tempResults.allSolution[solution_index].intentionElements[element_index].status[0];
-                        if ((value == "0010" || value == "0011" || (value == "0110") ||
-                            (value == "0111") ||
-                            (value == "0101") ||
-                            (value == "1110") ||
-                            (value == "1010") ||
-                            (value == "1111") ||
-                            (value == "1001") ||
-                            (value == "1101") ||
-                            (value == "1011"))){
+                        if ((value == "00100" || value == "00110" || (value == "01100") ||
+                            (value == "01110") ||
+                            (value == "01010") ||
+                            (value == "11100") ||
+                            (value == "10100") ||
+                            (value == "11110") ||
+                            (value == "10010") ||
+                            (value == "11010") ||
+                            (value == "10110"))){
                             actors[tempResults.allSolution[solution_index].intentionElements[element_index].actorId] =1;
                         }
                     }

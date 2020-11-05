@@ -170,60 +170,67 @@ var linkValText = {
 // Satisfaction text values corresponding to the binary representation.
 // This is used in updateNodeValues in displayAnalysis
 var satisfactionValuesDict = {
-	"0000": {
+	"00000": {
 	    name: "none",
 		satValue: "(⊥, ⊥)",
 		color: "black",
 		chartVal: 0
 	},
-	"0010": {
+	"00100": {
 	    name: "partiallysatisfied",
 		satValue: "(P, ⊥)",
 		color: "black",
 		chartVal: 1
 	},
-	"0011": {
+	"00110": {
 	    name: "satisfied",
 		satValue: "(F, ⊥)",
 		color: "black",
 		chartVal: 2
 	},
-	"0100": {
+	"01000": {
 	    name: "partiallydenied",
 		satValue: "(⊥, P)",
 		color: "black",
 		chartVal: -1
 	},
-	"0110": {
+	"01100": {
 	    name: "conflict",
         satValue: "(P, P)",
         color: "black",
 		chartVal: 3
     },
-	"0111": {
+	"01110": {
         name: "conflict",
 		satValue: "(F, P)",
 		color: "black",
 		chartVal: 3
 	},
-	"1100": {
+	"11000": {
 	    name: "denied",
 		satValue: "(⊥, F)",
 		color: "black",
 		chartVal: -2
 	},
-	"1110": {
+	"11100": {
         name: "conflict",
         satValue: "(P, F)",
         color: "black",
 		chartVal: 3
     },
-	"1111": {
+	"11110": {
         name: "conflict",
 		satValue: "(F, F)",
 		color: "black",
 		chartVal: 3
-	},
+    },
+    "00001":{
+        name: "undetermined",
+        satValue: "(X, X)",
+        color: "black",
+        chartVal: undetermined,
+
+    },
 	"(no value)": {
 		name: "(no value)",
         satValue: '(no value)',
@@ -236,18 +243,18 @@ var satisfactionValuesDict = {
 // new JSON models.
 // loadSaveFunctions.js needs this
 var oldSatValToBinary = {
-    '(FS, T)': '0011',
-    '(PS, T)': '0010',
-    '(T, FD)': '1100',
-    '(T, PD)': '0100',
-    'FD': '1100',
-    'FS': '0011',
-    '(P,F)': '1110',
-    '(F,P)': '0111',
-    '(F,F)': '1111',
-    '(P,P)': '0110',
-    'PS': '0010',
-    'PD': '0100'
+    '(FS, T)': '00110',
+    '(PS, T)': '00100',
+    '(T, FD)': '11000',
+    '(T, PD)': '01000',
+    'FD': '11000',
+    'FS': '00110',
+    '(P,F)': '11100',
+    '(F,P)': '01110',
+    '(F,F)': '11110',
+    '(P,P)': '01100',
+    'PS': '00100',
+    'PD': '01000'
 }
 
 // Mode is used specify layout
