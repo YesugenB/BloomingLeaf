@@ -105,6 +105,7 @@ var ElementInspector = Backbone.View.extend({
                     '<option value=partiallysatisfied> Partially Satisfied (P, ⊥) </option>',
                     '<option value=partiallydenied> Partially Denied (⊥, P)</option>',
                     '<option value=denied> Denied (⊥, F)</option>',
+                    '<option value=undetermined> undetermined (X, X)</option>',
                 '</select>',
                 '<div id="user-constraints">',
                     '<div id="all-user-constraints">',
@@ -122,6 +123,7 @@ var ElementInspector = Backbone.View.extend({
                                 '<option value=partiallydenied> Partially Denied (⊥, P)</option>',
                                 '<option value=denied> Denied (⊥, F)</option>',
                                 '<option value="(no value)"> (no value) </option>',
+                                '<option value=undetermined> (X,X) </option>',
                             '</select>',
                         '</div>',
                     '</div>',
@@ -280,6 +282,7 @@ var ElementInspector = Backbone.View.extend({
         var partiallydenied = '<option value=partiallydenied> Partially Denied (⊥, P) </option>';
         var denied = '<option value=denied> Denied (⊥, F) </option>';
         var unknown = '<option value="(no value)"> (no value) </option>';
+        var undetermined = '<option value=undetermined> undetermined (X, X)</option>';
         satValueOptions.all = none + satisfied + partiallysatisfied + partiallydenied + denied + unknown;
         satValueOptions.noRandom = satisfied + partiallysatisfied + partiallydenied + denied;
 
