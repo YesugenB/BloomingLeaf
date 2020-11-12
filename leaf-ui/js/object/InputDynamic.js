@@ -38,13 +38,13 @@ function getDynamics() {
 	  	if (isNaN(parseInt(initValue))) {
 			initValue = satValueDict[initValue];
 		} else {
-			initValue = "0000";
+			initValue = "00000";
 		}
 
 
 	    var ioDynamic;
 	    if (f == "NB") {
-	    	ioDynamic = new InputDynamic(elementID, "NB", "0000");
+	    	ioDynamic = new InputDynamic(elementID, "NB", "00000");
 	    } else if (f == "") {
     		ioDynamic = new InputDynamic(elementID, "NT", initValue);
 	    } else if(f == " ") {

@@ -134,17 +134,18 @@ var savedAnalysisData = {};
 // Properties for both core and simulator.
 
 var satvalues = {
-	"satisfied": 2, "partiallysatisfied": 1, "partiallydenied": -1, "denied": -2, "unknown": 4, "conflict":3, "none": 0,
-	"2": "satisfied", "1": "partiallysatisfied", "-1": "partiallydenied", "-2": "denied", "4": "unknown", "3": "conflict", "0": "none"
+	"satisfied": 2, "partiallysatisfied": 1, "partiallydenied": -1, "denied": -2, "unknown": 4, "conflict":3, "none": 0, "undetermined":5,
+	"2": "satisfied", "1": "partiallysatisfied", "-1": "partiallydenied", "-2": "denied", "4": "unknown", "3": "conflict", "0": "none", "5":"undetermined"
 };
 
 var satValueDict = {
-	"satisfied": "0011",
-	"partiallysatisfied": "0010",
-	"partiallydenied": "0100",
-	"denied": "1100",
-	"none": "0000",
-	"(no value)": "(no value)"
+	"satisfied": "00110",
+	"partiallysatisfied": "00100",
+	"partiallydenied": "01000",
+	"denied": "11000",
+	"none": "00000",
+    "(no value)": "(no value)",
+    "undetermined": "00001"
 };
 
 // maps value to display text

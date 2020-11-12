@@ -328,7 +328,7 @@ class AnalysisResult {
      * @param {Object} values
      *   Maps an intention ID and time point to a string which
      *   represents the evaluation for that intention
-     *   ex: {'0000': {'0': '0000', '7': 'DNE'}}
+     *   ex: {'0000': {'0': '00000', '7': 'DNE'}}
      *   (for nodeID 0000, time point 0, its satisfaction value is none)
      */
 
@@ -408,65 +408,66 @@ class intentionColorVis{
         this.evals = {};
 
         this.evals = {
-            "0000" : 0.0, 
-            "0011" : 0.0, 
-            "0010" : 0.0,
-            "0100" : 0.0,
-            "0110" : 0.0,
-            "1111" : 0.0,
-            "0111" : 0.0,
-            "1100" : 0.0,
-            "1110" : 0.0 };
+            "00000" : 0.0, 
+            "00110" : 0.0, 
+            "00100" : 0.0,
+            "01000" : 0.0,
+            "01100" : 0.0,
+            "11110" : 0.0,
+            "01110" : 0.0,
+            "11000" : 0.0,
+            "11100" : 0.0,
+            "00001":0.0};
     }
 }
 
 class EVO {
     // static colorVisDict = {
-    //     "0000" : "#FFFFFF",
-    //     "0011" : "#001196",
-    //     "0010" : "#8FB8DE",
-    //     "0100" : "#DBAADD",
-    //     "0110" : "#643A71",
-    //     "0111" : "#8B5FBF", 
-    //     "1100" : "#FF2600",
-    //     "1110" : "#8D5A97", 
-    //     "1111" : "#0D0221" };
+    //     "00000" : "#FFFFFF",
+    //     "00110" : "#001196",
+    //     "00100" : "#8FB8DE",
+    //     "01000" : "#DBAADD",
+    //     "01100" : "#643A71",
+    //     "01110" : "#8B5FBF", 
+    //     "11000" : "#FF2600",
+    //     "11100" : "#8D5A97", 
+    //     "11110" : "#0D0221" };
 //replaced white with grey for readability
     static colorVisDict = {
-        "0000" : "#D3D3D3",
-        "0011" : "#003fff",
-        "0010" : "#8FB8DE",
-        "0100" : "#fbaca8",
-        "0110" : "#9400D3",
-        "0111" : "#5946b2", 
-        "1100" : "#FF2600",
-        "1110" : "#ca2c92", 
-        "1111" : "#0D0221" };
+        "00000" : "#D3D3D3",
+        "00110" : "#003fff",
+        "00100" : "#8FB8DE",
+        "01000" : "#fbaca8",
+        "01100" : "#9400D3",
+        "01110" : "#5946b2", 
+        "11000" : "#FF2600",
+        "11100" : "#ca2c92", 
+        "11110" : "#0D0221" };
     /**
      * Defines order of evaluations for filling intentions by %
      */
     static colorVisOrder = {
-            6: "0000" ,
-            1: "0011" ,
-            2: "0010" ,
-            8: "0100" ,
-            4: "0110" ,
-            3: "0111" ,
-            9: "1100" ,
-            7: "1110" ,
-            5: "1111" };
+            6: "00000" ,
+            1: "00110" ,
+            2: "00100" ,
+            8: "01000" ,
+            4: "01100" ,
+            3: "01110" ,
+            9: "11000" ,
+            7: "11100" ,
+            5: "11110" };
 
      //replaces all conflicting evals with dark grey
      static colorVisDictColorBlind = {
-            "0000" : "#D3D3D3",
-            "0011" : "#003fff",
-            "0010" : "#8FB8DE",
-            "0100" : "#fbaca8",
-            "0110" : "#333333",
-            "0111" : "#333333", 
-            "1100" : "#FF2600",
-            "1110" : "#333333", 
-            "1111" : "#333333" };
+            "00000" : "#D3D3D3",
+            "00110" : "#003fff",
+            "00100" : "#8FB8DE",
+            "01000" : "#fbaca8",
+            "01100" : "#333333",
+            "01110" : "#333333", 
+            "11000" : "#FF2600",
+            "11100" : "#333333", 
+            "11110" : "#333333" };
 
     //number of evaluation types
     static numEvals = Object.keys(EVO.colorVisDict).length + 1;
@@ -1563,7 +1564,7 @@ class Intention {
                 var seg = new FuncSegment(funcType, initValue, '0', 'Infinity');
             } else if (funcType == 'R') {
                 // the marked value for a Stochastic function is always 0000
-                var seg = new FuncSegment(funcType, '0000', '0', 'Infinity');
+                var seg = new FuncSegment(funcType, '00000', '0', 'Infinity');
             } else if (funcType == 'I' || funcType == 'D') {
                 var seg = new FuncSegment(funcType, null, '0', 'Infinity');
             } else if (funcType == 'UD') {
@@ -1573,12 +1574,12 @@ class Intention {
         } else if (funcType == 'RC' || funcType == 'CR' || funcType == 'MP' || funcType == 'MN' || funcType == 'SD' || funcType == 'DS') {
             if (funcType == 'RC') {
                 // Stochastic and Constant
-                var seg1 = new FuncSegment('R', '0000', '0', 'A');
+                var seg1 = new FuncSegment('R', '00000', '0', 'A');
                 var seg2 = new FuncSegment('C', null, 'A', 'Infinity');
             } else if (funcType == 'CR') {
                 // Constant and Stochastic
                 var seg1 = new FuncSegment('C', initValue, '0', 'A');
-                var seg2 = new FuncSegment('R', '0000', 'A', 'Infinity');
+                var seg2 = new FuncSegment('R', '00000', 'A', 'Infinity');
             } else if (funcType == 'MP') {
                 // Increase and Constant
                 var seg1 = new FuncSegment('I', null, '0', 'A');
@@ -1589,14 +1590,14 @@ class Intention {
                 var seg2 = new FuncSegment('C', null, 'A', 'Infinity');
             } else if (funcType == 'SD') {
                 // Constant and Constant
-                var seg1 = new FuncSegment('C', '0011', '0', 'A');
-                var seg2 = new FuncSegment('C', '1100', 'A', 'Infinity');
-                analysisRequest.getUserEvaluationByID(this.nodeID, "0").evaluationValue = '0011';
+                var seg1 = new FuncSegment('C', '00110', '0', 'A');
+                var seg2 = new FuncSegment('C', '11000', 'A', 'Infinity');
+                analysisRequest.getUserEvaluationByID(this.nodeID, "0").evaluationValue = '00110';
             } else if (funcType == 'DS') {
                 // Constant and Constant
-                var seg1 = new FuncSegment('C', '1100', '0', 'A');
-                var seg2 = new FuncSegment('C', '0011', 'A', 'Infinity');
-                analysisRequest.getUserEvaluationByID(this.nodeID, "0").evaluationValue = '1100';
+                var seg1 = new FuncSegment('C', '11000', '0', 'A');
+                var seg2 = new FuncSegment('C', '00110', 'A', 'Infinity');
+                analysisRequest.getUserEvaluationByID(this.nodeID, "0").evaluationValue = '11000';
             }
             this.dynamicFunction.functionSegList.push(seg1, seg2);
         }
@@ -1661,7 +1662,7 @@ class Intention {
      * @param {String} funcType
      *   ex: 'C'
      * @param {String} satValue
-     *   ex: '0000'
+     *   ex: '00000'
      */
     addUserDefinedSeg(funcType, satValue){
 
@@ -1701,14 +1702,14 @@ class Intention {
         var funcSeg = this.dynamicFunction.functionSegList[funcSegLen - 1];
         funcSeg.funcType = funcValue;
         if (funcValue == 'C') {
-            funcSeg.funcX == '0000';
+            funcSeg.funcX == '00000';
         } else if (funcValue == 'R') {
             // the marked value for a Stochastic function is always 0000
-            funcSeg.funcX = '0000';
+            funcSeg.funcX = '00000';
         } else if (funcValue == 'I') {
-            funcSeg.funcX = '0011';
+            funcSeg.funcX = '00110';
         } else if (funcValue == 'D') {
-            funcSeg.funcX ='1100';
+            funcSeg.funcX ='11000';
         }
     }
 
@@ -1717,7 +1718,7 @@ class Intention {
      * in this Intention's evolving function, to satVal
      *
      * @param {String} satVal
-     *   ex: '0000'
+     *   ex: '00000'
      */
     updateLastFuncSegSatVal(satVal) {
         var funcSegList = this.dynamicFunction.functionSegList;

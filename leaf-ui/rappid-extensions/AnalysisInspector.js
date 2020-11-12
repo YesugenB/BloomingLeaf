@@ -528,10 +528,10 @@ var AnalysisInspector = Backbone.View.extend({
 							var finalValue = intention.dynamicFunction.functionSegList[0].funcX;
 							options = this.increasing(initValue, finalValue);
 						} else {
-							if (intention.dynamicFunction.functionSegList[1].funcX === '0010') {
-								options = this.convertToOptions(['0010']);
+							if (intention.dynamicFunction.functionSegList[1].funcX === '00100') {
+								options = this.convertToOptions(['00100']);
 							} else {
-								options = this.convertToOptions(['0011']);
+								options = this.convertToOptions(['00110']);
 							}
 						}
 					} else if (func === "MN") {
@@ -539,34 +539,37 @@ var AnalysisInspector = Backbone.View.extend({
 							var finalValue = intention.dynamicFunction.functionSegList[0].funcX;
 							options = this.decreasing(initValue, finalValue);
 						} else {
-							if (intention.dynamicFunction.functionSegList[1].funcX === '0100') {
-								options = this.convertToOptions(['0100']);
+							if (intention.dynamicFunction.functionSegList[1].funcX === '01000') {
+								options = this.convertToOptions(['01000']);
 							} else {
-								options = this.convertToOptions(['1100']);
+								options = this.convertToOptions(['11000']);
 							}
 						}
 
 					} else if (func === "RC") {
 						if (absVal < ti) {
-							var possibleValueList = ['0000', '0011', '0010', '1100', '0100', 'empty', 'no value'];
+							var possibleValueList = ['00000', '00110', '00100', '11000', '01000', 'empty', 'no value','00001'];
 							options = this.convertToOptions(possibleValueList);
 						} else {
 							var funcX = intention.dynamicFunction.functionSegList[1].funcX;
 							switch (funcX) {
-								case '0000':
-									options = this.convertToOptions(['0000']);
+								case '00000':
+									options = this.convertToOptions(['00000']);
 									break;
-								case '0011':
-									options = this.convertToOptions(['0011']);
+								case '00110':
+									options = this.convertToOptions(['00110']);
 									break;
-								case '0100':
-									options = this.convertToOptions(['0100']);
+								case '01000':
+									options = this.convertToOptions(['01000']);
 									break;
-								case '1100':
-									options = this.convertToOptions(['1100']);
+								case '11000':
+									options = this.convertToOptions(['11000']);
 									break;
-								case '0010':
-									options = this.convertToOptions(['0010']);
+								case '00100':
+									options = this.convertToOptions(['00100']);
+									break;
+								case '00001':
+									options = this.convertToOptions(['00001']);
 									break;
 							}
 						}
@@ -574,39 +577,42 @@ var AnalysisInspector = Backbone.View.extend({
 						if (absVal < ti) {
 							var funcX = intention.dynamicFunction.functionSegList[1].funcX;
 							switch (funcX) {
-								case '0000':
-									options = this.convertToOptions(['0000']);
+								case '00000':
+									options = this.convertToOptions(['00000']);
 									break;
-								case '0011':
-									options = this.convertToOptions(['0011']);
+								case '00110':
+									options = this.convertToOptions(['00110']);
 									break;
-								case '0100':
-									options = this.convertToOptions(['0100']);
+								case '01000':
+									options = this.convertToOptions(['01000']);
 									break;
-								case '1100':
-									options = this.convertToOptions(['1100']);
+								case '11000':
+									options = this.convertToOptions(['11000']);
 									break;
-								case '0010':
-									options = this.convertToOptions(['0010']);
+								case '00100':
+									options = this.convertToOptions(['00100']);
 									break;
+								case '00001':
+									options = this.convertToOptions(['00001']);
+									break;	
 							}
 						} else {
-							var possibleValueList = ['0000', '0011', '0010', '1100', '0100', 'empty', 'no value'];
+							var possibleValueList = ['00000', '00110', '00100', '11000', '01000', 'empty', 'no value','00001'];
 							options = this.convertToOptions(possibleValueList);
 						}
 					} else if (func === "SD") {
 
 						if (absVal < ti) {
-							options = this.convertToOptions(['0011']);
+							options = this.convertToOptions(['00110']);
 						} else {
-							options = this.convertToOptions(['1100']);
+							options = this.convertToOptions(['11000']);
 						}
 
 					} else if (func === "DS") {
 						if (absVal < ti) {
-							options = this.convertToOptions(["1100"]);
+							options = this.convertToOptions(["11000"]);
 						} else {
-							options = this.convertToOptions(['0011']);
+							options = this.convertToOptions(['00110']);
 						}
 					} else {
 						console.log("calling empty from compound functions")
@@ -694,19 +700,19 @@ var AnalysisInspector = Backbone.View.extend({
 	comparisonSwitch: function(valueToEncode){
 	   var tempInput;
 	   switch(valueToEncode){
-		   case '0000':
+		   case '00000':
 			   tempInput = 0;
 			   break;
-		   case '0011':
+		   case '00110':
 			   tempInput = 2;
 			   break;
-		   case '0010':
+		   case '00100':
 			   tempInput = 1;
 			   break;
-		   case '0100':
+		   case '01000':
 			   tempInput = -1;
 			   break;
-		   case '1100':
+		   case '11000':
 			   tempInput = -2;
 			   break;
 	   }
@@ -751,7 +757,7 @@ var AnalysisInspector = Backbone.View.extend({
 	*This function takes in an initial value and return a list of strings for options that contains values that are larger than the initial value
 	 */
 	increasing: function(initValue,finalValue){
-		var possibleValueList = ['0000','0011','0010','1100','0100'];
+		var possibleValueList = ['00000','00110','00100','11000','01000'];
 		var valueForOptions = [];
 		if(finalValue === 'noFinal') {
 			for (var i = 0; i < possibleValueList.length; i++) {
@@ -787,7 +793,7 @@ var AnalysisInspector = Backbone.View.extend({
 	*This function takes in an initial value and return a list of strings for options that contains values that are smaller than the initial value
 	 */
 	decreasing: function(initValue,finalValue){
-		var possibleValueList = ['0000','0011','0010','1100','0100'];
+		var possibleValueList = ['00000','00110','00100','11000','01000'];
 		var valueForOptions = [];
 		if(finalValue === 'noFinal') {
 			for (var i = 0; i < possibleValueList.length; i++) {
@@ -833,7 +839,7 @@ var AnalysisInspector = Backbone.View.extend({
 	 * @returns {a list of strings for options that contains values that contains all possible values}
 	 */
 	stochastic: function(){
-		var possibleValueList = ['0000','0011','0010','1100','0100', 'no value'];
+		var possibleValueList = ['00000','00110','00100','11000','01000', 'no value','00001'];
 		return this.convertToOptions(possibleValueList);
 	},
 
@@ -845,20 +851,20 @@ var AnalysisInspector = Backbone.View.extend({
 	binaryToOption: function(binaryString){
 		var optionString = '';
 		switch(binaryString){
-			case "0000":
-				optionString = `<option value="0000">None (⊥, ⊥) </option>`;
+			case "00000":
+				optionString = `<option value="00000">None (⊥, ⊥) </option>`;
 				break;
-			case "0011":
-				optionString = `<option value="0011">Satisfied (F, ⊥) </option>`;
+			case "00110":
+				optionString = `<option value="00110">Satisfied (F, ⊥) </option>`;
 				break;
-			case "0010":
-				optionString = `<option value="0010">Partially Satisfied (P, ⊥) </option>`;
+			case "00100":
+				optionString = `<option value="00100">Partially Satisfied (P, ⊥) </option>`;
 				break;
-			case "0100":
-				optionString = `<option value="0100">Partially Denied (⊥, P)</option>`;
+			case "01000":
+				optionString = `<option value="01000">Partially Denied (⊥, P)</option>`;
 				break;
-			case "1100":
-				optionString = `<option value="1100">Denied (⊥, F) </option>`;
+			case "11000":
+				optionString = `<option value="11000">Denied (⊥, F) </option>`;
 				break;
 			case 'empty':
 				optionString = `<option value="empty"> --- </option>`;
@@ -866,6 +872,9 @@ var AnalysisInspector = Backbone.View.extend({
 			case 'no value':
 				optionString = `<option value="(no value)">(no value)</option>`;
 				break;
+			case '00001':
+				optionString = `<option value="00001">undetermined</option>`;
+				break;	
 		}
 		return optionString;
 	},

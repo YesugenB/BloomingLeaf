@@ -22,8 +22,8 @@ class InputAnalysis {
  * initial status of the element.
  *
  * Example:
- * [{id: "0000", status: ["0000"]},
- *  {id: "0001", status: ["0000"]}
+ * [{id: "0000", status: ["00000"]},
+ *  {id: "0001", status: ["00000"]}
  * ]
  *
  * @returns {Array.<Object>}
@@ -37,7 +37,7 @@ function getElementList() {
             var element= {};
 
             var currentValue = (this.graph.getElements()[i].attr(".satvalue/value")||"none");
-            //Making currentValue to numeric values like 0000, 0001, 0011...
+            //Making currentValue to numeric values like 00000, 00010, 00110...
             if(!$.isNumeric(currentValue))
                 currentValue = satValueDict[currentValue];
 
@@ -68,8 +68,8 @@ function getElementList() {
  * Otherwise, status will be an array from the beginning to the slider value.
  *
  * Example:
- * [{id: "0000", status: ["0010", "1100", "1110"]},
- *  {id: "0001", status: ["0011", "0110", "0111']}]
+ * [{id: "0000", status: ["00100", "11000", "11100"]},
+ *  {id: "0001", status: ["00110", "01100", "01110']}]
  *
  * @returns {Array.<Object>}
  */

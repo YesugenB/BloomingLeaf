@@ -56,7 +56,7 @@ reader.onload = function() {
 
 		        // create intention evaluation
 		        var initSat = cells[i].attrs['.satvalue'].text;
-		        initSat = (initSat !== ' ' && initSat !== '')  ?  oldSatValToBinary[initSat] : '0000';
+		        initSat = (initSat !== ' ' && initSat !== '')  ?  oldSatValToBinary[initSat] : '00000';
 			    var intentionEval = new UserEvaluation(intention.nodeID, '0', initSat);
 			    analysisRequest.userAssignmentsList.push(intentionEval);
 		    
@@ -125,7 +125,7 @@ reader.onload = function() {
 			        		model.constraints.push(new Constraint('A', intention.nodeID, 'A', null, null));
 			        		intention.dynamicFunction.functionSegList = [
 			        			new FuncSegment('C', initSat, '0', 'A'),
-			        			new FuncSegment('R', '0000', 'A', 'Infinity')
+			        			new FuncSegment('R', '00000', 'A', 'Infinity')
 			        		];
 			        	} else if (stringDynVis == 'MP') {
 			        		model.constraints.push(new Constraint('A', intention.nodeID, 'A', null, null));
@@ -142,14 +142,14 @@ reader.onload = function() {
 			        	} else if (stringDynVis == 'SD') {
 			        		model.constraints.push(new Constraint('A', intention.nodeID, 'A', null, null));
 			        		intention.dynamicFunction.functionSegList = [
-			        			new FuncSegment('C', '0011', '0', 'A'),
-			        			new FuncSegment('C', '1100', 'A', 'Infinity')
+			        			new FuncSegment('C', '00110', '0', 'A'),
+			        			new FuncSegment('C', '11000', 'A', 'Infinity')
 			        		];
 			        	} else {
 			        		model.constraints.push(new Constraint('A', intention.nodeID, 'A', null, null));
 			        		intention.dynamicFunction.functionSegList = [
-			        			new FuncSegment('C', '1100', '0', 'A'),
-			        			new FuncSegment('C', '0011', 'A', 'Infinity')
+			        			new FuncSegment('C', '11000', '0', 'A'),
+			        			new FuncSegment('C', '00110', 'A', 'Infinity')
 			        		];
 			        	}
 			        }

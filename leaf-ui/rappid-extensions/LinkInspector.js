@@ -162,10 +162,10 @@ var LinkInspector = Backbone.View.extend({
             var sourceIntention = model.getIntentionByID(source.attributes.nodeID);
             var targetIntention = model.getIntentionByID(target.attributes.nodeID);
 
-            sourceIntention.changeInitialSatValue('0000');
+            sourceIntention.changeInitialSatValue('00000');
             sourceIntention.dynamicFunction.stringDynVis = 'NB';
             
-            targetIntention.changeInitialSatValue('0000');
+            targetIntention.changeInitialSatValue('00000');
             targetIntention.dynamicFunction.stringDynVis = 'NB';
             
         } else {
