@@ -15,43 +15,43 @@
       {
         "id": "0000",
         "status": [
-          "0000"
+          "00000"
         ]
       },
       {
         "id": "0001",
         "status": [
-          "0000"
+          "00000"
         ]
       },
       {
         "id": "0002",
         "status": [
-          "0000"
+          "00000"
         ]
       },
       {
         "id": "0003",
         "status": [
-          "0000"
+          "00000"
         ]
       },
       {
         "id": "0004",
         "status": [
-          "0000"
+          "00000"
         ]
       },
       {
         "id": "0005",
         "status": [
-          "0011"
+          "00110"
         ]
       },
       {
         "id": "0006",
         "status": [
-          "0100"
+          "01000"
         ]
       }
     ]
@@ -143,37 +143,37 @@
       {
         "intentionID": "0000",
         "dynamicType": "NT",
-        "markedValue": "0000",
+        "markedValue": "00000",
         "line": null
       },
       {
         "intentionID": "0001",
         "dynamicType": "NT",
-        "markedValue": "0000",
+        "markedValue": "00000",
         "line": null
       },
       {
         "intentionID": "0002",
         "dynamicType": "NT",
-        "markedValue": "0000",
+        "markedValue": "00000",
         "line": null
       },
       {
         "intentionID": "0003",
         "dynamicType": "NT",
-        "markedValue": "0000",
+        "markedValue": "00000",
         "line": null
       },
       {
         "intentionID": "0004",
         "dynamicType": "MN",
-        "markedValue": "0000",
+        "markedValue": "00000",
         "line": null
       },
       {
         "intentionID": "0005",
         "dynamicType": "MP",
-        "markedValue": "0000",
+        "markedValue": "00000",
         "line": null
       }
     ],
